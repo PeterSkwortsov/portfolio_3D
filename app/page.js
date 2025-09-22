@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Test from "./components/Test";
 import { Loader } from "@react-three/drei";
 import Works from "./components/Works";
+import ImageModal from "./components/ImageModal";
+
 
 export default function Home() {
     return (
@@ -37,11 +39,12 @@ export default function Home() {
     
        <Header />
         <Grid />
-       <Phone  /> 
+       {/* <Phone  />  */}
         {/* <Test /> */}
         <Works />
-        <Footer />
-            
+            <ImageModal />
+            <Footer />
+
           
         </>
     );
