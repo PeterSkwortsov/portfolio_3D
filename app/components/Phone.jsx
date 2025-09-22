@@ -64,7 +64,7 @@ const Phone = () => {
             
 
             <div className="h-1/2">
-              {/* <ChairPage/>  */}
+              <ChairPage/> 
             </div>
             
           </div>

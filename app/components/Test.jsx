@@ -5,22 +5,24 @@ import styled from "styled-components";
 import { Canvas } from "@react-three/fiber";
 
 import Cube from "./Cube";
-import { OrbitControls } from "@react-three/drei";
+import { Loader, OrbitControls } from "@react-three/drei";
 const Container = styled.div`
-  height: 100vh;
+  height: 90vh;
   width: 100%;
   scroll-snap-align: center;
 `;
 const Test = () => {
-  return (
+  return (<>
+
     <Container>
-      <Canvas camera={{ fov: 20, position: [5, 5, 5] }}>
+      <Canvas camera={{ fov: 20, position: [5, 5, 5] }} className="flex m-auto">
         <OrbitControls enableZoom={false} />
         <directionalLight position={[3, 2, 1]} intensity={2} />
         <ambientLight intensity={1} />
         <Cube />
       </Canvas>
     </Container>
+        </>
   );
 };
 

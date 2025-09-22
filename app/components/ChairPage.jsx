@@ -1,61 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { Helper, OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
+import React, { Suspense } from "react";
+import styled from "styled-components";
+import Mac from "./Mac";
 import { Canvas } from "@react-three/fiber";
-import Chair from "./Chair";
-import { CustomizationProvider } from "../context/Customization";
-import Configurator from "./Configurator";
+import { Loader } from "@react-three/drei";
 
-export default function HomePage() {
-  const [color, setColor] = useState("#2F4F4F");
 
-  const handleColorChange = (newColor) => {
-    setColor(newColor);
-  };
-
+const ChairPage = () => {
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      <div style={{ padding: "10px", display: "flex", gap: "10px" }}>
-        <button
-          onClick={() => handleColorChange("#ff6b6b")}
-          style={{
-            padding: "10px 15px",
-            backgroundColor: "#ff6b6b",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-          }}
-        >
-          Красный
-        </button>
-        <button
-          onClick={() => handleColorChange("#339af0")}
-          style={{
-            padding: "10px 15px",
-            backgroundColor: "#339af0",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-          }}
-        >
-          Синий
-        </button>
-      </div>
-
-      <div style={{ flex: 1 }} className="h-1/3">
-        <CustomizationProvider>
-          <Canvas camera={{ position: [0, 2, 5] }}>
-            <Helper axis={true} />
-            <pointLight position={[1, 4, 2]} intensity={40} />
-            <ambientLight intensity={2} />
-            <Chair />
-            <OrbitControls enableZoom={false} autoRotate enablePan={false} />
-          </Canvas>
-          <Configurator />
-        </CustomizationProvider>
-      </div>
-    </div>
+    <>
+      <Canvas camera={{ position: [0, 0, 5] }}>
+        <Suspense fallback={null}>
+          <Mac />
+          {/* <OrbitControls enableZoom={false}  /> */}
+        </Suspense>
+      </Canvas>
+      <Loader />
+      {/* <Desc>
+        We design products with a strong focus on both world class design and
+        ensuring your product is a market success.
+      </Desc> */}
+    </>
   );
-}
+};
+
+export default ChairPage;

@@ -1,4 +1,4 @@
-
+import { Loader } from "@react-three/drei";
 import "./globals.css";
 import {Nunito} from 'next/font/google'
 
@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
 
         {children}
       </body>
+      
     </html>
   );
 }
