@@ -9,7 +9,7 @@ const Grid = () => {
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
-              src="/4.jpeg"
+              src="/letan.png"
               width={200}
               height={200}
               alt="Picture of the author"
@@ -17,14 +17,9 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Мастер-классы для взрослых</h2>
-            <p>
-              14+ Навыки рисования не нужны. Свободная живопись или с пошаговым
-              объяснением
-            </p>
+            <h2 className="card-title">Каталог картин художников</h2>
+            <p>На React. Адаптивная верстка. Свой дизайн.</p>
             <div className="card-actions justify-end items-center z-20">
-              <p className="text-base">от 2000 ₽</p>
-
               <button className="btn btn-neutral bg-white text-black">
                 Подробнее
               </button>
@@ -35,53 +30,7 @@ const Grid = () => {
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
-              src="/3.jpeg"
-              width={200}
-              height={200}
-              alt="Picture of the author"
-              style={{ width: "200%" }}
-            />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Занятия с детьми</h2>
-            <p>Для детей от 4 лет. Все материалы включены в стоимость</p>
-            <div className="card-actions justify-end items-center z-20">
-              <p className="text-base">от 2800 ₽</p>
-
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="card bg-base-200 image-full w-auto shadow-sm">
-          <figure>
-            <Image
-              src="/2.jpeg"
-              width={200}
-              height={200}
-              alt="Picture of the author"
-              style={{ width: "200%" }}
-            />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Подарочный сертификат</h2>
-            <p>Подарите незабываемое удовольствие и пользу родным и друзьям!</p>
-            <div className="card-actions justify-end items-center z-20">
-              <p className="text-base">от 2000 ₽</p>
-
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="card bg-base-200 image-full w-auto shadow-sm">
-          <figure>
-            <Image
-              src="/1.jpeg"
+              src="/london.png"
               width={200}
               height={200}
               alt="Picture of the author"
@@ -90,14 +39,57 @@ const Grid = () => {
           </figure>
           <div className="card-body">
             <h2 className="card-title">
-              Арт-вечеринки, Дни рождения для взрослых, корпоративы
+              Сеть детских аттракционов в Нижнем Новгороде
+            </h2>
+            <p>Мой самый первый коммерческий проект, 2022 год. Адаптив, анимация.</p>
+            <div className="card-actions justify-end items-center z-20">
+              <button className="btn btn-neutral bg-white text-black">
+                Подробнее
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="card bg-base-200 image-full w-auto shadow-sm">
+          <figure>
+            <Image
+              src="/family.png"
+              width={200}
+              height={200}
+              alt="Picture of the author"
+              style={{ width: "200%" }}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">Сайт проекта «История семьи»</h2>
+            <p>Адаптив. Кастомный прелоадер. Дизайн, анимация и графика.</p>
+            <div className="card-actions justify-end items-center z-20">
+
+              <button className="btn btn-neutral bg-white text-black">
+                Подробнее
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="card bg-base-200 image-full w-auto shadow-sm">
+          <figure>
+            <Image
+              src="/borsh.png"
+              width={200}
+              height={200}
+              alt="Picture of the author"
+              style={{ width: "100%", height: "100%" }}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">
+              Творческая студия «Вики Борщ»
             </h2>
             <p>
-              Мастер-класс по живописи, вкусный чай и позитивное настроение
-              сделают ваш вечер незабываемым.
+              Next.js, адаптив, многостраничный, дизайн. 
             </p>
             <div className="card-actions justify-end items-center z-20">
-              <p className="text-base">от 2000 ₽</p>
 
               <button className="btn btn-neutral bg-white text-black">
                 Подробнее
@@ -109,21 +101,19 @@ const Grid = () => {
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
-              src="/5.jpeg"
+              src="/time.png"
               width={200}
               height={200}
               alt="Picture of the author"
-              style={{ width: "200%" }}
+              style={{ width: "100%", height: "100%" }}
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Индивидуальное занятие</h2>
+            <h2 className="card-title">Лендинг часов</h2>
             <p>
-              A card component has a figure, a body part, and inside body there
-              are title and actions parts
+              Three.js, GSAP
             </p>
             <div className="card-actions justify-end items-center z-20">
-              <p className="text-base">от 2000 ₽</p>
 
               <button className="btn btn-neutral bg-white text-black">
                 Подробнее
@@ -135,7 +125,7 @@ const Grid = () => {
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
-              src="/6.jpeg"
+              src="/game.png"
               width={200}
               height={200}
               alt="Picture of the author"
@@ -143,13 +133,11 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Card Title</h2>
+            <h2 className="card-title">Игра в мяч</h2>
             <p>
-              A card component has a figure, a body part, and inside body there
-              are title and actions parts
+              R3F, Drei
             </p>
             <div className="card-actions justify-end items-center z-20">
-              <p className="text-base">от 2000 ₽</p>
 
               <button className="btn btn-neutral bg-white text-black">
                 Подробнее
@@ -157,6 +145,32 @@ const Grid = () => {
             </div>
           </div>
         </div>
+        <div className="card bg-base-200 image-full w-auto shadow-sm">
+          <figure>
+            <Image
+              src="/ships.png"
+              width={200}
+              height={200}
+              alt="Picture of the author"
+              style={{ width: "200%" }}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">Лендинг с анимацией</h2>
+            <p>
+              GSAP
+            </p>
+            <div className="card-actions justify-end items-center z-20">
+
+              <button className="btn btn-neutral bg-white text-black">
+                Подробнее
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
       </div>
     </>
   );
