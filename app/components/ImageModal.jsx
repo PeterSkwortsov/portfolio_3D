@@ -55,9 +55,9 @@ export default function ImageGridModal() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-12 text-white">
-        Чем горжусь
-      </h1>
+      <h2 className="text-4xl font-bold text-center mb-12 text-white">
+        Достижения
+      </h2>
 
       {/* Адаптивный grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -129,7 +129,7 @@ export default function ImageGridModal() {
                 href="https://borsch-art.ru/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-warning mt-4 rounded-lg text-black"
+                className="btn btn-warning mt-4 rounded-lg text-black flex m-0 text-lg"
               >
                 {`Подробнее на сайте`}
               </Link>}

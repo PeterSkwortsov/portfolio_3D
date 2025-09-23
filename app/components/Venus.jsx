@@ -33,7 +33,7 @@ export default function Venus(props) {
         geometry={nodes.bunny.geometry}
         {...props}
         dispose={null}
-        scale={2.5}
+        scale={3}
       >
         <meshStandardMaterial color="white" />
         <Decal

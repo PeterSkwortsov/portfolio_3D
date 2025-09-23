@@ -19,10 +19,25 @@ const Grid = () => {
           <div className="card-body">
             <h2 className="card-title">Каталог картин художников</h2>
             <p>На React. Адаптивная верстка. Свой дизайн.</p>
-            <div className="card-actions justify-end items-center z-20">
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="relative w-6 h-6 justify-start items-start">
+                <div className="flex justify-start items-start gap-1 flex-wrap">
+                  <p className="p-0 m-0">Сложность</p>
+                  <div className="text-2xl flex space-between items-start p-0 m-0">
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-actions justify-end items-center z-20">
+                <button className="btn btn-neutral bg-white text-black">
+                  Подробнее
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -41,11 +56,28 @@ const Grid = () => {
             <h2 className="card-title">
               Сеть детских аттракционов в Нижнем Новгороде
             </h2>
-            <p>Мой самый первый коммерческий проект, 2022 год. Адаптив, анимация.</p>
-            <div className="card-actions justify-end items-center z-20">
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
+            <p>
+              Мой самый первый коммерческий проект, 2022 год. Адаптив, анимация.
+            </p>
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="relative w-6 h-6 justify-start items-start">
+                <div className="flex justify-start items-start gap-1 flex-wrap">
+                  <p className="p-0 m-0">Сложность</p>
+                  <div className="text-2xl flex space-between items-start p-0 m-0">
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-actions justify-end items-center z-20">
+                <button className="btn btn-neutral bg-white text-black">
+                  Подробнее
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -63,11 +95,25 @@ const Grid = () => {
           <div className="card-body">
             <h2 className="card-title">Сайт проекта «История семьи»</h2>
             <p>Адаптив. Кастомный прелоадер. Дизайн, анимация и графика.</p>
-            <div className="card-actions justify-end items-center z-20">
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="relative w-6 h-6 justify-start items-start">
+                <div className="flex justify-start items-start gap-1 flex-wrap">
+                  <p className="p-0 m-0">Сложность</p>
+                  <div className="text-2xl flex space-between items-start p-0 m-0">
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                  </div>
+                </div>
+              </div>
 
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
+              <div className="card-actions justify-end items-center z-20">
+                <button className="btn btn-neutral bg-white text-black">
+                  Подробнее
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -83,17 +129,27 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">
-              Творческая студия «Вики Борщ»
-            </h2>
-            <p>
-              Next.js, адаптив, многостраничный, дизайн. 
-            </p>
-            <div className="card-actions justify-end items-center z-20">
+            <h2 className="card-title">Творческая студия «Вики Борщ»</h2>
+            <p>Next.js, адаптив, многостраничный, дизайн.</p>
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="relative w-6 h-6 justify-start items-start">
+                <div className="flex justify-start items-start gap-1 flex-wrap">
+                  <p className="p-0 m-0">Сложность</p>
+                  <div className="text-2xl flex space-between items-start p-0 m-0">
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                  </div>
+                </div>
+              </div>
 
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
+              <div className="card-actions justify-end items-center z-20">
+                <button className="btn btn-neutral bg-white text-black">
+                  Подробнее
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -110,14 +166,26 @@ const Grid = () => {
           </figure>
           <div className="card-body">
             <h2 className="card-title">Лендинг часов</h2>
-            <p>
-              Three.js, GSAP
-            </p>
-            <div className="card-actions justify-end items-center z-20">
+            <p>Three.js, GSAP</p>
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="relative w-6 h-6 justify-start items-start">
+                <div className="flex justify-start items-start gap-1 flex-wrap">
+                  <p className="p-0 m-0">Сложность</p>
+                  <div className="text-2xl flex space-between items-start p-0 m-0">
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                  </div>
+                </div>
+              </div>
 
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
+              <div className="card-actions justify-end items-center z-20">
+                <button className="btn btn-neutral bg-white text-black">
+                  Подробнее
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -134,14 +202,26 @@ const Grid = () => {
           </figure>
           <div className="card-body">
             <h2 className="card-title">Игра в мяч</h2>
-            <p>
-              R3F, Drei
-            </p>
-            <div className="card-actions justify-end items-center z-20">
+            <p>R3F, Drei</p>
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="relative w-6 h-6 justify-start items-start">
+                <div className="flex justify-start items-start gap-1 flex-wrap">
+                  <p className="p-0 m-0">Сложность</p>
+                  <div className="text-2xl flex space-between items-start p-0 m-0">
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-gray-300">★</span>
+                  </div>
+                </div>
+              </div>
 
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
+              <div className="card-actions justify-end items-center z-20">
+                <button className="btn btn-neutral bg-white text-black">
+                  Подробнее
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -157,20 +237,29 @@ const Grid = () => {
           </figure>
           <div className="card-body">
             <h2 className="card-title">Лендинг с анимацией</h2>
-            <p>
-              GSAP
-            </p>
-            <div className="card-actions justify-end items-center z-20">
+            <p>GSAP</p>
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="relative w-6 h-6 justify-start items-start">
+                <div className="flex justify-start items-start gap-1 flex-wrap">
+                  <p className="p-0 m-0">Сложность</p>
+                  <div className="text-2xl flex space-between items-start p-0 m-0">
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-yellow-400">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                    <span className="text-gray-300">★</span>
+                  </div>
+                </div>
+              </div>
 
-              <button className="btn btn-neutral bg-white text-black">
-                Подробнее
-              </button>
+              <div className="card-actions justify-end items-center z-20">
+                <button className="btn btn-neutral bg-white text-black">
+                  Подробнее
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
-
-
       </div>
     </>
   );
