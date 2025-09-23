@@ -34,19 +34,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-           <div className="avatar">
-                          <div className="w-10 rounded-full">
-                            <a href="https://wa.me/+79049017926">
-                              {/* <Image
-                                src="/whatsapp.svg"
-                                width={200}
-                                height={100}
-                                alt="Picture of the author"
-                                style={{ width: "100%" }}
-                              /> */}
-                            </a>
-                          </div>
-                        </div>
+   
         </div>
       </div>
     </footer>
