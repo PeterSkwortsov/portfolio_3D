@@ -3,15 +3,57 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Atom from "./Atom";
 import styled from "styled-components";
+import { useRef, useState, useMemo } from "react";
+
+
+export function InteractiveModel() {
+  const groupRef = useRef()
+  const pointRef = useRef()
+  const [activePoint, setActivePoint] = useState(null)
+  const [showText, setShowText] = useState(false)
+
+  // Позиции точек на модели
+  const hotSpots = useMemo(() => [
+    { position: [1.2, 0.5, 0], title: "Двигатель", description: "Мощность: 250 л.с." },
+    { position: [-1.2, 0.8, 0], title: "Кабина", description: "Вместимость: 5 человек" },
+    { position: [0, 1.5, 0.5], title: "Крыша", description: "Солнечная панель" }
+  ], [])
+
+  // Анимация пульсации
+  useFrame((state, delta) => {
+    if (pointRef.current) {
+      // Пульсация размера
+      const scale = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.2
+      pointRef.current.scale.set(scale, scale, scale)
+      
+      // Пульсация цвета
+      const intensity = 0.5 + Math.sin(state.clock.elapsedTime * 4) * 0.3
+      pointRef.current.material.emissiveIntensity = intensity
+    }
+  })
+}
+
+
+  const handlePointClick = (point, event) => {
+    event.stopPropagation();
+    setActivePoint(point);
+    setShowText(true);
+  };
+
+  const handleCloseText = () => {
+    setShowText(false);
+    setActivePoint(null);
+  };
+
 
 const Desc = styled.div`
   width: 200px;
-  height: 70px;
+  height: 100px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
   position: absolute;
-  top: 80px;
+  top: 120px;
   right: 150px;
 
   @media only screen and (max-width: 768px) {
@@ -33,8 +75,7 @@ const Development = () => {
         </Suspense>
       </Canvas>
       <Desc>
-        We design products with a strong focus on both world class design and
-        ensuring your product is a market success.
+        Это модель атома. Нажмите на точки, чтобы узнать больше.
       </Desc>
     </>
   );

@@ -30,18 +30,18 @@ export default function Home() {
                 }}
                 dataStyles={{
                     color: "#e2e8f0",
-                    fontSize: "24px",
+                    fontSize: "30px",
                     fontWeight: "300",
                     marginTop: "15px",
                 }}
-                dataInterpolation={(p) => `Загружаем сцену  ${p.toFixed(0)}%`}
+                dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
             />
     
        <Header />
        <AboutMe />
        <Grid />
-       <Phone  />  
-        {/* <Test /> */}
+       <Phone  />   
+         {/* <Test /> */}
       <Works />
             <ImageModal /> 
             <Footer />

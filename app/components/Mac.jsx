@@ -47,10 +47,13 @@ export default function Experience() {
               transform
               wrapperClass="htmlScreen"
               distanceFactor={4.0}
-              position={[0, 1.55, -1.4]}
+              position={[-0.1, 1.8, -1.4]}
               rotation-x={-0.256}
             >
-              {/* <iframe src="https://borsch-art.ru/" style={{ width: "100%", height: "27vh" }}></iframe> */}
+              <iframe
+                src="https://borsch-art.ru/"
+                style={{ width: "100%", height: "27vh" }}
+              ></iframe>
             </Html>
             {/* <Text
               font="./Forum.woff"
@@ -73,3 +76,5 @@ export default function Experience() {
     </>
   );
 }
+
+
