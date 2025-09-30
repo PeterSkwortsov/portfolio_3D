@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from "next/image";
-
+import Link from 'next/link';
 
 const Grid = () => {
   return (
@@ -41,7 +41,6 @@ const Grid = () => {
             </div>
           </div>
         </div>
-
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
@@ -74,14 +73,16 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
-                <button className="btn btn-neutral bg-white text-black">
-                  Подробнее
-                </button>
+                <Link href={"./game-attractions"}>
+                  <button className="btn btn-neutral bg-white text-black">
+                    Подробнее
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
-
+        {/* game-attractions */}
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
@@ -117,7 +118,6 @@ const Grid = () => {
             </div>
           </div>
         </div>
-
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
@@ -153,7 +153,6 @@ const Grid = () => {
             </div>
           </div>
         </div>
-
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
@@ -189,7 +188,6 @@ const Grid = () => {
             </div>
           </div>
         </div>
-
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
@@ -253,9 +251,11 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
-                <button className="btn btn-neutral bg-white text-black">
-                  Подробнее
-                </button>
+                <Link href="/ships">
+                  <button className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
+                    Перейти на страницу "О нас"
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

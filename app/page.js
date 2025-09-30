@@ -42,9 +42,9 @@ export default function Home() {
        <Grid />
        <Phone  />   
          {/* <Test /> */}
-      <Works />
+      {/* <Works />
             <ImageModal /> 
-            <Footer />
+            <Footer /> */}
 
           
         </>

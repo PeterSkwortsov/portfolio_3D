@@ -50,10 +50,10 @@ export default function Experience() {
               position={[-0.1, 1.8, -1.4]}
               rotation-x={-0.256}
             >
-              <iframe
+              {/* <iframe
                 src="https://borsch-art.ru/"
                 style={{ width: "100%", height: "27vh" }}
-              ></iframe>
+              ></iframe> */}
             </Html>
             {/* <Text
               font="./Forum.woff"
