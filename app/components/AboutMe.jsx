@@ -1,4 +1,4 @@
-// components/AboutMe.jsx
+"use client";
 
 import { useState } from "react";
 import DownloadWordFile from "./DownloadWordFile";
@@ -8,7 +8,18 @@ export default function AboutMe() {
   const [activeTab, setActiveTab] = useState("about");
 
   const skills = {
-    frontend: ["Three.js", "React", "Next.js", "R3F", "Drei", "GSAP", "GLSL", "Daysi UI", "Tailwind", "TypeScript"],
+    frontend: [
+      "Three.js",
+      "React",
+      "Next.js",
+      "R3F",
+      "Drei",
+      "GSAP",
+      "GLSL",
+      "Daysi UI",
+      "Tailwind",
+      "TypeScript",
+    ],
     backend: ["Node.js", "Express", "MongoDB", "PostgreSQL"],
     tools: ["Git", "Figma"],
   };
