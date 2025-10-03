@@ -2,30 +2,31 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import global from '../app/globals.css'
-export default function Ships() {
+import { useEffect, useState } from "react";
+
+export default function Gallery() {
+
+ const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+{
   // Данные проекта (в реальном приложении можно брать из API)
   const projectData = {
-    title: "E-Commerce Platform",
-    description: "Современная платформа для онлайн-продаж с AI-рекомендациями",
-    imageUrl: "/images/project-cover.jpg",
-    githubUrl: "https://github.com/username/ecommerce-platform",
-    overview:
-      "Полнофункциональный интернет-магазин с системой рекомендаций на основе искусственного интеллекта, адаптивным дизайном и молниеносной производительностью.",
+    title: "Каталог картин",
+    description: "Сайт художников ЛЕОНИДА КОЛОСОВА и ТАТЬЯНЫ СКВОРЦОВОЙ",
+    imageUrl: "/gallery.png",
+    githubUrl: "https://github.com/PeterSkwortsov/Letan-gallery",
+    overview: "Большое количество работ. Добавление в избранное, сохранение в LocalStorage. Свой дизайн. Не является интернет-магазином.",
     goals: [
-      "Создать интуитивно понятный пользовательский интерфейс",
-      "Внедрить AI-систему рекомендаций товаров",
-      "Обеспечить скорость загрузки менее 2 секунд",
-      "Реализовать безопасную систему платежей",
+      "Создать интуитивно понятный сайт",
+      "Сохранить изображения картин на память",
+      "Провести SEO оптимизацию",
     ],
     technologies: [
-      "Next.js 14",
-      "React 18",
-      "Tailwind CSS",
-      "Node.js",
-      "MongoDB",
-      "Stripe",
-      "OpenAI API",
-      "Vercel",
+      "React"
     ],
     results: [
       "Увеличение конверсии на 35%",
@@ -33,9 +34,9 @@ export default function Ships() {
       "Снижение времени загрузки на 60%",
       "10,000+ пользователей за первый месяц",
     ],
-    liveDemoUrl: "https://ecommerce-demo.vercel.app",
-    status: "Завершен",
-    duration: "4 месяца",
+    liveDemoUrl: "https://letan-art.com/",
+    status: "Завершен за",
+    duration: "2.5 месяца",
   };
 
   const {
@@ -64,14 +65,43 @@ export default function Ships() {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 bg-blue-500">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Хедер проекта */}
+          <Link href="/">
+            <button className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 inline-flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 mb-5">
+              <svg
+                className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
+              </svg>
+              <span className="relative">
+                Назад
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+              </span>
+            </button>
+          </Link>
           <header className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
               {status} • {duration}
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent mb-6">
-              {title}
+            <h1
+              className={`mt-6 mb-4 transition-all duration-1000 delay-500 ${
+                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+              }`}
+            >
+              <span className="text-5xl md:text-5xl lg:text-7xl font-black">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient bg-300%">
+                  {title}
+                </span>
+              </span>
             </h1>
 
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -196,7 +226,7 @@ export default function Ships() {
                   </section>
 
                   {/* Результаты */}
-                  <section>
+                  {/* <section>
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-2 h-8 bg-orange-600 rounded-full"></div>
                       <h2 className="text-2xl font-bold text-gray-900">
@@ -213,12 +243,12 @@ export default function Ships() {
                         </div>
                       ))}
                     </div>
-                  </section>
+                  </section> */}
                 </div>
               </div>
 
               {/* Дополнительная информация */}
-              <div className="mt-12 pt-8 border-t border-gray-200/60">
+              {/* <div className="mt-12 pt-8 border-t border-gray-200/60">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                   <div className="bg-blue-50/50 rounded-2xl p-6">
                     <div className="text-2xl font-bold text-blue-600 mb-2">
@@ -239,16 +269,12 @@ export default function Ships() {
                     <div className="text-gray-600">Пользователей</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
-
-          {/* Футер */}
-          <footer className="text-center mt-12 text-gray-500">
-            <p>© 2024 Все права защищены</p>
-          </footer>
         </div>
       </div>
     </>
   );
+}
 }

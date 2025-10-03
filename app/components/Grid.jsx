@@ -35,7 +35,9 @@ const Grid = () => {
 
               <div className="card-actions justify-end items-center z-20">
                 <button className="btn btn-neutral bg-white text-black">
+                  <Link href="./gallery">
                   Подробнее
+                  </Link>
                 </button>
               </div>
             </div>
@@ -111,9 +113,11 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
+                <Link href={"./family-project"}>
                 <button className="btn btn-neutral bg-white text-black">
                   Подробнее
                 </button>
+                </Link>
               </div>
             </div>
           </div>

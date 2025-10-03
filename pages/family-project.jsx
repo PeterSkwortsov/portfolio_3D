@@ -4,7 +4,7 @@ import Link from "next/link";
 import global from '../app/globals.css'
 import { useEffect, useState } from "react";
 
-export default function Ships() {
+export default function Family() {
 
  const [isVisible, setIsVisible] = useState(false);
 
@@ -12,29 +12,28 @@ export default function Ships() {
     setIsVisible(true);
   }, []);
 
-
+{
   // Данные проекта (в реальном приложении можно брать из API)
   const projectData = {
-    title: "Сеть детских развлечений",
-    description: "Лендинг сети детских аттракционов в Нижнем Новгороде",
-    imageUrl: "/london.png",
-    githubUrl: "https://github.com/username/ecommerce-platform",
+    title: "Проект «История семьи»",
+    description:
+      "Сохранение памяти о своих родителях, бабушек и дедушек через интервью. Полноценный фильм о своей семье.",
+    imageUrl: "/history.png",
+    githubUrl: "https://github.com/PeterSkwortsov/family",
     overview:
-      "Мой первый сайт, который я создал сам через три месяца после того, как стал заниматься веб-разработкой. Полностью адаптирован под мобильные устройства.",
+      "Мой первый многостраничный сайт, где было добавлено несколько маленьких фишечек. Например, кастомный анимированный прилоадер, фоновое видео, скрипт стрелки наверх. Была работа с графическим художником по созданию рисунков персонажей",
     goals: [
-      "C полного нуля, без дизайна, без контента, без концепции. Мне сказали: сделай мне простой лендинг, чтобы было понятно, что он про детей.",
+      "Создать многостраничный сайт который точно объяснит предоставляемые услуги",
+      "Самостоятельно создать UI компоненты + работа с художником",
+      "Подключить админ-панель для управления контентом",
+      "Провести SEO оптимизацию",
     ],
-
-    technologies: ["Bootstrap", "AOS", "FancyBox", "jQuery"],
+    technologies: ["HTML", "Textolite", "AOS", "JavaScript"],
     results: [
-      "Соответствие страницы основным рекомендациям поисковой оптимизации - 90/100 баллов",
-      "Total Blocking Time - 0 мс",
-      "Cumulative Layout Shift - 0,067",
-      "First Contentful Paint - 1.3 мс",
-    ],
-    liveDemoUrl: "http://legozann.ru/",
-    status: "Завершен",
-    duration: "3 месяца",
+      "First Contentful Paint - 0,5 сек",
+      "Cumulative Layout Shift - 0,006",
+      "Speed Index - 0,9 сек"    ],
+    liveDemoUrl: "https://peterskwortsov.github.io/family/",
   };
 
   const {
@@ -60,7 +59,7 @@ export default function Ships() {
       </Head>
 
       {/* Основной контент */}
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 bg-red-400">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 bg-yellow-100">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Хедер проекта */}
           <Link href="/">
@@ -85,10 +84,7 @@ export default function Ships() {
             </button>
           </Link>
           <header className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              {status} за {duration}
-            </div>
+           
 
             <h1
               className={`mt-6 mb-4 transition-all duration-1000 delay-500 ${
@@ -99,7 +95,6 @@ export default function Ships() {
                 <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient bg-300%">
                   {title}
                 </span>
-               
               </span>
             </h1>
 
@@ -109,10 +104,7 @@ export default function Ships() {
           </header>
 
           {/* Карточка проекта */}
-          <div
-            className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border
-           border-white/60 overflow-hidden"
-          >
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/60 overflow-hidden">
             {/* Hero изображение */}
             <div className="relative h-80 md:h-96 w-full">
               <Image
@@ -274,10 +266,9 @@ export default function Ships() {
               </div> */}
             </div>
           </div>
-
-          {/* Футер */}
         </div>
       </div>
     </>
   );
+}
 }
