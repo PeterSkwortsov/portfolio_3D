@@ -58,18 +58,18 @@ export default function AboutMe() {
             </div>
 
             {/* Краткая информация */}
-            <div className="bg-base-200 rounded-2xl p-6 text-center">
+            <div className="rounded-2xl p-6 text-center text-white">
               <div className="grid grid-cols-1 gap-4 text-sm">
                 <div>
-                  <span className="font-bold text-lg">🏢 Город:</span>
-                  <p>Нижний Новгород</p>
+                  <span className="font-bold text-lg">Город:</span>
+                  <p >Нижний Новгород</p>
                 </div>
                 <div>
-                  <span className="font-bold text-lg">💼 Опыт:</span>
+                  <span className="font-bold text-lg">Опыт:</span>
                   <p>3+ года</p>
                 </div>
                 <div>
-                  <span className="font-bold text-lg">🎓 Образование:</span>
+                  <span className="font-bold text-lg">Образование:</span>
                   <p>
                     Московский университет имени С.Ю. Витте (PR и связи с
                     общественностью)

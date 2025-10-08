@@ -8,6 +8,7 @@ import { Loader } from "@react-three/drei";
 import Works from "./components/Works";
 import ImageModal from "./components/ImageModal";
 import AboutMe from "./components/AboutMe";
+import Line from "./components/Line";
 
 export default function Home() {
     return (
@@ -40,11 +41,12 @@ export default function Home() {
        <Header />
        <AboutMe />
        <Grid />
+       <Line />
        <Phone  />   
-         {/* <Test /> */}
-      {/* <Works />
-            <ImageModal /> 
-            <Footer /> */}
+      <Test /> 
+       <Works />
+            <ImageModal />
+            <Footer />
 
           
         </>
