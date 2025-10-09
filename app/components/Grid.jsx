@@ -34,10 +34,8 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
-                <button className="btn btn-neutral bg-white text-black">
-                  <Link href="./gallery">
-                  Подробнее
-                  </Link>
+                <button className="btn btn-neutral bg-white text-black rounded-xl">
+                  <Link href="./gallery">Подробнее</Link>
                 </button>
               </div>
             </div>
@@ -76,7 +74,7 @@ const Grid = () => {
 
               <div className="card-actions justify-end items-center z-20">
                 <Link href={"./game-attractions"}>
-                  <button className="btn btn-neutral bg-white text-black">
+                  <button className="btn btn-neutral bg-white text-black rounded-xl">
                     Подробнее
                   </button>
                 </Link>
@@ -114,9 +112,9 @@ const Grid = () => {
 
               <div className="card-actions justify-end items-center z-20">
                 <Link href={"./family-project"}>
-                <button className="btn btn-neutral bg-white text-black">
-                  Подробнее
-                </button>
+                  <button className="btn btn-neutral bg-white text-black rounded-xl">
+                    Подробнее
+                  </button>
                 </Link>
               </div>
             </div>
@@ -150,7 +148,7 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
-                <button className="btn btn-neutral bg-white text-black">
+                <button className="btn btn-neutral bg-white text-black rounded-xl">
                   Подробнее
                 </button>
               </div>
@@ -185,7 +183,7 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
-                <button className="btn btn-neutral bg-white text-black">
+                <button className="btn btn-neutral bg-white text-black rounded-xl">
                   Подробнее
                 </button>
               </div>
@@ -220,7 +218,7 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
-                <button className="btn btn-neutral bg-white text-black">
+                <button className="btn btn-neutral bg-white text-black rounded-xl">
                   Подробнее
                 </button>
               </div>
@@ -255,11 +253,9 @@ const Grid = () => {
               </div>
 
               <div className="card-actions justify-end items-center z-20">
-                <Link href="/ships">
-                  <button className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
-                    Перейти на страницу "О нас"
-                  </button>
-                </Link>
+                <button className="btn btn-neutral bg-white text-black rounded-xl">
+                  Подробнее
+                </button>
               </div>
             </div>
           </div>

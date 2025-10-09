@@ -27,16 +27,13 @@ export default function TimelineComponent() {
           <h3 className="text-3xl md:text-3xl font-bold text-white mb-4">
             Повышение квалификации
           </h3>
-          {/* <p className="text-lg text-white max-w-2xl mx-auto">
-            Ключевые вехи нашего проекта от идеи до реализации
-          </p> */}
         </div>
 
         {/* Timeline для десктопа */}
         <div className="hidden md:block">
           <div className="relative">
             {/* Линия времени */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full rounded-full bg-white"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full rounded-full bg-white"></div>
 
             <div className="space-y-12">
               {timelineData.map((item, index) => (
@@ -55,7 +52,7 @@ export default function TimelineComponent() {
                     <div
                       className={` rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 ${
                         activeDate === index
-                          ? "ring-2 ring-blue-500 transform scale-105"
+                          ? "ring-2 ring-blue-500 transform scale-90"
                           : ""
                       }`}
                       onMouseEnter={() => setActiveDate(index)}
@@ -78,13 +75,12 @@ export default function TimelineComponent() {
                   {/* Точка на линии */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 z-10 ">
                     <div
-                      className={`w-8 h-8 rounded-full border-4 border-white flex items-center justify-center transition-all duration-300 ${
+                      className={`w-6 h-6 rounded-full border-4 border-white flex items-center justify-center transition-all duration-300 ${
                         activeDate === index
                           ? "bg-blue-600 transform scale-125 shadow-lg"
                           : "bg-blue-400 shadow-md"
                       }`}
-                    >
-                    </div>
+                    ></div>
                   </div>
 
                   {/* Пустое пространство для чередования */}
@@ -99,7 +95,7 @@ export default function TimelineComponent() {
         <div className="md:hidden">
           <div className="relative">
             {/* Вертикальная линия */}
-            <div className="absolute left-6 top-0 w-1 bg-white opacity-200 h-full rounded-full"></div>
+            <div className="absolute left-6 top-0 w-0.5 bg-white opacity-200 h-full rounded-full"></div>
 
             <div className="space-y-8">
               {timelineData.map((item, index) => (
@@ -107,26 +103,28 @@ export default function TimelineComponent() {
                   {/* Точка на линии */}
                   <div className="absolute left-6 transform -translate-x-1/2 z-10">
                     <div
-                      className={`w-8 h-12 rounded-full border-4 border-white flex items-center justify-center transition-all duration-300 ${
+                      className={`w-8 h-6 rounded-full border-4 border-white flex items-center justify-center transition-all duration-300 ${
                         activeDate === index
                           ? "bg-blue-600 transform scale-110 shadow-lg"
                           : "bg-blue-400 shadow-md"
                       }`}
                       onClick={() => setActiveDate(index)}
-                    >
-                    </div>
+                    ></div>
                   </div>
 
                   {/* Контент */}
                   <div className="ml-20 flex-1">
                     <div
                       className={`bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 ${
-                        activeDate === index ? "ring-2 ring-blue-500" : ""
+                        activeDate === index ? "ring-5 ring-blue-500" : ""
                       }`}
                       onClick={() => setActiveDate(index)}
                     >
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                        <div
+                          className="text-sm font-semibold text-blue-600 bg-blue-50 px-3
+                        py-1 rounded-full"
+                        >
                           {item.date}
                         </div>
                       </div>
@@ -135,6 +133,9 @@ export default function TimelineComponent() {
                       </h3>
                       <p className="text-gray-600 leading-relaxed">
                         {item.description}
+                      </p>
+                      <p className="text-gray-900 font-bold leading-relaxed text-sm mt-2">
+                        {item.firma}
                       </p>
                     </div>
                   </div>
@@ -160,7 +161,6 @@ export default function TimelineComponent() {
         </div>
 
         {/* Статистика */}
-     
       </div>
     </div>
   );

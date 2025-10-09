@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import Grid from "./components/Grid";
 import Phone from "./components/Phone";
 import Header from "./components/Header";
-import Test from "./components/Test";
 import { Loader } from "@react-three/drei";
 import Works from "./components/Works";
 import ImageModal from "./components/ImageModal";
@@ -39,14 +38,13 @@ export default function Home() {
             />
     
        <Header />
-       <AboutMe />
+       <AboutMe /> 
        <Grid />
-       <Line />
-       <Phone  />   
-      <Test /> 
-       <Works />
+       <Line /> 
+     <Phone  />  
+      <Works />
             <ImageModal />
-            <Footer />
+            <Footer /> 
 
           
         </>

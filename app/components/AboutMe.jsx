@@ -3,6 +3,7 @@
 import { useState } from "react";
 import DownloadWordFile from "./DownloadWordFile";
 import TechnologiesList from "./TechnologiesList";
+import Link from "next/link";
 
 export default function AboutMe() {
   const [activeTab, setActiveTab] = useState("about");
@@ -62,7 +63,7 @@ export default function AboutMe() {
               <div className="grid grid-cols-1 gap-4 text-sm">
                 <div>
                   <span className="font-bold text-lg">Город:</span>
-                  <p >Нижний Новгород</p>
+                  <p>Нижний Новгород</p>
                 </div>
                 <div>
                   <span className="font-bold text-lg">Опыт:</span>
@@ -83,9 +84,9 @@ export default function AboutMe() {
           {/* Правая колонка - Детальная информация */}
           <div className="space-y-6 ">
             {/* Табы */}
-            <div className="tabs tabs-boxed bg-base-200 p-1 rounded-2xl">
+            <div className="tabs tabs-boxed bg-base-200 p-1 rounded-2xl ">
               <button
-                className={`tab tab-lg flex-1 text-md ${
+                className={`tab tab-lg flex-1 text-md font-bold ${
                   activeTab === "about" ? "tab-active" : ""
                 }`}
                 onClick={() => setActiveTab("about")}
@@ -93,7 +94,7 @@ export default function AboutMe() {
                 О себе
               </button>
               <button
-                className={`tab tab-lg flex-1 ${
+                className={`tab tab-lg flex-1 font-bold ${
                   activeTab === "skills" ? "tab-active" : ""
                 }`}
                 onClick={() => setActiveTab("skills")}
@@ -101,8 +102,8 @@ export default function AboutMe() {
                 Навыки
               </button>
               <button
-                className={`tab tab-lg flex-1 ${
-                  activeTab === "contact" ? "tab-active" : ""
+                className={`tab tab-lg flex-1 font-bold${
+                  activeTab === "contact" ? "tab-active font-bold" : ""
                 }`}
                 onClick={() => setActiveTab("contact")}
               >
@@ -114,10 +115,10 @@ export default function AboutMe() {
             <div className="bg-base-200 rounded-2xl p-6">
               {activeTab === "about" && (
                 <div className="space-y-4">
-                  <p className="text-lg leading-relaxed">
+                  <p className="text-md leading-relaxed">
                     Стремлюсь к простым решениям во всех сферах проектирования.
                     Мне интересно создавать элементы на сайте, с которыми
-                    пользователю будет интересно взаимодействовать, они должны
+                    пользователю будет интересно взаимодействовать. Они должны
                     вызывать эмоции. <br></br>
                     <br></br>
                     Перед собой я всегда ставлю задачу понять суть проблемы »
@@ -125,13 +126,35 @@ export default function AboutMe() {
                     <br></br>
                     Всё, что я делаю, — это творчество, а не программирование,
                     мне ближе такой подход.
+                    <br></br>
+                    <br></br>
+                    Мне нравится цитата ниже, она многое объясняет.
                   </p>
-                  <p className="text-lg leading-relaxed font-bold text-primary mt-2">
-                    «Хорошо могут летать только красивые самолёты»
-                  </p>
-                  <span className="text-sm">
-                    авиаконструктор Андрей Туполев
-                  </span>
+
+                  <div class="max-w-2xl w-full">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                      <div class="flex justify-start mb-6">
+                        <svg
+                          class="w-12 h-12 text-indigo-500 opacity-70"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+                        </svg>
+                      </div>
+
+                      <blockquote class="playfair text-lg md:text-xl font-medium italic text-gray-800 leading-relaxed mb-6">
+                        «Прекрасно летают только красивые самолеты, созданные
+                        хорошими людьми».
+                      </blockquote>
+
+                      <div class="border-l-4 border-indigo-500 pl-4 py-1">
+                        <cite class="playfair text-md font-semibold text-gray-700 not-italic">
+                          Авиаконструктор Туполев Андрей Николаевич
+                        </cite>
+                      </div>
+                    </div>
+                  </div>
 
                   <div className="flex gap-4 mt-6">
                     <DownloadWordFile />
@@ -168,26 +191,22 @@ export default function AboutMe() {
               {activeTab === "contact" && (
                 <div className="space-y-4">
                   <div className="flex items-center gap-4 p-3 bg-base-100 rounded-lg">
-                    <div className="w-10 h-10 bg-primary text-primary-content rounded-full flex items-center justify-center">
-                      📧
-                    </div>
                     <div>
                       <p className="font-semibold">Email</p>
                       <p className="text-base-content/80">
-                        petr.skvorcov@example.com
+                        skwortsow.petia@yandex.ru
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4 p-3 bg-base-100 rounded-lg">
-                    <div className="w-10 h-10 bg-accent text-accent-content rounded-full flex items-center justify-center">
-                      🐙
-                    </div>
                     <div>
-                      <p className="font-semibold">GitHub</p>
-                      <p className="text-base-content/80">
-                        github.com/petr-skvorcov
-                      </p>
+                      <Link
+                        href="https://github.com/PeterSkwortsov"
+                        className="btn bg-black shadow-2xl  text-white rounded-2xl"
+                      >
+                        GitHub
+                      </Link>
                     </div>
                   </div>
                 </div>

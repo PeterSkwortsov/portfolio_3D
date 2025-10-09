@@ -64,20 +64,11 @@ export default function Header() {
         </div>
 
         {/* CTA кнопка */}
-        <div
-          className={`mt-8 transition-all duration-1000 delay-1200 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <button className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
-            <span className="relative z-10">Исследовать работы</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-          </button>
-        </div>
+        
       </div>
 
       {/* Декоративные элементы */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-25 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 border-2 border-purple-400 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-purple-400 rounded-full mt-2 animate-pulse"></div>
         </div>
