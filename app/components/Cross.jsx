@@ -4,13 +4,15 @@
 
 import { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Stars } from "@react-three/drei";
+import {
+  OrbitControls,
+  useGLTF,
+  MeshReflectorMaterial,
+} from "@react-three/drei";
 import * as THREE from "three";
 import { useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import FlyingClouds from "./FlyingClouds";
-import VolumetricClouds from "./VolumetricClouds";
-
 
 
 
@@ -20,7 +22,11 @@ function Model({ ...props }) {
   const { nodes, materials } = useGLTF("/shoe.gltf");
   return (
     <group ref={group} {...props} dispose={null} scale={2.5}>
-      
+      <OrbitControls 
+        enableZoom={false}
+        enablePan={false}
+        enableRotate={true}
+      />
       <mesh
         geometry={nodes.shoe.geometry}
         material={materials.laces}
@@ -80,19 +86,27 @@ const [patch, setPatch] = useState("#ffffff");
         <div className="card text-black bg-amber-50">
           <div className="h-100">
             <Canvas>
-              <OrbitControls
-                enablePan={false}
-                enableZoom={false}
-                enableRotate={false}
-                autoRotate
-              />
+              <fog attach="fog" args={["#87CEEB", 3, 15]} />
+
               {/* Отдельные летающие облака */}
-              <FlyingClouds count={30} radius={2} />
+              {/* <FlyingClouds count={30} radius={2} /> */}
               <color attach="background" args={["#87CEEB"]} />
 
-              {/* Объемные 3D облака */}
-              {/* <VolumetricClouds /> */}
-
+              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.3, 0]}>
+                <planeGeometry args={[25, 25]} />
+                <MeshReflectorMaterial
+                  blur={[800, 800]}
+                  resolution={524}
+                  mixBlur={1}
+                  mixStrength={80}
+                  roughness={1}
+                  depthScale={1.2}
+                  minDepthThreshold={0.4}
+                  maxDepthThreshold={1.4}
+                  color="red"
+                  metalness={0.5}
+                />
+              </mesh>
               {/* Фоновые звезды */}
               {/* Центральная 3D модель */}
               <Model
@@ -104,8 +118,6 @@ const [patch, setPatch] = useState("#ffffff");
                 }}
               />
               <directionalLight position={[2, 10, 0]} intensity={3} />
-
-              <OrbitControls />
             </Canvas>
           </div>
           <h6>Выбери цвет</h6>

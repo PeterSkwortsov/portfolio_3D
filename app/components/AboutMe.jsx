@@ -36,7 +36,7 @@ export default function AboutMe() {
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 ">
           {/* Левая колонка - Фото и базовая информация */}
           <div className="space-y-8">
             {/* Аватар с декоративными элементами */}
@@ -131,11 +131,11 @@ export default function AboutMe() {
                     Мне нравится цитата ниже, она многое объясняет.
                   </p>
 
-                  <div class="max-w-2xl w-full">
-                    <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                      <div class="flex justify-start mb-6">
+                  <div className="max-w-2xl w-full">
+                    <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                      <div className="flex justify-start mb-6">
                         <svg
-                          class="w-12 h-12 text-indigo-500 opacity-70"
+                          className="w-12 h-12 text-indigo-500 opacity-70"
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
@@ -143,13 +143,13 @@ export default function AboutMe() {
                         </svg>
                       </div>
 
-                      <blockquote class="playfair text-lg md:text-xl font-medium italic text-gray-800 leading-relaxed mb-6">
+                      <blockquote className="playfair text-lg md:text-xl font-medium italic text-gray-800 leading-relaxed mb-6">
                         «Прекрасно летают только красивые самолеты, созданные
                         хорошими людьми».
                       </blockquote>
 
-                      <div class="border-l-4 border-indigo-500 pl-4 py-1">
-                        <cite class="playfair text-md font-semibold text-gray-700 not-italic">
+                      <div className="border-l-4 border-indigo-500 pl-4 py-1">
+                        <cite className="playfair text-md font-semibold text-gray-700 not-italic">
                           Авиаконструктор Туполев Андрей Николаевич
                         </cite>
                       </div>

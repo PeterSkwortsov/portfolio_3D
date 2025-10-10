@@ -5,6 +5,9 @@ import { OrbitControls, Text, Html } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Shoe from "./Shoe";
 import styled from "styled-components";
+import { Camera } from "three";
+
+
 
 const Desc = styled.div`
   width: 200px;
@@ -29,28 +32,8 @@ const ProductDesign = () => {
   return (
     <>
       <Canvas>
-        <Suspense fallback={null}>
+        <Suspense>
           <Shoe />
-          <OrbitControls enableZoom={false}  autoRotate />
-          <Html
-            position={[0, 0.5, -1]}
-            occlude
-            distanceFactor={15}
-            style={{
-              width: "7rem",
-              background: "linear-gradient(45deg, #000, #333)",
-              color: "white",
-              padding: "6px 10px",
-              borderRadius: "8px",
-              fontSize: "7px",
-              fontWeight: "bold",
-              border: "2px solid #ff6b6b",
-              pointerEvents: "none",
-              userSelect: "none",
-            }}
-          >
-            Клиент в онлайн режиме может выбрать себе цвета.
-          </Html>
         </Suspense>
       </Canvas>
       {/* <Desc>

@@ -37,7 +37,7 @@ export default function Home() {
                 dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
             />
     
-       <Header />
+        <Header />
        <AboutMe /> 
        <Grid />
        <Line /> 
