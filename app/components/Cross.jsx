@@ -16,7 +16,6 @@ import FlyingClouds from "./FlyingClouds";
 
 
 
-
 function Model({ ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("/shoe.gltf");
@@ -109,6 +108,7 @@ const [patch, setPatch] = useState("#ffffff");
               </mesh>
               {/* Фоновые звезды */}
               {/* Центральная 3D модель */}
+
               <Model
                 customColors={{
                   mesh: mesh,
@@ -118,6 +118,7 @@ const [patch, setPatch] = useState("#ffffff");
                 }}
               />
               <directionalLight position={[2, 10, 0]} intensity={3} />
+              
             </Canvas>
           </div>
           <h6>Выбери цвет</h6>

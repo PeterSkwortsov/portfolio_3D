@@ -8,6 +8,8 @@ import Works from "./components/Works";
 import ImageModal from "./components/ImageModal";
 import AboutMe from "./components/AboutMe";
 import Line from "./components/Line";
+import CookieConsent from "./components/CookieConsent";
+import Start from "./components/Start";
 
 export default function Home() {
     return (
@@ -36,15 +38,16 @@ export default function Home() {
                 }}
                 dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
             />
-    
+            <CookieConsent />
         <Header />
-       <AboutMe /> 
+        <Start />
+       {/* <AboutMe /> 
        <Grid />
        <Line /> 
      <Phone  />  
       <Works />
             <ImageModal />
-            <Footer /> 
+            <Footer />  */}
 
           
         </>
