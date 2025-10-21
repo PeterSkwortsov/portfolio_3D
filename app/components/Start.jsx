@@ -1,338 +1,267 @@
-// app/page.jsx
-'use client'
-
-import { useRef, useState, useEffect } from "react";
-import { Canvas,  useThree, useFrame } from "@react-three/fiber";
-import { Physics, usePlane, useBox } from '@react-three/cannon'
-import {
-  Text,
-  OrbitControls,
-  Text3D,
-  Stars,
-  Center,
-  Box
-} from "@react-three/drei";
-import { useRouter } from 'next/navigation'
-import { MeshReflectorMaterial, CubeCamera } from "@react-three/drei";
+import { useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Physics, useRapier, RigidBody } from "@react-three/rapier";
+import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import { OrbitControls } from "@react-three/drei";
 
 
-
-
-
-
-
-
-
-
-const text3D = {
-  font: "./nunito_extraLight_regular.json",
-  fontWeight: "bold",
-  fontSize: 1,
-  letterSpacing: 0.01,
-};
-
-function ThreeDButton() {
-  const router = useRouter();
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleClick = (e) => {
-    e.stopPropagation();
-    // router.push("/next-page");
-  };
+// Прозрачная плоскость с физикой
+function TransparentPhysicsPlane({ position, size = [4, 2], rotation = [0, 1, Math.PI / 2] }) {
+  const planeRef = useRef()
 
   return (
-    <group
-      position={[0, 0.2, -6]}
-      onClick={handleClick}
-      onPointerOver={() => {
-        setIsHovered(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerOut={() => {
-        setIsHovered(false);
-        document.body.style.cursor = "default";
-      }}
+    <RigidBody
+      ref={planeRef}
+      position={position}
+      type="fixed" // Неподвижная плоскость
+      colliders="cuboid"
+      restitution={0.8} // Высокий коэффициент отскока
+      friction={0.1}
+      rotation={rotation}
     >
-      {/* Текст кнопки */}
-      <Physics>
-        <Text3D
-          castShadow
-          depthTest={true}
-          material-toneMapped={true}
-          {...text3D}
-        >
-          {`Начать >`}
-          <meshNormalMaterial />
-        </Text3D>
-      </Physics>
-
-      {/* Подложка кнопки */}
-      <mesh position={[0, 0.5, 0]}>
-        <planeGeometry args={[6, 2]} />
-        <meshStandardMaterial
-          color={isHovered ? "red" : "orange"}
+      <mesh receiveShadow>
+        <planeGeometry args={size} />
+        <meshPhysicalMaterial
           transparent
-          opacity={0.8}
+          opacity={0.2}
+          transmission={0.9}
+          roughness={0.1}
+          metalness={0.3}
+          rotation={rotation}
+          color="#4dabf7"
+          side={THREE.DoubleSide}
         />
       </mesh>
+    </RigidBody>
+  );
+}
+
+// Компонент для создания стены из кубов
+function CubeWall() {
+  const wallWidth = 10;
+  const wallHeight = 10;
+  const cubes = [];
+
+  // Создаем сетку кубов для стены
+  for (let x = 0; x < wallWidth; x++) {
+    for (let y = 0; y < wallHeight; y++) {
+      cubes.push({
+        id: `${x}-${y}`,
+        position: [x - (wallWidth - 1) / 2, y - (wallHeight - 1) / 2, 0],
+      });
+    }
+  }
+
+  return (
+    <group>
+      {cubes.map((cube) => (
+        <InteractiveCube key={cube.id} position={cube.position} />
+      ))}
     </group>
   );
 }
 
+// Компонент интерактивного куба
+function InteractiveCube({ position }) {
+  const rigidBodyRef = useRef();
+  const meshRef = useRef();
+  const [isClicked, setIsClicked] = useState(false);
 
+  // Случайный цвет для куба
+  const color = useRef(new THREE.Color());
 
-
-
-function Content() {
-  const viewport = useThree((state) => state.viewport);
-  
-  return (
-      <mesh scale={1.53} rotation={[0, 0, Math.PI / 4]} material-color="white" position={[0,1,-3]}>
-        <ringGeometry args={[1.655, 2, 2]} />
-      </mesh>
-  );
-}
-
-
-
-function Ground() {
-  const [ref] = usePlane(() => ({
-    rotation: [-Math.PI / 2, 0, 0],
-    position: [0, 0, 0],
-    mass: 2,
-    type: "Static", // явно указываем тип
-  }));
-  return (
-    <mesh ref={ref} receiveShadow>
-      <planeGeometry args={[25, 25]} />
-      <MeshReflectorMaterial
-        blur={[1000, 1000]}
-        resolution={824}
-        mixBlur={1}
-        mixStrength={80}
-        roughness={1}
-        depthScale={1.2}
-        minDepthThreshold={0.4}
-        maxDepthThreshold={1.4}
-        color="purple"
-        metalness={0.5}
-      />
-    </mesh>
-  );
-}
-function BackWall() {
-  const [ref] = usePlane(() => ({
-    rotation: [0, 0, 0], // Смотрит на +Z
-    position: [0, 0, -7], // Центр стены на высоте 4, отступ 15
-    args: [2, 2], // Ширина 20, высота 10
-    material: {
-      restitution: 0.7, // Кубы хорошо отскакивают
-      friction: 0.2, // Малое трение
-    },
-  }));
-
-  return (
-    <mesh ref={ref} receiveShadow>
-      <planeGeometry args={[4, 1]} position={[0, 0, -6]} /> 
-      <meshStandardMaterial color="#1e40af" transparent={true} opacity={0.5} />
-    </mesh>
-  );
-}
-// Интерактивный куб
-function InteractiveCube({ position, color, index, onClick }) {
-  const [ref, api] = useBox(() => ({
-    mass: 1,
-    position,
-    args: [1, 1, 1],
-    
-  }))
-
+  // Обработчик клика по кубу
   const handleClick = (event) => {
-    event.stopPropagation()
-    // Применяем случайный импульс
-    const impulseX = (Math.random() - 0.5) * 3
-    const impulseY = Math.random() * 2
-    const impulseZ = -8 - Math.random() * 4
-    
-    api.applyImpulse([impulseX, impulseY, impulseZ], [0, 0, 0])
-    onClick(index)
-  }
+    event.stopPropagation();
+    setIsClicked(true);
+
+    // Получаем направление от камеры к кубу
+    const cameraDirection = new THREE.Vector3();
+    event.camera.getWorldDirection(cameraDirection);
+
+    // Инвертируем направление для толчка от камеры
+    const impulseDirection = cameraDirection.negate();
+
+    // Добавляем немного случайности
+    impulseDirection.x += (Math.random() - 0.5) * 0.2;
+    impulseDirection.y += (Math.random() - 0.5) * 0.2;
+    impulseDirection.z = Math.abs(impulseDirection.z); // Убеждаемся, что толчок вперед
+
+    // Нормализуем и умножаем на силу
+    impulseDirection.normalize().multiplyScalar(15);
+
+    // Применяем импульс к кубу
+    if (rigidBodyRef.current) {
+      rigidBodyRef.current.applyImpulse(impulseDirection, true);
+
+      // Добавляем случайный вращательный импульс
+      const torque = new THREE.Vector3(
+        (Math.random() - 0.5) * 0.5,
+        (Math.random() - 0.5) * 0.5,
+        (Math.random() - 0.5) * 0.5
+      );
+      rigidBodyRef.current.applyTorqueImpulse(torque, true);
+    }
+  };
+
+  // Анимация для плавного изменения цвета после клика
+  useFrame(() => {
+    if (meshRef.current && isClicked) {
+      meshRef.current.material.color.lerp(new THREE.Color(1, 0.3, 0.3), 0.1);
+    }
+  });
 
   return (
-    <mesh 
-      ref={ref} 
-      castShadow 
-      onClick={handleClick}
-      onPointerOver={() => document.body.style.cursor = 'pointer'}
-      onPointerOut={() => document.body.style.cursor = 'default'}
+    <RigidBody
+      ref={rigidBodyRef}
+      position={position}
+      colliders="cuboid"
+      restitution={0.6}
+      friction={0.3}
+      mass={1}
     >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={color} />
-    </mesh>
-  )
+      <mesh
+        ref={meshRef}
+        castShadow
+        receiveShadow
+        onClick={handleClick}
+        onPointerEnter={() => (document.body.style.cursor = "pointer")}
+        onPointerLeave={() => (document.body.style.cursor = "default")}
+      >
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color={color.current} />
+      </mesh>
+    </RigidBody>
+  );
 }
 
+// Компонент пола
+function Floor() {
+  return (
+    <RigidBody type="fixed" restitution={0.2} friction={0.8}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
+        <planeGeometry args={[20, 20]} />
+        <meshStandardMaterial color="#444" />
+      </mesh>
+    </RigidBody>
+  );
+}
 
-// Основной компонент сцены
-function CubesScene() {
-  const [clickedCubes, setClickedCubes] = useState([])
-  
-  // Позиции кубов в три ряда
-  const cubeRows = [
-    // Первый ряд (нижний)
-    [
-      [-4, 0.5, 0],
-      [-3, 0.5, 0],
-      [-2, 0.5, 0],
-      [-1, 0.5, 0],
-      [0, 0.5, 0],
-      [1, 0.5, 0],
-      [2, 0.5, 0],
-      [3, 0.5, 0],
-      [4, 0.5, 0],
-    ],
-    // Второй ряд (средний)
-    [
-      [-4, 1.7, 0],
-      [-3, 1.7, 0],
-      [-2, 1.7, 0],
-      [-1, 1.7, 0],
-      [0, 1.7, 0],
-      [1, 1.7, 0],
-      [2, 1.7, 0],
-      [3, 1.7, 0],
-      [4, 1.7, 0],
-    ],
-    // Третий ряд (верхний)
-    [
-      [-4, 2.9, 0],
-      [-3, 2.9, 0],
-      [-2, 2.9, 0],
-      [-1, 2.9, 0],
-      [0, 2.9, 0],
-      [1, 2.9, 0],
-      [2, 2.9, 0],
-      [3, 2.9, 0],
-      [4, 2.9, 0],
-    ],
-  ];
-
-  const colorPalettes = [
-    [
-      "#ef4444",
-      "#f97316",
-      "#eab308",
-      "#22c55e",
-      "#3b82f6",
-      "#eab308",
-      "#f97316",
-      "#ec4899",
-    ],
-    [
-      "#8b5cf6",
-      "#ec4899",
-      "#06b6d4",
-      "#84cc16",
-      "#f59e0b",
-      "#eab308",
-      "#f97316",
-    ],
-    [
-      "#dc2626",
-      "#ea580c",
-      "#ca8a04",
-      "#16a34a",
-      "#2563eb",
-      "#eab308",
-      "#ec4899",
-    ],
-  ];
-
-  const handleCubeClick = (index) => {
-    setClickedCubes(prev => [...prev, index])
-  }
-
-  let cubeIndex = 0
-
+// Компонент фона (стены вокруг)
+function Walls() {
   return (
     <>
-      {/* Освещение */}
-      <Stars
-        radius={100}
-        depth={50}
-        count={5000}
-        factor={4}
-        saturation={0}
-        fade
-        speed={1}
-      />
+      <RigidBody type="fixed">
+        <mesh position={[0, 0, 10]} receiveShadow rotation={[0, Math.PI, 0]}>
+          <planeGeometry args={[20, 20]} />
+          <meshStandardMaterial color="blue" />
+        </mesh>
+      </RigidBody>
 
-      <ambientLight intensity={0.6} />
-      <directionalLight
-        position={[5, 10, 5]}
-        intensity={1.5}
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-      />
-      <pointLight position={[-5, 5, 5]} intensity={1} color="#93c5fd" />
+      <RigidBody
+        type="fixed"
+        // colliders="cuboid"
+        restitution={0.1} // Высокий коэффициент отскока
+        friction={0.1}
+      >
+        <mesh receiveShadow position={[0, 0, 8]} rotation={[0, Math.PI, 0]}>
+          <planeGeometry args={[5, 5]} />
+          <meshPhysicalMaterial
+            transparent
+            color="#4dabf7"
+            opacity={1}
+            transmission={0.9}
+            roughness={0.1}
+            metalness={0.3}
+          />
+        </mesh>
+      </RigidBody>
+     
 
-      <Physics gravity={[0, -4, 0]}>
-        <Ground />
-        <BackWall />
-
-        {/* Рендерим кубы по рядам */}
-        {cubeRows.map((row, rowIndex) => (
-          <group key={`row-${rowIndex}`}>
-            {row.map((position, colIndex) => {
-              const currentIndex = cubeIndex++;
-              return (
-                <InteractiveCube
-                  key={currentIndex}
-                  position={position}
-                  color={colorPalettes[rowIndex][colIndex]}
-                  index={currentIndex}
-                  onClick={handleCubeClick}
-                />
-              );
-            })}
-          </group>
-        ))}
-      </Physics>
-
-
+      <RigidBody type="fixed">
+        <mesh
+          position={[-8, 0, 0]}
+          rotation={[0, Math.PI / 2, 0]}
+          receiveShadow
+        >
+          <planeGeometry args={[20, 20]} />
+          <meshStandardMaterial color="#red" />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh
+          position={[8, 0, 0]}
+          rotation={[0, -Math.PI / 2, 0]}
+          receiveShadow
+        >
+          <planeGeometry args={[20, 20]} />
+          <meshStandardMaterial color="green" />
+        </mesh>
+      </RigidBody>
     </>
   );
 }
 
-// Главный компонент
-export default function Home() {
+// Компонент освещения
+function Lighting() {
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <Canvas
-        shadows
-        camera={{ position: [0, 1, 4], fov: 60 }}
-        gl={{ alpha: false }}
-        // onCreated={({ gl }) => {
-        //   gl.setClearColor("blue");
-        // }}
-      >
-        <CubesScene />
-        <Content />
+    <>
+      <ambientLight intensity={0.4} />
+      <directionalLight
+        position={[5, 10, -7]}
+        intensity={1}
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        shadow-camera-far={50}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+      />
+      {/* <pointLight position={[-5, 5, -5]} intensity={0.5} color="#0088ff" />
+      <pointLight position={[5, 3, 5]} intensity={0.3} color="#ff8800" /> */}
+    </>
+  );
+}
 
-<ThreeDButton />
+// Компонент камеры с контроллерами
+
+
+// Основной компонент сцены
+function PhysicsScene() {
+  return (
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
+      <Canvas shadows camera={{ position: [0, 1, -8], fov: 50 }}>
+        <Lighting />
+        <Physics gravity={[0, -15, 0]}>
+          <CubeWall />
+          <Floor />
+          <Walls />
+        </Physics>
       
+      
+
+        
         <OrbitControls
-          target={[0, 1, 0]} // Камера смотрит в центр (0,0,0)
+          target={[0, 2, 5]} // Камера смотрит в центр (0,0,0)
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
-          minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+          maxPolarAngle={Math.PI / 2}
           //   minDistance={8}
           //   maxDistance={25}
-        />
+        />{" "}
       </Canvas>
     </div>
   );
 }
+
+export default PhysicsScene;
