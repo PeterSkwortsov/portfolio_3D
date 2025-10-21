@@ -1,8 +1,8 @@
 // app/page.jsx
 'use client'
 
-import { useRef, useState } from 'react'
-import { Canvas, useFrame, extend } from "@react-three/fiber";
+import { useRef, useState, useEffect } from "react";
+import { Canvas,  useThree, useFrame } from "@react-three/fiber";
 import { Physics, usePlane, useBox } from '@react-three/cannon'
 import {
   Text,
@@ -17,171 +17,84 @@ import { MeshReflectorMaterial, CubeCamera } from "@react-three/drei";
 import * as THREE from "three";
 
 
-// Отражающий куб с CubeCamera
-function ReflectiveCube({ position, color }) {
-  const meshRef = useRef()
-  const cubeCameraRef = useRef()
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x += 0.01
-      meshRef.current.rotation.y += 0.005
-    }
-    
-    // Обновляем CubeCamera каждый кадр для динамических отражений
-    if (cubeCameraRef.current) {
-      cubeCameraRef.current.update(state.gl, state.scene)
-    }
-  })
-
-  return (
-    <CubeCamera ref={cubeCameraRef} resolution={512} frames={Infinity}>
-      {(texture) => (
-        <Box ref={meshRef} position={position} args={[1, 1, 1]}>
-          <meshStandardMaterial 
-            envMap={texture}
-            color={color}
-            metalness={1}
-            roughness={0.1}
-            transparent={true}
-            opacity={0.9}
-          />
-        </Box>
-      )}
-    </CubeCamera>
-  )
-}
-
-// Статичный отражающий куб
-function StaticReflectiveCube({ position, color }) {
-  const cubeCameraRef = useRef()
-
-  useFrame((state) => {
-    if (cubeCameraRef.current) {
-      cubeCameraRef.current.update(state.gl, state.scene)
-    }
-  })
-
-  return (
-    <CubeCamera ref={cubeCameraRef} resolution={256} frames={1}>
-      {(texture) => (
-        <Box position={position} args={[1, 1, 1]}>
-          <meshPhysicalMaterial 
-            envMap={texture}
-            color={color}
-            metalness={0.9}
-            roughness={0.05}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-          />
-        </Box>
-      )}
-    </CubeCamera>
-  )
-}
-
-function Scene() {
-  return (
-    <>
-      
-      {/* Отражающие кубы */}
-      <ReflectiveCube position={[-2, 0, 0]} color="#ff6b6b" />
-      <ReflectiveCube position={[0, 0, 0]} color="#4ecdc4" />
-      <ReflectiveCube position={[2, 0, 0]} color="#45b7d1" />
-      
-      {/* Статичные отражающие кубы */}
-      <StaticReflectiveCube position={[-1, 2, 0]} color="#ffd93d" />
-      <StaticReflectiveCube position={[1, 2, 0]} color="#6bffb8" />
-      
-      {/* Объекты для отражений */}
-      <Box position={[0, 0, 3]} args={[0.5, 0.5, 0.5]}>
-        <meshStandardMaterial color="orange" />
-      </Box>
-      
-      <Box position={[3, 1, 0]} args={[0.3, 0.3, 0.3]}>
-        <meshStandardMaterial color="purple" />
-      </Box>
-      
-      <Text
-        position={[0, 3, 0]}
-        fontSize={0.5}
-        color="white"
-      >
-        CubeCamera Reflections
-      </Text>
-    </>
-  )
-}
 
 
 
-function PhysicsText3D() {
 
 
-  const [textRef, api] = usePlane(() => ({
-    mass: 1,
-    position: [0, 0, 0],
-    rotation: [0, 0, 0],
-    args: [3, 1, 0.4], // Ширина, высота, глубина текста
-    visible: true,
-    type: "Static", // явно указываем тип
-  }));
 
-  // Функция для сброса позиции
-  const resetPosition = () => {
-    api.position.set(0, 5, 0);
-    api.velocity.set(0, 0, 0);
-    api.angularVelocity.set(0, 0, 0);
-  };
 
-  // Функция для применения импульса
-  const applyImpulse = () => {
-    api.applyImpulse([0, 5, 0], [0, 0, 0]);
-  };
-
-  return (
-    <>
-      <Center position={[-2, 0.5, -2]}>
-        <Text3D
-          ref={textRef}
-          font="./nunito_extraLight_regular.json"
-          size={3}
-          height={0.3}
-          curveSegments={12}
-          bevelEnabled={true}
-          bevelThickness={0.02}
-          bevelSize={0.02}
-          bevelSegments={5}
-          onClick={applyImpulse}
-        >
-          конец
-          <meshNormalMaterial />
-        </Text3D>
-      </Center>
-
-      {/* Кнопки управления */}
-      <Center position={[0, 1, -3]}>
-        <Text3D
-          font="./nunito_extraLight_regular.json"
-          size={0.3}
-          height={0.1}
-          onClick={resetPosition}
-        >
-          начало
-          <meshBasicMaterial color="red" />
-        </Text3D>
-      </Center>
-    </>
-  );
-}
 
 const text3D = {
   font: "./nunito_extraLight_regular.json",
   fontWeight: "bold",
   fontSize: 1,
   letterSpacing: 0.01,
-  
 };
+
+function ThreeDButton() {
+  const router = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    // router.push("/next-page");
+  };
+
+  return (
+    <group
+      position={[0, 0.2, -6]}
+      onClick={handleClick}
+      onPointerOver={() => {
+        setIsHovered(true);
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={() => {
+        setIsHovered(false);
+        document.body.style.cursor = "default";
+      }}
+    >
+      {/* Текст кнопки */}
+      <Physics>
+        <Text3D
+          castShadow
+          depthTest={true}
+          material-toneMapped={true}
+          {...text3D}
+        >
+          {`Начать >`}
+          <meshNormalMaterial />
+        </Text3D>
+      </Physics>
+
+      {/* Подложка кнопки */}
+      <mesh position={[0, 0.5, 0]}>
+        <planeGeometry args={[6, 2]} />
+        <meshStandardMaterial
+          color={isHovered ? "red" : "orange"}
+          transparent
+          opacity={0.8}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+
+
+
+
+function Content() {
+  const viewport = useThree((state) => state.viewport);
+  
+  return (
+      <mesh scale={1.53} rotation={[0, 0, Math.PI / 4]} material-color="white" position={[0,1,-3]}>
+        <ringGeometry args={[1.655, 2, 2]} />
+      </mesh>
+  );
+}
+
+
 
 function Ground() {
   const [ref] = usePlane(() => ({
@@ -260,55 +173,7 @@ function InteractiveCube({ position, color, index, onClick }) {
   )
 }
 
-// 3D Кнопка с использованием useRouter
- function ThreeDTextLink({ 
-  position = [0, 1, -4], 
-  fontSize = 0.5,
-  side = THREE.DoubleSide,
-  href = "/next-page",
-  color = "#ffffff",
-  hoverColor = "#10b981",
-  ...props 
-}) {
-  const router = useRouter()
-  const [isHovered, setIsHovered] = useState(false)
 
-
-
-  const handleClick = (e) => {
-    e.stopPropagation()
-    router.push(href)
-  }
-
-  return (
-    <group
-      position={position}
-      onClick={handleClick}
-      onPointerOver={() => {
-        setIsHovered(true);
-        document.body.style.cursor = "pointer";
-      }}
-      onPointerOut={() => {
-        setIsHovered(false);
-        document.body.style.cursor = "default";
-      }}
-      {...props}
-    >
-      {/* Физическое тело (невидимое) */}
-      <Physics>
-        <Text3D
-          castShadow
-          depthTest={false}
-          material-toneMapped={false}
-          {...text3D}
-        >
-          {`Начать >`}
-          <meshNormalMaterial />
-        </Text3D>
-      </Physics>
-    </group>
-  );
-}
 // Основной компонент сцены
 function CubesScene() {
   const [clickedCubes, setClickedCubes] = useState([])
@@ -406,12 +271,12 @@ function CubesScene() {
       <ambientLight intensity={0.6} />
       <directionalLight
         position={[5, 10, 5]}
-        intensity={1}
+        intensity={1.5}
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
       />
-      <pointLight position={[-5, 5, 5]} intensity={0.5} color="#93c5fd" />
+      <pointLight position={[-5, 5, 5]} intensity={1} color="#93c5fd" />
 
       <Physics gravity={[0, -4, 0]}>
         <Ground />
@@ -436,8 +301,7 @@ function CubesScene() {
         ))}
       </Physics>
 
-      {/* 3D Кнопка */}
-      <ThreeDTextLink />
+
     </>
   );
 }
@@ -455,16 +319,16 @@ export default function Home() {
         // }}
       >
         <CubesScene />
-        {/* <Scene /> */}
+        <Content />
 
-        <Physics>
-          <PhysicsText3D />
-        </Physics>
+<ThreeDButton />
+      
         <OrbitControls
           target={[0, 1, 0]} // Камера смотрит в центр (0,0,0)
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
+          minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2}
           //   minDistance={8}
           //   maxDistance={25}
         />
