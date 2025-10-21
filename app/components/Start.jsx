@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Canvas, useFrame, useThree  } from "@react-three/fiber";
 import { Physics, useRapier, RigidBody } from "@react-three/rapier";
 import * as THREE from "three";
-import { OrbitControls, Decal, useTexture } from "@react-three/drei";
+import { OrbitControls, Decal, useTexture, Html } from "@react-three/drei";
 
 import {
   Text,
@@ -259,6 +259,8 @@ function Lighting() {
 
 // Основной компонент сцены
 function PhysicsScene() {
+    const [showModal, setShowModal] = useState(true);
+
   return (
     <div
       style={{
@@ -267,6 +269,29 @@ function PhysicsScene() {
       }}
     >
       <Canvas shadows camera={{ position: [0, 5, -7], fov: 40 }}>
+        <Html
+          position={[0, 4, 0]}
+          distanceFactor={10}
+          occlude
+          style={{
+            pointerEvents: showModal ? "auto" : "none",
+          }}
+        >
+          {showModal && (
+            <div className="bg-white rounded-lg shadow-lg p-4 min-w-[300px] transform -translate-x-1/2 -translate-y-1/2">
+              <h3 className="font-bold text-lg mb-2">3D Модальное окно</h3>
+              <p className="text-gray-600 text-sm mb-3">
+                Это окно находится в 3D пространстве!
+              </p>
+              <button
+                className="w-full bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded text-sm"
+                onClick={() => setShowModal(false)}
+              >
+                Закрыть
+              </button>
+            </div>
+          )}
+        </Html>
         <Lighting />
         <Physics gravity={[0, -15, 0]}>
           <CubeWall />
@@ -274,7 +299,7 @@ function PhysicsScene() {
           <Walls />
         </Physics>
         <OrbitControls
-          target={[0, 4.5,12]} // Камера смотрит в центр (0,0,0)
+          target={[0, 4.5, 12]} // Камера смотрит в центр (0,0,0)
           enablePan={false}
           enableZoom={false}
           enableRotate={false}
