@@ -39,7 +39,7 @@ export default function Home() {
                 dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
             />
             <CookieConsent />
-        <Header />
+        {/* <Header /> */}
         <Start />
        {/* <AboutMe /> 
        <Grid />

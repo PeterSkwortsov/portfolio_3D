@@ -1,40 +1,50 @@
 import { useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree  } from "@react-three/fiber";
 import { Physics, useRapier, RigidBody } from "@react-three/rapier";
-import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Decal, useTexture } from "@react-three/drei";
+
+import {
+  Text,
+  Text3D,
+  Stars,
+  Center,
+  Box,
+} from "@react-three/drei";
+import { useRouter } from "next/navigation";
+import { MeshReflectorMaterial, CubeCamera } from "@react-three/drei";
 
 
-// Прозрачная плоскость с физикой
-function TransparentPhysicsPlane({ position, size = [4, 2], rotation = [0, 1, Math.PI / 2] }) {
-  const planeRef = useRef()
+
+function MouseCameraController() {
+  const { camera, mouse } = useThree()
+  const [isEnabled, setIsEnabled] = useState(true)
+  
+  useFrame(() => {
+    if (!isEnabled) return
+    
+    // Ограниченный поворот камеры
+    const maxRotation = Math.PI / 4 // 45 градусов
+    const targetRotationX = mouse.y * maxRotation
+    const targetRotationY = mouse.x * maxRotation
+    
+    // Плавная интерполяция
+    camera.rotation.x = THREE.MathUtils.lerp(
+      camera.rotation.x, 
+      targetRotationX, 
+      0.1
+    )
+    camera.rotation.y = THREE.MathUtils.lerp(
+      camera.rotation.y * 20, 
+      targetRotationY, 
+      0.1
+    )
+  })
 
   return (
-    <RigidBody
-      ref={planeRef}
-      position={position}
-      type="fixed" // Неподвижная плоскость
-      colliders="cuboid"
-      restitution={0.8} // Высокий коэффициент отскока
-      friction={0.1}
-      rotation={rotation}
-    >
-      <mesh receiveShadow>
-        <planeGeometry args={size} />
-        <meshPhysicalMaterial
-          transparent
-          opacity={0.2}
-          transmission={0.9}
-          roughness={0.1}
-          metalness={0.3}
-          rotation={rotation}
-          color="#4dabf7"
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-    </RigidBody>
-  );
+  null
+  )
+
 }
 
 // Компонент для создания стены из кубов
@@ -97,9 +107,9 @@ function InteractiveCube({ position }) {
 
       // Добавляем случайный вращательный импульс
       const torque = new THREE.Vector3(
-        (Math.random() - 0.5) * 0.5,
-        (Math.random() - 0.5) * 0.5,
-        (Math.random() - 0.5) * 0.5
+        (Math.random() - 0.5) * 0.9,
+        (Math.random() - 0.5) * 0.9,
+        (Math.random() - 0.5) * 0.9
       );
       rigidBodyRef.current.applyTorqueImpulse(torque, true);
     }
@@ -117,7 +127,7 @@ function InteractiveCube({ position }) {
       ref={rigidBodyRef}
       position={position}
       colliders="cuboid"
-      restitution={0.6}
+      restitution={0.8}
       friction={0.3}
       mass={1}
     >
@@ -139,10 +149,10 @@ function InteractiveCube({ position }) {
 // Компонент пола
 function Floor() {
   return (
-    <RigidBody type="fixed" restitution={0.2} friction={0.8}>
+    <RigidBody type="fixed" restitution={0.5} friction={0.8}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#444" />
+        <planeGeometry args={[40, 40]} />
+        <meshStandardMaterial color="red" />
       </mesh>
     </RigidBody>
   );
@@ -153,9 +163,9 @@ function Walls() {
   return (
     <>
       <RigidBody type="fixed">
-        <mesh position={[0, 0, 10]} receiveShadow rotation={[0, Math.PI, 0]}>
-          <planeGeometry args={[20, 20]} />
-          <meshStandardMaterial color="blue" />
+        <mesh position={[0, 0, 15]} receiveShadow rotation={[0, Math.PI, 0]}>
+          <planeGeometry args={[40, 40]} />
+          <meshStandardMaterial color="red" />
         </mesh>
       </RigidBody>
 
@@ -165,40 +175,58 @@ function Walls() {
         restitution={0.1} // Высокий коэффициент отскока
         friction={0.1}
       >
-        <mesh receiveShadow position={[0, 0, 8]} rotation={[0, Math.PI, 0]}>
-          <planeGeometry args={[5, 5]} />
+        <mesh
+          receiveShadow
+          position={[-0.2, 1.8, 7.78]}
+          rotation={[0, Math.PI, 0]}
+        >
+          <planeGeometry args={[6.8, 1.3]} />
           <meshPhysicalMaterial
             transparent
-            color="#4dabf7"
-            opacity={1}
+            color="red"
+            opacity={0}
             transmission={0.9}
             roughness={0.1}
             metalness={0.3}
           />
         </mesh>
       </RigidBody>
-     
+      <Center position={[-0.4, 1.8, 8]} rotation={[0, Math.PI, 0]}>
+        <Text3D
+          font="./nunito_extraLight_regular.json"
+          size={1.6}
+          height={0.3}
+          curveSegments={7}
+          bevelEnabled={true}
+          bevelThickness={0.05}
+          bevelSize={0.06}
+          bevelSegments={5}
+        >
+          начать
+          <meshNormalMaterial />
+        </Text3D>
+      </Center>
 
-      <RigidBody type="fixed">
+      {/* <RigidBody type="fixed">
         <mesh
           position={[-8, 0, 0]}
           rotation={[0, Math.PI / 2, 0]}
           receiveShadow
         >
-          <planeGeometry args={[20, 20]} />
+          <planeGeometry args={[30, 20]} />
           <meshStandardMaterial color="#red" />
         </mesh>
-      </RigidBody>
-      <RigidBody type="fixed">
+      </RigidBody> */}
+      {/* <RigidBody type="fixed">
         <mesh
           position={[8, 0, 0]}
           rotation={[0, -Math.PI / 2, 0]}
           receiveShadow
         >
-          <planeGeometry args={[20, 20]} />
-          <meshStandardMaterial color="green" />
+          <planeGeometry args={[30, 20]} />
+          <meshStandardMaterial color="red" opacity={0} />
         </mesh>
-      </RigidBody>
+      </RigidBody> */}
     </>
   );
 }
@@ -238,27 +266,25 @@ function PhysicsScene() {
         height: "100vh",
       }}
     >
-      <Canvas shadows camera={{ position: [0, 1, -8], fov: 50 }}>
+      <Canvas shadows camera={{ position: [0, 5, -7], fov: 40 }}>
         <Lighting />
         <Physics gravity={[0, -15, 0]}>
           <CubeWall />
           <Floor />
           <Walls />
         </Physics>
-      
-      
-
-        
         <OrbitControls
-          target={[0, 2, 5]} // Камера смотрит в центр (0,0,0)
-          enablePan={true}
-          enableZoom={true}
-          enableRotate={true}
-          minPolarAngle={Math.PI / 2}
-          maxPolarAngle={Math.PI / 2}
-          //   minDistance={8}
-          //   maxDistance={25}
-        />{" "}
+          target={[0, 4.5,12]} // Камера смотрит в центр (0,0,0)
+          enablePan={false}
+          enableZoom={false}
+          enableRotate={false}
+          // minPolarAngle={Math.PI } // 90 градусов
+          // maxPolarAngle={Math.PI } // 90 градусов\ minAzimuthAngle={-Infinity}
+          // maxAzimuthAngle={Infinity}
+          // minDistance={8}
+          // maxDistance={25}
+        />
+        <MouseCameraController />
       </Canvas>
     </div>
   );
