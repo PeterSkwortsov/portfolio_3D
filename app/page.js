@@ -10,8 +10,12 @@ import AboutMe from "./components/AboutMe";
 import Line from "./components/Line";
 import CookieConsent from "./components/CookieConsent";
 import Start from "./components/Start";
+import { useState } from "react";
+import { Html } from "@react-three/drei";
 
 export default function Home() {
+    const [showModal, setShowModal] = useState(true);
+
     return (
         <>
             <Loader
@@ -38,9 +42,28 @@ export default function Home() {
                 }}
                 dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
             />
-            <CookieConsent />
+
+
+        
+            
+
+            {/* <CookieConsent /> */}
         {/* <Header /> */}
         <Start />
+
+            {showModal && (
+                <div className="bg-white rounded-lg shadow-lg p-4 min-w-[300px] transform -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2">
+                    <h3 className="font-bold text-lg mb-2">Разрушь стену</h3>
+                 
+                    <button
+                        className="w-full bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded text-sm"
+                        onClick={() => setShowModal(false)}
+                    >
+                        Закрыть
+                    </button>
+                </div>
+            )}
+
        {/* <AboutMe /> 
        <Grid />
        <Line /> 
