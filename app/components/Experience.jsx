@@ -31,7 +31,7 @@ export const Experience = () => {
 
   return (
     <>
-      <CameraControls ref={controls} enabled={true} zoomEnabled={false} />
+      <CameraControls ref={controls} enabled={false} zoomEnabled={true} />
       <mesh ref={meshFitCameraHome} position-z={1.5} visible={false}>
         <boxGeometry args={[7.5, 2, 2]} />
         <meshBasicMaterial color="orange" transparent opacity={0.5} />
