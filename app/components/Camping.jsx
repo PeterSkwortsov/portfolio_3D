@@ -7,7 +7,6 @@ import { Html, useGLTF } from "@react-three/drei";
 import { useAtom } from "jotai";
 import React from "react";
 import { degToRad } from "three/src/math/MathUtils";
-import { currentPageAtom } from "./UI";
 
 const OverlayItem = ({
   className = "",

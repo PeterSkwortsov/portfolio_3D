@@ -1,8 +1,14 @@
-import { atom, useAtom } from "jotai";
-
-export const currentPageAtom = atom("intro");
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const UI = () => {
+   const router = useRouter();
+   const [isHovered, setIsHovered] = useState(false);
+
+   const handleClick = (e) => {
+     e.stopPropagation();
+     router.push("./home-page");
+   };
   return (
     <div className="fixed inset-0 pointer-events-none">
       <section
@@ -12,7 +18,17 @@ export const UI = () => {
       >
         <div className="h-[66%]"></div>
         <button
-          className="pointer-events-auto py-4 px-8 bg-orange-400 text-white font-black rounded-full hover:bg-orange-600 cursor-pointer transition-colors duration-700">
+          onClick={handleClick}
+          onPointerOver={() => {
+            setIsHovered(true);
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            setIsHovered(false);
+            document.body.style.cursor = "default";
+          }}
+          className="pointer-events-auto py-4 px-8 bg-orange-400 text-white font-black rounded-full hover:bg-orange-600 cursor-pointer transition-colors duration-1000"
+        >
           ENTER
         </button>
       </section>

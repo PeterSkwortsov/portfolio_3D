@@ -64,13 +64,13 @@ export default function Home() {
                 </div>
             )} */}
 
-       {/* <AboutMe /> 
+       <AboutMe /> 
        <Grid />
        <Line /> 
      <Phone  />  
       <Works />
             <ImageModal />
-            <Footer />  */}
+            <Footer />  
 
           
         </>
