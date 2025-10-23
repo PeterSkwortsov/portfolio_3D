@@ -51,7 +51,7 @@ export default function Home() {
         {/* <Header /> */}
         <Start />
 
-            {showModal && (
+            {/* {showModal && (
                 <div className="bg-white rounded-lg shadow-lg p-4 min-w-[300px] transform -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2">
                     <h3 className="font-bold text-lg mb-2">Разрушь стену</h3>
                  
@@ -62,7 +62,7 @@ export default function Home() {
                         Закрыть
                     </button>
                 </div>
-            )}
+            )} */}
 
        {/* <AboutMe /> 
        <Grid />
