@@ -5,26 +5,30 @@ import { Experience } from "./Experience";
 import { UI } from "./UI";
 import { OrbitControls } from "@react-three/drei";
 import { useState, useEffect } from "react";
+import { useThree } from "@react-three/fiber";
 
-function useIsMobile() {
+function CameraController() {
+  const { camera } = useThree();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkDevice = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      camera.fov = mobile ? 110 : 65;
+      camera.updateProjectionMatrix();
     };
 
-    checkDevice();
-    window.addEventListener("resize", checkDevice);
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", checkDevice);
-  }, []);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [camera]);
 
-  return isMobile;
+  return null;
 }
 
 function App() {
-    const isMobile = useIsMobile();
 
   return (
     <div
@@ -33,8 +37,9 @@ function App() {
         height: "100vh",
       }}
     >
-      <Canvas camera={{ position: [0, 0, 8], fov: isMobile ? 109 : 60 
- }}>
+      <Canvas camera={{ position: [0, 0, 8]}}>
+        <CameraController />
+
         <color attach="background" args={["#171720"]} />
         <fog attach="fog" args={["#171720", 10, 30]} />
         <Suspense>
@@ -43,7 +48,6 @@ function App() {
         <EffectComposer>
           <Bloom mipmapBlur intensity={0.5} />
         </EffectComposer>
-   
       </Canvas>
       <UI />
     </div>

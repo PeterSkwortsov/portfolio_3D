@@ -84,7 +84,7 @@ const [patch, setPatch] = useState("#ffffff");
       <div>
         <div className="card text-black bg-amber-50">
           <div className="h-100">
-            <Canvas shadows>
+            <Canvas>
               <ambientLight intensity={0.5} />
               <directionalLight
                 position={[5, 5, 5]}
@@ -103,9 +103,13 @@ const [patch, setPatch] = useState("#ffffff");
                 }}
               />
 
-            
-
-              <OrbitControls autoRotate/>
+              <OrbitControls
+                autoRotate
+                minPolarAngle={Math.PI / 2} // 90 градусов
+                maxPolarAngle={Math.PI / 2} // 90 градусов
+                enableZoom={false}
+                enablePan={false}
+              />
             </Canvas>
           </div>
           <h6>Выбери цвет</h6>
@@ -239,7 +243,7 @@ const [patch, setPatch] = useState("#ffffff");
               Violet
             </button>
           </div>
-          <button className="py-4  px-8 bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-extrabold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center  mb-6 mt-4 text-xl max-w-3xl">
+          <button className="py-4 w-62 px-8 bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-extrabold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center m-auto mb-6 mt-4 text-xl">
             Купить Premium
           </button>
         </div>

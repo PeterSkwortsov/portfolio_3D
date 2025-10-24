@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import Development from "./Development";
@@ -8,8 +9,7 @@ import ChairPage from "./ChairPage";
 const data = [
   "Wow-эффекты",
   "Новые технологии",
-  "Демонстрация",
-  "Конфигуратор продукта",
+  "Демонстрация"
 ];
 
 const Section = styled.div`
@@ -114,15 +114,10 @@ const Works = () => {
           </List>
         </Left>
         <Right>
-          {work === "Wow-эффекты" ? (
-            <WebDesign />
-          ) : work === "Новые технологии" ? (
-            <Development />
-          ) : work === "Демонстрация" ? (
-            <ChairPage />
-          ) : (
-            <ProductDesign />
-          )}
+          
+          {work === "Wow-эффекты" ? ( <WebDesign />) : 
+          work === "Новые технологии" ? (<Development />) : 
+          work === "Демонстрация" ? (<ChairPage />) : null}
         </Right>
       </Container>
     </Section>

@@ -115,7 +115,7 @@ export default function AboutMe() {
             <div className="bg-base-200 rounded-2xl p-6">
               {activeTab === "about" && (
                 <div className="space-y-4">
-                  <p className="text-md leading-relaxed">
+                  <p className="text-md leading-relaxed font-sans">
                     Стремлюсь к простым решениям во всех сферах проектирования.
                     Мне интересно создавать элементы на сайте, с которыми
                     пользователю будет интересно взаимодействовать. Они должны
@@ -126,35 +126,7 @@ export default function AboutMe() {
                     <br></br>
                     Всё, что я делаю, — это творчество, а не программирование,
                     мне ближе такой подход.
-                    <br></br>
-                    <br></br>
-                    Мне нравится цитата ниже, она многое объясняет.
                   </p>
-
-                  <div className="max-w-2xl w-full">
-                    <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                      <div className="flex justify-start mb-6">
-                        <svg
-                          className="w-12 h-12 text-indigo-500 opacity-70"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
-                        </svg>
-                      </div>
-
-                      <blockquote className="playfair text-lg md:text-xl font-medium italic text-gray-800 leading-relaxed mb-6">
-                        «Прекрасно летают только красивые самолеты, созданные
-                        хорошими людьми».
-                      </blockquote>
-
-                      <div className="border-l-4 border-indigo-500 pl-4 py-1">
-                        <cite className="playfair text-md font-semibold text-gray-700 not-italic">
-                          Авиаконструктор Туполев Андрей Николаевич
-                        </cite>
-                      </div>
-                    </div>
-                  </div>
 
                   <div className="flex gap-4 mt-6">
                     <DownloadWordFile />

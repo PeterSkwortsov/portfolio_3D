@@ -8,37 +8,6 @@ import { useAtom } from "jotai";
 import React from "react";
 import { degToRad } from "three/src/math/MathUtils";
 
-const OverlayItem = ({
-  className = "",
-  title,
-  description,
-  price,
-  bgColor,
-  ...props
-}) => {
-  const [currentPage] = useAtom(currentPageAtom);
-  return (
-    <Html
-      transform
-      distanceFactor={1.2}
-      center
-      className={`w-48 rounded-md overflow-hidden ${
-        currentPage === "store" ? "" : "opacity-0"
-      } transition-opacity duration-1000 ${className}`}
-      {...props}
-    >
-      <div className="bg-white bg-opacity-50 backdrop-blur-lg text-xs p-2 w-full">
-        <h2 className="font-bold">{title}</h2>
-        <p>{description}</p>
-      </div>
-      <button
-        className={`${bgColor} hover:bg-opacity-50 transition-colors duration-500 px-4 py-2 font-bold text-white w-full text-xs`}
-      >
-        Add to cart ${price}
-      </button>
-    </Html>
-  );
-};
 
 export function Camping({ html, ...props }) {
   const { nodes, materials } = useGLTF("/models/Camping Asset Collection.glb");
@@ -198,19 +167,7 @@ export function Camping({ html, ...props }) {
             geometry={nodes.tent.geometry}
             material={materials.mat13}
           />
-          {html && (
-            <OverlayItem
-              rotation-y={degToRad(20)}
-              position-x={1.2}
-              position-z={1.2}
-              position-y={-0.1}
-              title={"Tent"}
-              description={"2 person tent, rest assured you'll be dry."}
-              price={"129.99"}
-              bgColor={"bg-yellow-500"}
-              className={"transition delay-1000"}
-            />
-          )}
+         
         </group>
         <mesh
           name="group612170013"
@@ -605,19 +562,7 @@ export function Camping({ html, ...props }) {
           material={materials.mat15}
         />
         <group name="backpack" position={[-0.514, -0.174, 0.45]}>
-          {html && (
-            <OverlayItem
-              position-x={-0.3}
-              position-y={0.44}
-              position-z={0.2}
-              rotation-y={degToRad(20)}
-              title={"Backpack"}
-              description={"Ideal for camping and storing your belongings."}
-              price={"49.99"}
-              bgColor={"bg-green-500"}
-              className={"transition delay-300"}
-            />
-          )}
+         
           <mesh
             name="mesh812894768"
             geometry={nodes.mesh812894768.geometry}
@@ -1139,18 +1084,7 @@ export function Camping({ html, ...props }) {
           material={materials.mat8}
         />
         <group name="lantern" position={[-0.854, -0.033, 1.613]}>
-          {html && (
-            <OverlayItem
-              position-x={-0.4}
-              position-y={-0.2}
-              position-z={0.25}
-              rotation-x={-degToRad(20)}
-              title={"Lantern"}
-              description={"Story time is always better with a lantern."}
-              price={"39.99"}
-              bgColor={"bg-orange-500"}
-            />
-          )}
+          
           <mesh
             name="mesh1769749722"
             geometry={nodes.mesh1769749722.geometry}
@@ -1345,19 +1279,7 @@ export function Camping({ html, ...props }) {
           material={materials.mat15}
         />
         <group name="sleeping-bag" position={[-0.071, -0.366, 1.09]}>
-          {html && (
-            <OverlayItem
-              position-x={0.1}
-              position-y={0.25}
-              position-z={-0.14}
-              rotation-x={-degToRad(30)}
-              title={"Sleeping Bag"}
-              description={"Keeps you warm and comfortable."}
-              price={"79.99"}
-              bgColor={"bg-blue-500"}
-              className="transition delay-700"
-            />
-          )}
+          
           <mesh
             name="mesh1386167440"
             geometry={nodes.mesh1386167440.geometry}

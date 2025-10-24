@@ -39,7 +39,7 @@ export const Experience = () => {
       <Text
         font={"fonts/Geologica_Cursive-ExtraBold.ttf"}
         position-x={0}
-        position-y={-0.5}
+        position-y={-1.5}
         position-z={0}
         lineHeight={1}
         fontSize={1.9}
@@ -60,9 +60,9 @@ export const Experience = () => {
         >
           <RenderTexture attach={"map"}>
             <color attach="background" args={["#fff"]} />
-            <Float floatIntensity={4} rotationIntensity={5}>
+            <Float floatIntensity={2} rotationIntensity={3}>
               <Camping
-                scale={1.6}
+                scale={5}
                 rotation-y={-degToRad(25)}
                 rotation-x={degToRad(40)}
                 position-y={-0.5}
@@ -71,14 +71,14 @@ export const Experience = () => {
           </RenderTexture>
         </meshBasicMaterial>
       </Text>
-      {/* <group rotation-y={degToRad(-25)} position-x={3}>
+       {/* <group rotation-y={degToRad(-25)} position-x={7}>
         <Camping scale={0.6} html />
         <mesh ref={meshFitCameraStore} visible={true}>
           <boxGeometry args={[2, 1, 2]} />
           <meshBasicMaterial color="red" transparent opacity={0.5} />
         </mesh>
-      </group> */}
-      {/* <mesh position-y={-0.48} rotation-x={-Math.PI / 2}>
+      </group> 
+       <mesh position-y={-0.48} rotation-x={-Math.PI / 2}>
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
           blur={[100, 100]}
@@ -94,7 +94,7 @@ export const Experience = () => {
           color="#333"
           metalness={0.5}
         />
-      </mesh> */}
+      </mesh>  */}
     
     </>
   );

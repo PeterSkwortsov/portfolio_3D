@@ -59,7 +59,7 @@ export default function Header() {
           }`}
         >
           <p className="text-xl md:text-2xl text-gray-300 font-light">
-            Frontend-developer с уклоном на 3D
+            Frontend-разработчик с уклоном на 3D
           </p>
         </div>
 
