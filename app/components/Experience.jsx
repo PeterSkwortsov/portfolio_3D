@@ -42,7 +42,7 @@ export const Experience = () => {
         position-y={-0.5}
         position-z={0}
         lineHeight={1}
-        fontSize={0.9}
+        fontSize={1.9}
         curveSegments={7}
         bevelEnabled={true}
         bevelThickness={0.05}
@@ -95,11 +95,7 @@ export const Experience = () => {
           metalness={0.5}
         />
       </mesh> */}
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        enableRotate={false}
-      />
+    
     </>
   );
 };

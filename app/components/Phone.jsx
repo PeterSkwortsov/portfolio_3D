@@ -10,9 +10,6 @@ import { Canvas } from '@react-three/fiber';
 const Phone = () => {
 
 
-
-
-
   return (
     <>
       <div className="mt-12 mb-14 flex justify-center alighn-center m-auto max-w-sm p-1.5">

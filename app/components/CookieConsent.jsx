@@ -13,7 +13,7 @@ export default function CookieConsent() {
       // Показываем баннер с задержкой
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 1000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, []);

@@ -84,32 +84,17 @@ const [patch, setPatch] = useState("#ffffff");
       <div>
         <div className="card text-black bg-amber-50">
           <div className="h-100">
-            <Canvas>
-              <fog attach="fog" args={["#87CEEB", 3, 15]} />
-
-              {/* Отдельные летающие облака */}
-              {/* <FlyingClouds count={30} radius={2} /> */}
-              <color attach="background" args={["#87CEEB"]} />
-
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.3, 0]}>
-                <planeGeometry args={[25, 25]} />
-                <MeshReflectorMaterial
-                  blur={[800, 800]}
-                  resolution={524}
-                  mixBlur={1}
-                  mixStrength={80}
-                  roughness={1}
-                  depthScale={1.2}
-                  minDepthThreshold={0.4}
-                  maxDepthThreshold={1.4}
-                  color="red"
-                  metalness={0.5}
-                />
-              </mesh>
-              {/* Фоновые звезды */}
-              {/* Центральная 3D модель */}
+            <Canvas shadows>
+              <ambientLight intensity={0.5} />
+              <directionalLight
+                position={[5, 5, 5]}
+                intensity={1.3}
+                castShadow
+                shadow-mapSize={[1024, 1024]}
+              />
 
               <Model
+                castShadow
                 customColors={{
                   mesh: mesh,
                   stripes: stripes,
@@ -117,8 +102,10 @@ const [patch, setPatch] = useState("#ffffff");
                   patch: patch,
                 }}
               />
-              <directionalLight position={[2, 10, 0]} intensity={3} />
-              
+
+            
+
+              <OrbitControls autoRotate/>
             </Canvas>
           </div>
           <h6>Выбери цвет</h6>
