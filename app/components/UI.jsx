@@ -43,9 +43,9 @@ useEffect(() => {
               setIsHovered(false);
               document.body.style.cursor = "default";
             }}
-            className="pointer-events-auto py-4 px-8 bg-orange-400 text-white font-black rounded-full hover:bg-orange-900 cursor-pointer transition-colors duration-3000"
+            className="pointer-events-auto py-4 px-8 bg-purple-700 text-white font-black rounded-full hover:bg-purple-500 cursor-pointer transition-colors duration-3000"
           >
-            ENTER
+            СТАРТ
           </button>
         )}
       </section>

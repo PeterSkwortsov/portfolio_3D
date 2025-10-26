@@ -62,7 +62,7 @@ export default function Family() {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 bg-yellow-100">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Хедер проекта */}
-          <Link href="/">
+          <Link href="/home-page">
             <button className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 inline-flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 mb-5">
               <svg
                 className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -84,8 +84,6 @@ export default function Family() {
             </button>
           </Link>
           <header className="text-center mb-12">
-           
-
             <h1
               className={`mt-6 mb-4 transition-all duration-1000 delay-500 ${
                 isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"

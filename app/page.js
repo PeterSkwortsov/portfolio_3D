@@ -34,12 +34,13 @@ export default function Home() {
                 dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
             />
 
-
+           
+                    <Start />
+               
         
             
 
        
-        <Start />
 
           
 

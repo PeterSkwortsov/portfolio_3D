@@ -14,7 +14,7 @@ import { degToRad, lerp } from "three/src/math/MathUtils";
 import { Camping } from "./Camping";
 import { OrbitControls } from "@react-three/drei";
 const bloomColor = new Color("#fff");
-bloomColor.multiplyScalar(1.5);
+bloomColor.multiplyScalar(2);
 
 export const Experience = () => {
   const controls = useRef();

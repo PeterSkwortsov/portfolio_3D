@@ -64,11 +64,14 @@ export default function Header() {
         </div>
 
         {/* CTA кнопка */}
-        
       </div>
 
       {/* Декоративные элементы */}
-      <div className="absolute bottom-25 left-1/2 transform -translate-x-1/2 animate-bounce ">
+      <div
+        className={`absolute bottom-25 left-1/2 transform -translate-x-1/2 animate-bounce  transition-all duration-1800 delay-1000 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="w-6 h-10 border-2 border-purple-400 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-purple-400 rounded-full mt-2 animate-pulse"></div>
         </div>
