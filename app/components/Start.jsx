@@ -1,11 +1,12 @@
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import { Experience } from "./Experience";
 import { UI } from "./UI";
 import { OrbitControls } from "@react-three/drei";
 import { useState, useEffect } from "react";
 import { useThree } from "@react-three/fiber";
+import { CameraControls } from "@react-three/drei";
 
 function CameraController() {
   const { camera } = useThree();
@@ -29,6 +30,7 @@ function CameraController() {
 }
 
 function App() {
+  
 
   return (
     <div
@@ -46,7 +48,7 @@ function App() {
           <Experience />
         </Suspense>
         <EffectComposer>
-          <Bloom mipmapBlur intensity={0.5} />
+          <Bloom mipmapBlur intensity={0.7} />
         </EffectComposer>
       </Canvas>
       <UI />

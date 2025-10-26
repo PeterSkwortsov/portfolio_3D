@@ -23,6 +23,15 @@ export const Experience = () => {
   const textMaterial = useRef();
 
 
+const intro = async () => {
+  controls.current.dolly(-9);
+  controls.current.smoothTime = 1.8;
+  controls.current.dolly(9, true);
+};
+
+useEffect(() => {
+  intro();
+}, []);
 
 
 
@@ -31,7 +40,7 @@ export const Experience = () => {
 
   return (
     <>
-      <CameraControls ref={controls} enabled={false} zoomEnabled={true} />
+      <CameraControls ref={controls} enabled={false} />
       <mesh ref={meshFitCameraHome} position-z={1.5} visible={false}>
         <boxGeometry args={[7.5, 2, 2]} />
         <meshBasicMaterial color="orange" transparent opacity={0.5} />
@@ -71,31 +80,31 @@ export const Experience = () => {
           </RenderTexture>
         </meshBasicMaterial>
       </Text>
-       {/* <group rotation-y={degToRad(-25)} position-x={7}>
+      {/* <group rotation-y={degToRad(-25)} position-x={7}>
         <Camping scale={0.6} html />
         <mesh ref={meshFitCameraStore} visible={true}>
           <boxGeometry args={[2, 1, 2]} />
           <meshBasicMaterial color="red" transparent opacity={0.5} />
         </mesh>
-      </group> 
-       <mesh position-y={-0.48} rotation-x={-Math.PI / 2}>
+      </group>  */}
+      <mesh position-y={-1.5} rotation-x={-Math.PI / 2}>
+      <ambientLight intensity={1} />
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
-          blur={[100, 100]}
-          resolution={2048}
+          blur={[50, 50]}
+          resolution={1024}
           mixBlur={1}
           mixStrength={10}
           roughness={1}
           depthScale={1}
-          opacity={0.5}
+          opacity={1}
           transparent
           minDepthThreshold={0.4}
           maxDepthThreshold={1.4}
           color="#333"
           metalness={0.5}
         />
-      </mesh>  */}
-    
+      </mesh>
     </>
   );
 };
