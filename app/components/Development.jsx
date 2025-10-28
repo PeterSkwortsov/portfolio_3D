@@ -34,21 +34,12 @@ export function InteractiveModel() {
 }
 
 
-  const handlePointClick = (point, event) => {
-    event.stopPropagation();
-    setActivePoint(point);
-    setShowText(true);
-  };
 
-  const handleCloseText = () => {
-    setShowText(false);
-    setActivePoint(null);
-  };
 
 
 const Desc = styled.div`
   width: 200px;
-  height: 100px;
+  height: 70px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
@@ -75,7 +66,7 @@ const Development = () => {
         </Suspense>
       </Canvas>
       <Desc>
-        Это модель атома. Нажмите на точки, чтобы узнать больше.
+        Это модель атома.
       </Desc>
     </>
   );

@@ -1,248 +1,206 @@
-// components/Atom.jsx
+// components/AdvancedAtomShader.js (исправленная версия)
 "use client";
 
-import { useRef, useState, useMemo } from "react";
+import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Html, Text } from "@react-three/drei";
 import * as THREE from "three";
-import { Line, Sphere } from "@react-three/drei";
 
+// Исправленный компонент орбитальных линий
+function OrbitalLines({ count = 3 }) {
+  const linesRef = useRef();
 
+  const orbits = useMemo(() => {
+    const orbitsArray = [];
 
+    for (let i = 0; i < count; i++) {
+      const radius = 1.5 + i * 0.8;
+      const segments = 64;
+      const points = [];
 
+      // Создаем точки для круговой орбиты
+      for (let j = 0; j <= segments; j++) {
+        const theta = (j / segments) * Math.PI * 2;
+        points.push(Math.cos(theta) * radius, Math.sin(theta) * radius, 0);
+      }
 
-const Shape = () => {
-  const points = useMemo(
-    () =>
-      new THREE.EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(
-        100
-      ),
-    []
-  );
-  return (
-    <group>
-      <Line worldUnits points={points} color="#cae6f1" lineWidth={0.3} />
-      <Line
-        worldUnits
-        points={points}
-        color="#cae6f1"
-        lineWidth={0.3}
-        rotation={[0, 0, 1]}
-      />
-      <Line
-        worldUnits
-        points={points}
-        color="#cae6f1"
-        lineWidth={0.3}
-        rotation={[0, 0, -1]}
-      />
-      <Sphere args={[0.55, 64, 64]}>
-        <meshBasicMaterial color={[6, 0.5, 2]} toneMapped={false} />
-      </Sphere>
-    </group>
-  );
-};
+      orbitsArray.push({
+        radius,
+        color: new THREE.Color(0.1, 0.4, 0.8 - i * 0.2),
+        points: new Float32Array(points),
+      });
+    }
 
+    return orbitsArray;
+  }, [count]);
 
-export default function Atom() {
-
-
- const meshRef = useRef();
- const materialRef = useRef();
-
- // Создаем кастомный шейдерный материал
- const iridescentMaterial = useMemo(() => {
-   const material = new THREE.ShaderMaterial({
-     uniforms: {
-       time: { value: 0 },
-       baseColor: { value: new THREE.Color(0.1, 0.1, 0.3) },
-       iridescenceColor: { value: new THREE.Color(1, 0.5, 0.2) },
-       frequency: { value: 3.0 },
-     },
-     vertexShader: `
-        varying vec2 vUv;
-        varying vec3 vNormal;
-        varying vec3 vViewDir;
-        
-        void main() {
-          vUv = uv;
-          vNormal = normalize(normalMatrix * normal);
-          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
-          vViewDir = normalize(cameraPosition - worldPosition.xyz);
-          
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-     fragmentShader: `
-        uniform float time;
-        uniform vec3 baseColor;
-        uniform vec3 iridescenceColor;
-        uniform float frequency;
-        
-        varying vec2 vUv;
-        varying vec3 vNormal;
-        varying vec3 vViewDir;
-        
-        void main() {
-          // Иридисцентный эффект на основе угла обзора
-          float fresnel = dot(vNormal, vViewDir);
-          fresnel = pow(1.0 - fresnel, 2.0);
-          
-          // Добавляем анимацию
-          float pulse = sin(time * 2.0) * 0.5 + 0.5;
-          
-          // Создаем радужный эффект
-          float hue = fresnel * frequency + time * 0.5;
-          vec3 rainbow = 0.5 + 0.5 * cos(6.28318 * (hue + vec3(0.0, 0.33, 0.67)));
-          
-          // Смешиваем цвета
-          vec3 finalColor = mix(baseColor, rainbow * iridescenceColor, fresnel + pulse * 0.3);
-          
-          gl_FragColor = vec4(finalColor, 1.0);
-        }
-      `,
-   });
-
-   return material;
- }, []);
-
- useFrame((state) => {
-   if (materialRef.current) {
-     materialRef.current.uniforms.time.value = state.clock.elapsedTime;
-   }
-
-   if (meshRef.current) {
-     meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-   }
- });
-
-
-  const groupRef = useRef();
-  const pointRef = useRef();
-  const [activePoint, setActivePoint] = useState(null);
-  const [showText, setShowText] = useState(false);
-
-  // Позиции точек на модели
-  const hotSpots = useMemo(
-    () => [
-      {
-        position: [3, -0.5, 0],
-        title: "Облочка",
-        description: "Мощность: 250 л.с.",
-        color: "#00ff88",
-      },
-      {
-        position: [-1.2, 0.8, 2],
-        title: "Кварки",
-        description: "Вместимость: 5 человек",
-        color: "#00ff88",
-      },
-      {
-        position: [-3, 1.5, -0.5],
-        title: "Ионы",
-        description: "Солнечная панель",
-        color: "#0088ff",
-      },
-    ],
-    []
-  );
-
-  // Анимация пульсации
-  useFrame((state, delta) => {
-    if (pointRef.current) {
-      // Пульсация размера
-      const scale = 3 + Math.sin(state.clock.elapsedTime * 5) * 0.2;
-      pointRef.current.scale.set(scale, scale, scale);
-
-      // Пульсация цвета
-      const intensity = 1 + Math.sin(state.clock.elapsedTime * 4) * 0.3;
-      pointRef.current.material.emissiveIntensity = intensity;
+  useFrame((state) => {
+    if (linesRef.current) {
+      linesRef.current.rotation.y = state.clock.elapsedTime * 0.1;
+      linesRef.current.rotation.x =
+        Math.sin(state.clock.elapsedTime * 0.05) * 0.2;
     }
   });
 
-  const handlePointClick = (point, event) => {
-    event.stopPropagation();
-    setActivePoint(point);
-    setShowText(true);
-  };
+  return (
+    <group ref={linesRef}>
+      {orbits.map((orbit, i) => (
+        <line key={i}>
+          <bufferGeometry>
+            <bufferAttribute
+              attach="attributes-position"
+              count={orbit.points.length / 3}
+              array={orbit.points}
+              itemSize={3}
+            />
+          </bufferGeometry>
+          <lineBasicMaterial color={orbit.color} transparent opacity={0.3} />
+        </line>
+      ))}
+    </group>
+  );
+}
 
-  const handleCloseText = () => {
-    setShowText(false);
-    setActivePoint(null);
-  };
+export default function AdvancedAtomShader() {
+  const groupRef = useRef();
+  const nucleusRef = useRef();
+
+  // Создаем ядро атома
+  const nucleusGeometry = useMemo(() => {
+    const geometry = new THREE.IcosahedronGeometry(0.5, 2);
+    const count = geometry.attributes.position.count;
+    const colors = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      colors[i * 3] = 1.0; // R
+      colors[i * 3 + 1] = 0.3; // G
+      colors[i * 3 + 2] = 0.1; // B
+    }
+
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    return geometry;
+  }, []);
+
+  // Материал ядра
+  const nucleusMaterial = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        glowIntensity: { value: 10 },
+      },
+      vertexShader: `
+        uniform float time;
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          vPosition = position;
+          
+          // Легкая пульсация
+          float pulse = sin(time * 2.0) * 0.05 + 1.0;
+          vec3 pulsedPosition = position * pulse;
+          
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(pulsedPosition, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float time;
+        uniform float glowIntensity;
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+
+        void main() {
+          // Яркое свечение из центра
+          float intensity = pow(0.5 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+          vec3 glow = vec3(1.0, 0.5, 0.2) * intensity * glowIntensity;
+          
+          // Пульсирующий эффект
+          float pulse = sin(time * 3.0) * 0.3 + 0.7;
+          
+          gl_FragColor = vec4(glow * pulse, 1.0);
+        }
+      `,
+      transparent: true,
+      side: THREE.DoubleSide,
+    });
+  }, []);
+
+  // Создаем электроны на орбитах
+  const electrons = useMemo(() => {
+    const electronCount = 8;
+    const electrons = [];
+
+    for (let i = 0; i < electronCount; i++) {
+      const radius = 2 + Math.random() * 1;
+      const speed = 0.5 + Math.random() * 1;
+      const angle = (i / electronCount) * Math.PI * 2;
+
+      electrons.push({
+        radius,
+        speed,
+        angle,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
+
+    return electrons;
+  }, []);
+
+  // Анимация
+  useFrame((state) => {
+    const time = state.clock.elapsedTime;
+
+    if (nucleusRef.current) {
+      nucleusRef.current.material.uniforms.time.value = time;
+      nucleusRef.current.rotation.y = time * 0.2;
+    }
+
+    if (groupRef.current) {
+      electrons.forEach((electron, index) => {
+        const electronMesh = groupRef.current.children[index];
+        if (electronMesh) {
+          const x =
+            Math.cos(time * electron.speed + electron.phase + electron.angle) *
+            electron.radius;
+          const y =
+            Math.sin(
+              time * electron.speed * 0.7 + electron.phase + electron.angle
+            ) * electron.radius;
+          const z =
+            Math.sin(time * electron.speed * 0.5 + electron.phase) *
+            electron.radius *
+            0.5;
+
+          electronMesh.position.set(x, y, z);
+        }
+      });
+    }
+  });
 
   return (
-    <group ref={groupRef}>
+    <group>
+      {/* Ядро атома */}
 
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[1.5, 64, 64]} />
-        <primitive object={iridescentMaterial} ref={materialRef} />
+      <mesh ref={nucleusRef} geometry={nucleusGeometry}>
+        <primitive object={nucleusMaterial} attach="material" />
       </mesh>
 
-      {/* Интерактивные точки */}
-      {hotSpots.map((point, index) => (
-        <mesh
-          key={index}
-          ref={index === 0 ? pointRef : null}
-          position={point.position}
-          onClick={(e) => handlePointClick(point, e)}
-          onPointerOver={() => (document.body.style.cursor = "pointer")}
-          onPointerOut={() => (document.body.style.cursor = "default")}
-        >
-          <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial
-            color="#ff0000"
-            emissive="#ff3333"
-            emissiveIntensity={0.5}
-            transparent
-            opacity={2}
-          />
-        </mesh>
-      ))}
+      {/* Электроны */}
+      <group ref={groupRef}>
+        {electrons.map((electron, index) => (
+          <mesh key={index}>
+            <sphereGeometry args={[0.1, 8, 8]} />
+            <meshBasicMaterial
+              color={new THREE.Color(0.2, 0.8, 1.0)}
+              transparent
+              opacity={0.8}
+            />
+          </mesh>
+        ))}
+      </group>
 
-      {/* Всплывающий текст */}
-      {activePoint && showText && (
-        <Html
-          position={[
-            activePoint.position[0],
-            activePoint.position[1] + 0.8,
-            activePoint.position[2],
-          ]}
-          distanceFactor={15}
-          style={{
-            background: "rgba(0,0,0,0.9)",
-            color: "white",
-            padding: "15px",
-            borderRadius: "10px",
-            border: "2px solid #ff0000",
-            minWidth: "200px",
-            backdropFilter: "blur(10px)",
-            pointerEvents: "auto",
-          }}
-        >
-          <div style={{ textAlign: "center" }}>
-            <h3 style={{ margin: "0 0 10px 0", color: "#ff6b6b" }}>
-              {activePoint.title}
-            </h3>
-            <p style={{ margin: "0 0 15px 0", fontSize: "14px" }}>
-              {activePoint.description}
-            </p>
-            <button
-              onClick={handleCloseText}
-              style={{
-                background: "#ff6b6b",
-                border: "none",
-                padding: "5px 15px",
-                borderRadius: "5px",
-                color: "white",
-                cursor: "pointer",
-              }}
-            >
-              Закрыть
-            </button>
-          </div>
-        </Html>
-      )}
+      {/* Орбитальные линии */}
+      <OrbitalLines count={3} />
     </group>
   );
 }

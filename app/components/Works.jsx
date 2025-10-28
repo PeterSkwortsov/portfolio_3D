@@ -1,3 +1,4 @@
+'use client'
 
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -5,11 +6,13 @@ import Development from "./Development";
 import ProductDesign from "./ProductDesign";
 import WebDesign from "./WebDesign";
 import ChairPage from "./ChairPage";
+import Cloud from "./Cloud";
 
 const data = [
   "Wow-эффекты",
   "Новые технологии",
-  "Демонстрация"
+  "Демонстрация",
+  "Облака",
 ];
 
 const Section = styled.div`
@@ -24,7 +27,7 @@ const Section = styled.div`
 `;
 
 const Container = styled.div`
-  width: 1400px;
+  width: 1300px;
   display: flex;
   justify-content: space-between;
 
@@ -58,7 +61,7 @@ const ListItem = styled.li`
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
-  -webkit-text-stroke: 1px white;
+  color: white;
   position: relative;
 
   @media only screen and (max-width: 768px) {
@@ -72,16 +75,16 @@ const ListItem = styled.li`
     position: absolute;
     top: 0;
     left: 0;
-    color: pink;
     width: 0px;
     overflow: hidden;
     white-space: nowrap;
+    color: pink;
   }
 
   &:hover {
     ::after {
       animation: moveText 0.5s linear both;
-
+      color: pink;
       @keyframes moveText {
         to {
           width: 100%;
@@ -100,7 +103,7 @@ const Right = styled.div`
 `;
 
 const Works = () => {
-  const [work, setWork] = useState("Web Design");
+  const [work, setWork] = useState("Wow-эффекты");
   return (
     <Section>
       <Container>
@@ -114,10 +117,14 @@ const Works = () => {
           </List>
         </Left>
         <Right>
-          
-          {work === "Wow-эффекты" ? ( <WebDesign />) : 
-          work === "Новые технологии" ? (<Development />) : 
-          work === "Демонстрация" ? (<ChairPage />) : null}
+          {work === "Wow-эффекты" ? (
+            <WebDesign />
+          ) : work === "Новые технологии" ? (
+            <Development />
+          ) : work === "Демонстрация" ? (
+            <ChairPage />
+          ) : work === "Облака" ? (
+            <Cloud />) : null}
         </Right>
       </Container>
     </Section>

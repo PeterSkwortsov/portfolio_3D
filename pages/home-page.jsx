@@ -106,15 +106,15 @@ export default function Family() {
           dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
         />
         <Suspense>
-          <Header />
+          {/* <Header />
           <AboutMe />
 
           <Grid />
           <Line />
-          <Phone />
+          <Phone /> */}
           <Works />
-          <ImageModal />
-          <Footer />
+          {/* <ImageModal />
+          <Footer /> */}
         </Suspense>
       </>
     );
