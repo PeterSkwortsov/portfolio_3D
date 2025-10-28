@@ -1,168 +1,179 @@
-// components/DebugScene.js
+// components/ModelWithGUI.js
 "use client";
+
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Html, Environment } from "@react-three/drei";
-import { Suspense } from "react";
-import GUI from "lil-gui";
-import CustomSheaderMaterial from "three-custom-shader-material/vanilla";
-import { useState, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
 
- 
-
-
-const particlesVertexShader = `
-  varying vec3 vPosition;
-
-void main() {
-vPosition = csm_Position.xyz;
-
-}
-`;
-
-const particlesFragmentShader = `
-varying vec3 vPosition;
-
-uniform float uSliceArc;
-uniform float uSliceStart;
-
-void main()
-{
-    
-
-    float angale = atan(vPosition.y, vPosition.x);
-    angale -= uSliceStart;
-    angale = mod(angale, PI2);
-
-    if(angale > 0.0 && angale < uSliceArc)
-    discard;
-
-    float csm_Slice;
- 
-}
-`;
-
-const uniforms = {
-  uSliceStart: new THREE.Uniform(1.75),
-  uSliceArc: new THREE.Uniform(1.25),
-};
-
-
-const patchMap = {
-  csm_Slice: {
-    "#include <colorspace_fragment>": `
-    #include <colorspace_fragment>
-
-    if(!gl_FrontFacing)
-    gl_FragColor = vec4(0.75, 0.5, 0.3, 1.0);
-    `,
-  },
-};
-
-
-const material = new THREE.MeshStandardMaterial({
-  metalness: 0.5,
-  roughness: 0.25,
-  envMapIntensity: 0.5,
-  color: "#858080",
-});
-
-const slicedMaterial = new CustomSheaderMaterial({
-  baseMaterial: THREE.MeshStandardMaterial,
-  vertexShader: particlesVertexShader,
-  fragmentShader: particlesFragmentShader,
-  uniforms: uniforms,
-  patchMap: patchMap,
-  metalness: 0.5,
-  roughness: 0.25,
-  envMapIntensity: 0.5,
-  color: "#858080",
-  side: THREE.DoubleSide,
-});
-
-const slicedDephMaterial = new CustomSheaderMaterial({
-  // материал для обновления тени
-  baseMaterial: THREE.MeshDepthMaterial,
-  vertexShader: particlesVertexShader,
-  fragmentShader: particlesFragmentShader,
-  uniforms: uniforms,
-  patchMap: patchMap,
-
-  depthPacking: THREE.RGBADepthPacking,
-});
-
-function Gears(props) {
-  const { nodes, materials } = useGLTF('/gears.glb')
-  return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.outerHull.geometry} material={nodes.outerHull.material} scale={3.714} />
-      <mesh geometry={nodes.axle.geometry} material={nodes.axle.material} />
-      <mesh geometry={nodes.gears.geometry} material={nodes.gears.material} position={[0, 1.595, -0.691]} rotation={[-Math.PI, 0, -Math.PI]} scale={[1, 1, 1.016]} />
-    </group>
-  )
-}
-
-useGLTF.preload('/gears.glb')
-
-
-export default function DebugScene() {
-
-function GUIScene() {
-  const [gui, setGui] = useState(null);
-
-  useEffect(() => {
-    // Динамический импорт только на клиенте
-    import("lil-gui").then(({ GUI }) => {
-      const guiInstance = new GUI({ width: 325 });
-      setGui(guiInstance);
-
-      // Очистка при размонтировании
-      return () => {
-        guiInstance.destroy();
-      };
-    });
-  }, []);
-}
-
-
-
+export default function ModelWithGUI() {
+  const [guiContainer, setGuiContainer] = useState(null);
 
   return (
-    <div style={{ width: "100vw", height: "100vh", background: "black" }}>
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-        {/* Освещение - ОБЯЗАТЕЛЬНО! */}
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        background: "#1a1a2e",
+        position: "relative",
+      }}
+    >
+      {/* Контейнер для GUI */}
+      <div
+        ref={setGuiContainer}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          zIndex: 1000,
+        }}
+      />
 
-        <Suspense fallback={<Loader />}>
-          <Gears />
-        </Suspense>
-
-        {/* Сетка для ориентации */}
-        <gridHelper args={[10, 10, "#fff", "#444"]} />
-
+      <Canvas camera={{ position: [3, 2, 5], fov: 50 }}>
+        <directionalLight position={[0, 0, 5]} intensity={2} />
+        <ModelScene guiContainer={guiContainer} />
         <OrbitControls />
-        <GUIScene />
       </Canvas>
     </div>
   );
 }
 
-function Loader() {
-  return (
-    <Html center>
-      <div style={{ color: "white", fontSize: "20px" }}>Загрузка модели...</div>
-    </Html>
-  );
-}
+function ModelScene({ guiContainer }) {
+  const modelRef = useRef();
+  const [params, setParams] = useState({
+    rotationSpeed: 0.5,
+    scale: 1,
+    positionX: 0,
+    positionY: 0,
+    positionZ: 0,
+    color: "#4ecdc4",
+    metalness: 0.5,
+    roughness: 0.5,
+    wireframe: false,
+    bounce: true,
+    bounceHeight: 0.5,
+    bounceSpeed: 1,
+  });
 
-function SimpleModel() {
-  // Простая модель куба для теста
+  // Загрузка модели из public папки
+  const { scene, error } = useGLTF("/gears.glb");
+
+  // Обработка ошибок загрузки
+  if (error) {
+    return (
+      <Html center>
+        <div
+          style={{
+            color: "white",
+            background: "rgba(255,0,0,0.8)",
+            padding: "20px",
+            borderRadius: "10px",
+          }}
+        >
+          Ошибка загрузки модели! Убедитесь что файл находится в
+          public/models/robot.gltf
+        </div>
+      </Html>
+    );
+  }
+
+  // Инициализация GUI
+  useEffect(() => {
+    if (!guiContainer) return;
+
+    let guiInstance = null;
+
+    import("lil-gui").then(({ GUI }) => {
+      guiInstance = new GUI({
+        width: 300,
+        title: "Robot Controls",
+      });
+
+      // Добавляем GUI в переданный контейнер
+      guiContainer.appendChild(guiInstance.domElement);
+
+      // Группа: Трансформации
+      const transformFolder = guiInstance.addFolder("Transform");
+      transformFolder
+        .add(params, "rotationSpeed", 0, 2, 0.1)
+        .name("Rotation Speed");
+      transformFolder.add(params, "scale", 0.1, 3, 0.1).name("Scale");
+      transformFolder.add(params, "positionX", -3, 3, 0.1).name("Position X");
+      transformFolder.add(params, "positionY", -3, 3, 0.1).name("Position Y");
+      transformFolder.add(params, "positionZ", -3, 3, 0.1).name("Position Z");
+      transformFolder.open();
+
+      // Группа: Материал
+      const materialFolder = guiInstance.addFolder("Material");
+      materialFolder.addColor(params, "color").name("Color");
+      materialFolder.add(params, "metalness", 0, 1, 0.1).name("Metalness");
+      materialFolder.add(params, "roughness", 0, 1, 0.1).name("Roughness");
+      materialFolder.add(params, "wireframe").name("Wireframe");
+      materialFolder.open();
+
+      // Группа: Анимация
+      const animationFolder = guiInstance.addFolder("Animation");
+      animationFolder.add(params, "bounce").name("Bounce");
+      animationFolder
+        .add(params, "bounceHeight", 0, 2, 0.1)
+        .name("Bounce Height");
+      animationFolder
+        .add(params, "bounceSpeed", 0.1, 3, 0.1)
+        .name("Bounce Speed");
+      animationFolder.open();
+
+      guiInstance.onChange(() => {
+        setParams({ ...params });
+      });
+    });
+
+    return () => {
+      if (guiInstance && guiContainer) {
+        guiContainer.removeChild(guiInstance.domElement);
+        guiInstance.destroy();
+      }
+    };
+  }, [guiContainer]);
+
+  useFrame((state) => {
+    if (modelRef.current) {
+      const time = state.clock.elapsedTime;
+
+      modelRef.current.rotation.y = time * params.rotationSpeed;
+      modelRef.current.position.x = params.positionX;
+      modelRef.current.position.z = params.positionZ;
+      modelRef.current.scale.setScalar(params.scale);
+
+      if (params.bounce) {
+        modelRef.current.position.y =
+          params.positionY +
+          Math.sin(time * params.bounceSpeed) * params.bounceHeight;
+      } else {
+        modelRef.current.position.y = params.positionY;
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (modelRef.current) {
+      modelRef.current.traverse((child) => {
+        if (child.isMesh) {
+          child.material.color = new THREE.Color(params.color);
+          child.material.metalness = params.metalness;
+          child.material.roughness = params.roughness;
+          child.material.wireframe = params.wireframe;
+        }
+      });
+    }
+  }, [params.color, params.metalness, params.roughness, params.wireframe]);
+
   return (
-    <mesh position={[0, 0, 0]}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="red" />
-    </mesh>
+    <>
+      <ambientLight intensity={0.6} />
+      <pointLight position={[5, 5, 5]} intensity={1} />
+      <pointLight position={[-5, 3, -5]} intensity={0.5} color="#4fc3f7" />
+
+      <primitive ref={modelRef} object={scene} scale={0.8} />
+    </>
   );
 }
