@@ -1,100 +1,110 @@
-'use client'
+// components/InteractiveCloudScene.js
+"use client";
 
-import * as THREE from "three";
-import { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import {
-  Clouds,
   Cloud,
-  CameraControls,
-  Sky as SkyImpl,
-  StatsGl,
+  OrbitControls,
+  Sparkles,
+  Text,
 } from "@react-three/drei";
+import { useState } from "react";
 
-export default function App() {
+export default function InteractiveCloudScene() {
+  const [cloudColor, setCloudColor] = useState("#ffffff");
+  const [cloudSpeed, setCloudSpeed] = useState(0.1);
+
   return (
-    <Canvas camera={{ position: [0, -10, 10], fov: 75 }}>
-      <StatsGl />
-      <Sky />
-      <ambientLight intensity={Math.PI / 1.5} />
-      <spotLight
-        position={[0, 40, 0]}
-        decay={0}
-        distance={45}
-        penumbra={1}
-        intensity={100}
-      />
-      <spotLight
-        position={[-20, 0, 10]}
-        color="red"
-        angle={0.15}
-        decay={0}
-        penumbra={-1}
-        intensity={30}
-      />
-      <spotLight
-        position={[20, -10, 10]}
-        color="red"
-        angle={0.2}
-        decay={0}
-        penumbra={-1}
-        intensity={20}
-      />
-      <CameraControls />
-    </Canvas>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        background: "linear-gradient(to bottom, #667eea, #764ba2)",
+      }}
+    >
+      {/* UI контролы */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          zIndex: 1000,
+          background: "rgba(255,255,255,0.9)",
+          padding: "20px",
+          borderRadius: "10px",
+        }}
+      >
+        <h3>Настройки облаков</h3>
+
+        <div style={{ marginBottom: "10px" }}>
+          <label>Цвет облаков: </label>
+          <input
+            type="color"
+            value={cloudColor}
+            onChange={(e) => setCloudColor(e.target.value)}
+          />
+        </div>
+
+        <div style={{ marginBottom: "10px" }}>
+          <label>Скорость: {cloudSpeed}</label>
+          <input
+            type="range"
+            min="0"
+            max="0.5"
+            step="0.01"
+            value={cloudSpeed}
+            onChange={(e) => setCloudSpeed(parseFloat(e.target.value))}
+          />
+        </div>
+      </div>
+
+      <Canvas camera={{ position: [0, 2, 10], fov: 60 }}>
+        <ambientLight intensity={1.5} />
+        <directionalLight position={[10, 10, 5]} intensity={1} />
+
+        <InteractiveClouds color={cloudColor} speed={cloudSpeed} />
+
+        <Sparkles count={100} size={2} color="#ffffff" />
+
+
+        <OrbitControls enableZoom={true} enablePan={true} autoRotate={false} />
+      </Canvas>
+    </div>
   );
 }
 
-function Sky() {
-  const ref = useRef();
-  const cloud0 = useRef();
-
-  useFrame((state, delta) => {
-    ref.current.rotation.y = Math.cos(state.clock.elapsedTime / 2) / 2;
-    ref.current.rotation.x = Math.sin(state.clock.elapsedTime / 2) / 2;
-    cloud0.current.rotation.y -= delta;
-  });
+function InteractiveClouds({ color, speed }) {
   return (
-    <>
-      <SkyImpl />
-      <group ref={ref}>
-        <Clouds material={THREE.MeshLambertMaterial} limit={400}>
-          <Cloud ref={cloud0} bounds={[2, 7, 9]} color={"red"} />
-          <Cloud
-            bounds={[1, 3, 4]}
-            color="#eed0d0"
-            seed={2}
-            position={[15, 0, 0]}
-          />
-          <Cloud
-            bounds={[3, 5, 14]}
-            color="#d0e0d0"
-            seed={3}
-            position={[-15, 0, 0]}
-          />
-          <Cloud
-            bounds={[5, 12, 3]}
-            color="#a0b0d0"
-            seed={4}
-            position={[0, 0, -12]}
-          />
-          <Cloud
-            bounds={[2, 10, 17]}
-            color="#c0c0dd"
-            seed={5}
-            position={[0, 0, 12]}
-          />
-          <Cloud
-            concentrate="outside"
-            growth={100}
-            color="#ffccdd"
-            opacity={1.25}
-            seed={0.3}
-            bounds={200}
-            volume={200}
-          />
-        </Clouds>
-      </group>
-    </>
+    <group>
+      <Cloud
+        position={[0, 2, 0]}
+        speed={speed}
+        opacity={0.8}
+        width={6}
+        depth={1.2}
+        segments={20}
+        color={color}
+      />
+
+      <Cloud
+        position={[-3, 3, -2]}
+        speed={speed * 1.5}
+        opacity={0.6}
+        width={4}
+        depth={0.8}
+        segments={15}
+        color={color}
+      />
+
+      <Cloud
+        position={[4, 1, 2]}
+        speed={speed * 0.8}
+        opacity={0.7}
+        width={5}
+        depth={1}
+        segments={18}
+        color={color}
+      />
+    </group>
   );
 }
