@@ -1,110 +1,168 @@
-// components/InteractiveCloudScene.js
+// components/DebugScene.js
 "use client";
-
+import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import {
-  Cloud,
-  OrbitControls,
-  Sparkles,
-  Text,
-} from "@react-three/drei";
-import { useState } from "react";
+import { OrbitControls, useGLTF, Html, Environment } from "@react-three/drei";
+import { Suspense } from "react";
+import GUI from "lil-gui";
+import CustomSheaderMaterial from "three-custom-shader-material/vanilla";
+import { useState, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
 
-export default function InteractiveCloudScene() {
-  const [cloudColor, setCloudColor] = useState("#ffffff");
-  const [cloudSpeed, setCloudSpeed] = useState(0.1);
+ 
+
+
+const particlesVertexShader = `
+  varying vec3 vPosition;
+
+void main() {
+vPosition = csm_Position.xyz;
+
+}
+`;
+
+const particlesFragmentShader = `
+varying vec3 vPosition;
+
+uniform float uSliceArc;
+uniform float uSliceStart;
+
+void main()
+{
+    
+
+    float angale = atan(vPosition.y, vPosition.x);
+    angale -= uSliceStart;
+    angale = mod(angale, PI2);
+
+    if(angale > 0.0 && angale < uSliceArc)
+    discard;
+
+    float csm_Slice;
+ 
+}
+`;
+
+const uniforms = {
+  uSliceStart: new THREE.Uniform(1.75),
+  uSliceArc: new THREE.Uniform(1.25),
+};
+
+
+const patchMap = {
+  csm_Slice: {
+    "#include <colorspace_fragment>": `
+    #include <colorspace_fragment>
+
+    if(!gl_FrontFacing)
+    gl_FragColor = vec4(0.75, 0.5, 0.3, 1.0);
+    `,
+  },
+};
+
+
+const material = new THREE.MeshStandardMaterial({
+  metalness: 0.5,
+  roughness: 0.25,
+  envMapIntensity: 0.5,
+  color: "#858080",
+});
+
+const slicedMaterial = new CustomSheaderMaterial({
+  baseMaterial: THREE.MeshStandardMaterial,
+  vertexShader: particlesVertexShader,
+  fragmentShader: particlesFragmentShader,
+  uniforms: uniforms,
+  patchMap: patchMap,
+  metalness: 0.5,
+  roughness: 0.25,
+  envMapIntensity: 0.5,
+  color: "#858080",
+  side: THREE.DoubleSide,
+});
+
+const slicedDephMaterial = new CustomSheaderMaterial({
+  // материал для обновления тени
+  baseMaterial: THREE.MeshDepthMaterial,
+  vertexShader: particlesVertexShader,
+  fragmentShader: particlesFragmentShader,
+  uniforms: uniforms,
+  patchMap: patchMap,
+
+  depthPacking: THREE.RGBADepthPacking,
+});
+
+function Gears(props) {
+  const { nodes, materials } = useGLTF('/gears.glb')
+  return (
+    <group {...props} dispose={null}>
+      <mesh geometry={nodes.outerHull.geometry} material={nodes.outerHull.material} scale={3.714} />
+      <mesh geometry={nodes.axle.geometry} material={nodes.axle.material} />
+      <mesh geometry={nodes.gears.geometry} material={nodes.gears.material} position={[0, 1.595, -0.691]} rotation={[-Math.PI, 0, -Math.PI]} scale={[1, 1, 1.016]} />
+    </group>
+  )
+}
+
+useGLTF.preload('/gears.glb')
+
+
+export default function DebugScene() {
+
+function GUIScene() {
+  const [gui, setGui] = useState(null);
+
+  useEffect(() => {
+    // Динамический импорт только на клиенте
+    import("lil-gui").then(({ GUI }) => {
+      const guiInstance = new GUI({ width: 325 });
+      setGui(guiInstance);
+
+      // Очистка при размонтировании
+      return () => {
+        guiInstance.destroy();
+      };
+    });
+  }, []);
+}
+
+
+
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        background: "linear-gradient(to bottom, #667eea, #764ba2)",
-      }}
-    >
-      {/* UI контролы */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px",
-          zIndex: 1000,
-          background: "rgba(255,255,255,0.9)",
-          padding: "20px",
-          borderRadius: "10px",
-        }}
-      >
-        <h3>Настройки облаков</h3>
-
-        <div style={{ marginBottom: "10px" }}>
-          <label>Цвет облаков: </label>
-          <input
-            type="color"
-            value={cloudColor}
-            onChange={(e) => setCloudColor(e.target.value)}
-          />
-        </div>
-
-        <div style={{ marginBottom: "10px" }}>
-          <label>Скорость: {cloudSpeed}</label>
-          <input
-            type="range"
-            min="0"
-            max="0.5"
-            step="0.01"
-            value={cloudSpeed}
-            onChange={(e) => setCloudSpeed(parseFloat(e.target.value))}
-          />
-        </div>
-      </div>
-
-      <Canvas camera={{ position: [0, 2, 10], fov: 60 }}>
+    <div style={{ width: "100vw", height: "100vh", background: "black" }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+        {/* Освещение - ОБЯЗАТЕЛЬНО! */}
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
 
-        <InteractiveClouds color={cloudColor} speed={cloudSpeed} />
+        <Suspense fallback={<Loader />}>
+          <Gears />
+        </Suspense>
 
-        <Sparkles count={100} size={2} color="#ffffff" />
+        {/* Сетка для ориентации */}
+        <gridHelper args={[10, 10, "#fff", "#444"]} />
 
-
-        <OrbitControls enableZoom={true} enablePan={true} autoRotate={false} />
+        <OrbitControls />
+        <GUIScene />
       </Canvas>
     </div>
   );
 }
 
-function InteractiveClouds({ color, speed }) {
+function Loader() {
   return (
-    <group>
-      <Cloud
-        position={[0, 2, 0]}
-        speed={speed}
-        opacity={0.8}
-        width={6}
-        depth={1.2}
-        segments={20}
-        color={color}
-      />
+    <Html center>
+      <div style={{ color: "white", fontSize: "20px" }}>Загрузка модели...</div>
+    </Html>
+  );
+}
 
-      <Cloud
-        position={[-3, 3, -2]}
-        speed={speed * 1.5}
-        opacity={0.6}
-        width={4}
-        depth={0.8}
-        segments={15}
-        color={color}
-      />
-
-      <Cloud
-        position={[4, 1, 2]}
-        speed={speed * 0.8}
-        opacity={0.7}
-        width={5}
-        depth={1}
-        segments={18}
-        color={color}
-      />
-    </group>
+function SimpleModel() {
+  // Простая модель куба для теста
+  return (
+    <mesh position={[0, 0, 0]}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="red" />
+    </mesh>
   );
 }

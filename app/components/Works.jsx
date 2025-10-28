@@ -9,6 +9,7 @@ import ChairPage from "./ChairPage";
 import Cloud from "./Cloud";
 import Rules from "./Rules";
 
+
 const data = [
   "Wow-эффекты",
   "Новые технологии",
@@ -29,7 +30,7 @@ const Section = styled.div`
 `;
 
 const Container = styled.div`
-  width: 1300px;
+  width: 1400px;
   display: flex;
   justify-content: space-between;
 
@@ -60,7 +61,7 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   cursor: pointer;
   color: white;

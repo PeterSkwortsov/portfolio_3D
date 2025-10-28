@@ -3,7 +3,6 @@
 import { OrbitControls } from "@react-three/drei";
 import {
   useGLTF,
-  Environment,
   Float,
   PresentationControls,
   ContactShadows,

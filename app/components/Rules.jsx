@@ -7,7 +7,7 @@ import * as THREE from "three";
 
 export default function Rules() {
   return (
-    <div style={{ width: "100vw", height: "100vh", background: "#1a1a2e" }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <Canvas
         camera={{
           position: [0, 0, 10],

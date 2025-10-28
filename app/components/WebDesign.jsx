@@ -14,6 +14,7 @@ import { MeshReflectorMaterial } from "@react-three/drei";
 import Chair from "./Chair";
 import Venus from "./Venus";
 import { PerspectiveCamera } from "@react-three/drei";
+import { Float } from "@react-three/drei";
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
@@ -81,7 +82,7 @@ function MovingLight() {
         distance={5}
         decay={2}
       />
-      <object3D ref={targetRef} position={[0, 0, 0]} />
+        <object3D ref={targetRef} position={[0, 0, 0]} />
     </>
   );
 }
@@ -97,8 +98,15 @@ export default function WebDesign() {
           onCreated={() => setModelLoaded(true)}
         >
           {modelLoaded && <MovingLight />}
-
-          <OrbitControls enableZoom={false} />
+          <OrbitControls
+            enableZoom={false}
+            enablePan={true}
+            minAzimuthAngle={-Math.PI / 6} // -30 градусов
+            maxAzimuthAngle={Math.PI / 6} // +30 градусов
+            minPolarAngle={Math.PI / 3} // 60 градусов минимальный наклон
+            maxPolarAngle={Math.PI / 2} // 120 градусов максимальный наклон
+            
+          />
 
           <Venus position={[0, -2, 0]} />
         </Canvas>
