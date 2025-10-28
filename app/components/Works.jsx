@@ -7,12 +7,14 @@ import ProductDesign from "./ProductDesign";
 import WebDesign from "./WebDesign";
 import ChairPage from "./ChairPage";
 import Cloud from "./Cloud";
+import Rules from "./Rules";
 
 const data = [
   "Wow-эффекты",
   "Новые технологии",
   "Демонстрация",
   "Облака",
+  "Управление камерой",
 ];
 
 const Section = styled.div`
@@ -124,7 +126,10 @@ const Works = () => {
           ) : work === "Демонстрация" ? (
             <ChairPage />
           ) : work === "Облака" ? (
-            <Cloud />) : null}
+            <Cloud />
+          ) : work === "Управление камерой" ? (
+            <Rules />
+          ) : null}
         </Right>
       </Container>
     </Section>
@@ -132,3 +137,5 @@ const Works = () => {
 };
 
 export default Works;
+
+
