@@ -12,7 +12,6 @@ import {
 import * as THREE from "three";
 import { useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import FlyingClouds from "./FlyingClouds";
 
 
 
@@ -83,7 +82,7 @@ const [patch, setPatch] = useState("#ffffff");
     <div>
       <div>
         <div className="card text-black bg-amber-50">
-          <div className="h-100">
+          <div className="h-90">
             <Canvas>
               <ambientLight intensity={0.5} />
               <directionalLight
@@ -102,7 +101,6 @@ const [patch, setPatch] = useState("#ffffff");
                   patch: patch,
                 }}
               />
-
               <OrbitControls
                 autoRotate
                 minPolarAngle={Math.PI / 2} // 90 градусов
@@ -112,7 +110,9 @@ const [patch, setPatch] = useState("#ffffff");
               />
             </Canvas>
           </div>
-          <h6>Выбери цвет</h6>
+          <h6 className="font-bold flex margin-auto py-1 justify-center">
+            Выбери цвет
+          </h6>
           <div className=" text-black grid grid-cols-3 gap-1 p-2">
             <button
               className=" text-white bg-green-700 focus:ring-3  font-medium rounded-lg text-sm  py-2.5 me-2 mb-2 "
@@ -123,7 +123,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setMesh("PaleGreen");
               }}
             >
-              PaleGreen
+              I
             </button>
             <button
               className="focus:outline-none text-white border-black bg-red-700  focus:ring-3 font-medium rounded-lg text-sm  py-2.5 me-2 mb-2 "
@@ -134,7 +134,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setMesh("IndianRed");
               }}
             >
-              IndianRed
+              I I
             </button>
             <button
               className="focus:outline-none text-black  focus:ring-3 font-medium rounded-lg text-sm  py-2.5 me-2 mb-2 bg-[#7FFFD4] "
@@ -145,9 +145,10 @@ const [patch, setPatch] = useState("#ffffff");
                 setMesh("Aquamarine");
               }}
             >
-              IndianRed
+              III
             </button>
-
+          </div>
+          <div className=" text-black grid grid-cols-3 gap-1 p-2">
             <button
               className="focus:outline-none focus:ring-3 text-black bg-[#FFE4B5] font-medium rounded-lg text-sm "
               type="button"
@@ -157,7 +158,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setStripes("Moccasin");
               }}
             >
-              Moccasin
+              1
             </button>
 
             <button
@@ -169,7 +170,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setStripes("GreenYellow");
               }}
             >
-              GreenYellow
+              2
             </button>
 
             <button
@@ -181,7 +182,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setStripes("DeepSkyBlue");
               }}
             >
-              DeepSkyBlue
+              3
             </button>
 
             <button
@@ -191,7 +192,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setPatch("MediumBlue");
               }}
             >
-              MediumBlue
+              1
             </button>
             <button
               className="focus:outline-none focus:ring-3 text-black bg-[#F5FFFA] font-medium rounded-lg text-sm "
@@ -200,7 +201,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setPatch("MintCream");
               }}
             >
-              MintCream
+              2
             </button>
             <button
               className="focus:outline-none focus:ring-3 text-black bg-[#FFA500] font-medium rounded-lg text-sm "
@@ -209,7 +210,7 @@ const [patch, setPatch] = useState("#ffffff");
                 setPatch("Orange");
               }}
             >
-              Orange
+              3
             </button>
 
             <button
@@ -218,9 +219,7 @@ const [patch, setPatch] = useState("#ffffff");
               onClick={() => {
                 setSoul("White");
               }}
-            >
-              White
-            </button>
+            >1</button>
 
             <button
               className="focus:outline-none focus:ring-3 text-black bg-[#808080] font-medium rounded-lg text-sm "
@@ -228,9 +227,7 @@ const [patch, setPatch] = useState("#ffffff");
               onClick={() => {
                 setSoul("Gray");
               }}
-            >
-              Gray
-            </button>
+            >2</button>
 
             <button
               className="focus:outline-none focus:ring-3 text-black bg-[#DA70D6] font-medium rounded-lg text-sm "
@@ -239,9 +236,7 @@ const [patch, setPatch] = useState("#ffffff");
               name="soul"
               value={soul}
               onClick={(e) => setSoul("Violet")}
-            >
-              Violet
-            </button>
+            >3</button>
           </div>
           <button className="py-4 w-62 px-8 bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-extrabold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center m-auto mb-6 mt-4 text-xl">
             Купить Premium

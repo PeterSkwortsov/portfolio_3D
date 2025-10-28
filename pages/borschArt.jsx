@@ -4,7 +4,7 @@ import Link from "next/link";
 import global from '../app/globals.css'
 import { useEffect, useState } from "react";
 
-export default function Gallery() {
+export default function Ships() {
 
  const [isVisible, setIsVisible] = useState(false);
 
@@ -12,31 +12,29 @@ export default function Gallery() {
     setIsVisible(true);
   }, []);
 
-{
+
   // Данные проекта (в реальном приложении можно брать из API)
   const projectData = {
-    title: "Каталог картин",
-    description: "Сайт художников ЛЕОНИДА КОЛОСОВА и ТАТЬЯНЫ СКВОРЦОВОЙ",
-    imageUrl: "/gallery.png",
-    githubUrl: "https://github.com/PeterSkwortsov/Letan-gallery",
-    overview: "Большое количество работ. Добавление в избранное, сохранение в LocalStorage. Свой дизайн. Не является интернет-магазином.",
+    title: "Творческая студия Вики Борщ",
+    description: "Мастерская живописи и гончарного мастерства",
+    imageUrl: "/studia.png",
+    githubUrl: "https://github.com/username/ecommerce-platform",
+    overview:
+      "Мой первый сайт, который я создал сам через три месяца после того, как стал заниматься веб-разработкой. Полностью адаптирован под мобильные устройства.",
     goals: [
-      "Создать интуитивно понятный сайт",
-      "Сохранить изображения картин на память",
-      "Провести SEO оптимизацию",
+      "C полного нуля, без дизайна, без контента, без концепции. Мне сказали: сделай мне простой лендинг, чтобы было понятно, что он про детей.",
     ],
-    technologies: [
-      "React"
-    ],
+
+    technologies: ["Bootstrap", "AOS", "FancyBox", "jQuery"],
     results: [
-      "Увеличение конверсии на 35%",
-      "95+ баллов в Google PageSpeed",
-      "Снижение времени загрузки на 60%",
-      "10,000+ пользователей за первый месяц",
+      "Соответствие страницы основным рекомендациям поисковой оптимизации - 90/100 баллов",
+      "Total Blocking Time - 0 мс",
+      "Cumulative Layout Shift - 0,067",
+      "First Contentful Paint - 1.3 мс",
     ],
-    liveDemoUrl: "https://letan-art.com/",
-    status: "Завершен за",
-    duration: "2.5 месяца",
+    liveDemoUrl: "http://legozann.ru/",
+    status: "Завершен",
+    duration: "2 месяца",
   };
 
   const {
@@ -62,10 +60,10 @@ export default function Gallery() {
       </Head>
 
       {/* Основной контент */}
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 bg-blue-500">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 bg-orange-600">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Хедер проекта */}
-          <Link href="/home-page/#1">
+          <Link href="/home-page/#4">
             <button className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 inline-flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 mb-5">
               <svg
                 className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -89,7 +87,7 @@ export default function Gallery() {
           <header className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              {status} • {duration}
+              {status} за {duration}
             </div>
 
             <h1
@@ -98,7 +96,7 @@ export default function Gallery() {
               }`}
             >
               <span className="text-5xl md:text-5xl lg:text-7xl font-black">
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient bg-300%">
+                <span className="bg-gradient-to-r via-orange-800   to-red-500 from-purple-400 bg-clip-text text-transparent animate-gradient bg-300%">
                   {title}
                 </span>
               </span>
@@ -110,7 +108,10 @@ export default function Gallery() {
           </header>
 
           {/* Карточка проекта */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/60 overflow-hidden">
+          <div
+            className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border
+           border-white/60 overflow-hidden"
+          >
             {/* Hero изображение */}
             <div className="relative h-80 md:h-96 w-full">
               <Image
@@ -226,7 +227,7 @@ export default function Gallery() {
                   </section>
 
                   {/* Результаты */}
-                  {/* <section>
+                  <section>
                     <div className="flex items-center gap-3 mb-6">
                       <div className="w-2 h-8 bg-orange-600 rounded-full"></div>
                       <h2 className="text-2xl font-bold text-gray-900">
@@ -243,7 +244,7 @@ export default function Gallery() {
                         </div>
                       ))}
                     </div>
-                  </section> */}
+                  </section>
                 </div>
               </div>
 
@@ -272,9 +273,10 @@ export default function Gallery() {
               </div> */}
             </div>
           </div>
+
+          {/* Футер */}
         </div>
       </div>
     </>
   );
-}
 }

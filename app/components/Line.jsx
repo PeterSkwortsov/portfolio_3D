@@ -13,8 +13,8 @@ export default function TimelineComponent() {
     },
     {
       date: "2020",
-      title: "Переговорщик",
-      description: "«Риторика для эффективного общения»",
+      title: "«Риторика для эффективного общения»",
+      description: "Переговорщик",
       firma: "ННГУ им. Н. И. Лобачевского",
     },
   ];
@@ -95,25 +95,15 @@ export default function TimelineComponent() {
         <div className="md:hidden">
           <div className="relative">
             {/* Вертикальная линия */}
-            <div className="absolute left-6 top-0 w-0.5 bg-white opacity-200 h-full rounded-full"></div>
 
             <div className="space-y-8">
               {timelineData.map((item, index) => (
                 <div key={index} className="relative flex">
                   {/* Точка на линии */}
-                  <div className="absolute left-6 transform -translate-x-1/2 z-10">
-                    <div
-                      className={`w-8 h-6 rounded-full border-4 border-white flex items-center justify-center transition-all duration-300 ${
-                        activeDate === index
-                          ? "bg-blue-600 transform scale-110 shadow-lg"
-                          : "bg-blue-400 shadow-md"
-                      }`}
-                      onClick={() => setActiveDate(index)}
-                    ></div>
-                  </div>
+              
 
                   {/* Контент */}
-                  <div className="ml-20 flex-1">
+                  <div className="px-5 flex-1">
                     <div
                       className={`bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 ${
                         activeDate === index ? "ring-5 ring-blue-500" : ""

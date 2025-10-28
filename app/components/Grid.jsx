@@ -17,7 +17,9 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Каталог картин художников</h2>
+            <h2 className="card-title" id="1">
+              Каталог картин художников
+            </h2>
             <p>На React. Адаптивная верстка. Свой дизайн.</p>
             <div className="card-actions justify-end items-end z-20 ">
               <div className="card-actions justify-end items-center z-20">
@@ -39,7 +41,7 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">
+            <h2 className="card-title" id="2">
               Сеть детских аттракционов в Нижнем Новгороде
             </h2>
             <p>
@@ -68,7 +70,9 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Сайт проекта «История семьи»</h2>
+            <h2 className="card-title" id="3">
+              Сайт проекта «История семьи»
+            </h2>
             <p>Адаптив. Кастомный прелоадер. Дизайн, анимация и графика.</p>
             <div className="card-actions justify-between items-start z-20 ">
               <div className="card-actions justify-end items-center z-20">
@@ -84,7 +88,7 @@ const Grid = () => {
         <div className="card bg-base-200 image-full w-auto shadow-sm">
           <figure>
             <Image
-              src="/borsh.png"
+              src="/studia.png"
               width={200}
               height={200}
               alt="Picture of the author"
@@ -92,13 +96,17 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Творческая студия «Вики Борщ»</h2>
+            <h2 className="card-title" id="4">
+              Творческая студия «Вики Борщ»
+            </h2>
             <p>Next.js, адаптив, многостраничный, дизайн.</p>
             <div className="card-actions justify-between items-start z-20 ">
               <div className="card-actions justify-end items-center z-20">
-                <button className="btn btn-neutral bg-white text-black rounded-xl">
-                  Подробнее
-                </button>
+                <Link href={"./borschArt"}>
+                  <button className="btn btn-neutral bg-white text-black rounded-xl">
+                    Подробнее
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -114,7 +122,9 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Лендинг часов</h2>
+            <h2 className="card-title" id="4">
+              Лендинг часов
+            </h2>
             <p>Three.js, GSAP</p>
             <div className="card-actions justify-between items-start z-20 ">
               <div className="card-actions justify-end items-center z-20">
@@ -136,7 +146,9 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Игра в мяч</h2>
+            <h2 className="card-title" id="5">
+              Игра в мяч
+            </h2>
             <p>R3F, Drei</p>
             <div className="card-actions justify-between items-start z-20 ">
               <div className="card-actions justify-end items-center z-20">
@@ -158,7 +170,9 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Лендинг с анимацией</h2>
+            <h2 className="card-title" id="6">
+              Лендинг с анимацией
+            </h2>
             <p>GSAP</p>
             <div className="card-actions justify-between items-start z-20 ">
               <div className="card-actions justify-end items-center z-20">
@@ -180,7 +194,9 @@ const Grid = () => {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">Интерактивное бронирование билетов</h2>
+            <h2 className="card-title" id="7">
+              Интерактивное бронирование билетов
+            </h2>
             <p>GSAP</p>
             <div className="card-actions justify-between items-start z-20 ">
               <div className="card-actions justify-end items-center z-20">
