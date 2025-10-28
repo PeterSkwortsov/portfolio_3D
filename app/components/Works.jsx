@@ -44,12 +44,14 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-   align-content: center; 
+  align-content: center;
   align-items: center;
+  margin-right: 5rem;
 
   @media only screen and (max-width: 768px) {
     padding: 20px;
     justify-content: center;
+    margin-right: 0rem;
   }
 `;
 

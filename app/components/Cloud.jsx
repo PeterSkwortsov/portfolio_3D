@@ -5,6 +5,87 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
+import CustomSheaderMaterial from "three-custom-shader-material/vanilla";
+
+
+const particlesVertexShader = `
+  varying vec3 vPosition;
+
+void main() {
+vPosition = csm_Position.xyz;
+
+}
+`;
+
+const particlesFragmentShader = `
+varying vec3 vPosition;
+
+uniform float uSliceArc;
+uniform float uSliceStart;
+
+void main()
+{
+    
+
+    float angale = atan(vPosition.y, vPosition.x);
+    angale -= uSliceStart;
+    angale = mod(angale, PI2);
+
+    if(angale > 0.0 && angale < uSliceArc)
+    discard;
+
+    float csm_Slice;
+ 
+}
+`;
+
+const uniforms = {
+  uSliceStart: new THREE.Uniform(1.75),
+  uSliceArc: new THREE.Uniform(1.25),
+};
+
+const patchMap = {
+  csm_Slice: {
+    "#include <colorspace_fragment>": `
+    #include <colorspace_fragment>
+
+    if(!gl_FrontFacing)
+    gl_FragColor = vec4(0.75, 0.5, 0.3, 1.0);
+    `,
+  },
+};
+
+const material = new THREE.MeshStandardMaterial({
+  metalness: 0.5,
+  roughness: 0.25,
+  envMapIntensity: 0.5,
+  color: "#858080",
+});
+
+const slicedMaterial = new CustomSheaderMaterial({
+  baseMaterial: THREE.MeshStandardMaterial,
+  vertexShader: particlesVertexShader,
+  fragmentShader: particlesFragmentShader,
+  uniforms: uniforms,
+  patchMap: patchMap,
+  metalness: 0.5,
+  roughness: 0.25,
+  envMapIntensity: 0.5,
+  color: "#858080",
+  side: THREE.DoubleSide,
+});
+
+const slicedDephMaterial = new CustomSheaderMaterial({
+  // материал для обновления тени
+  baseMaterial: THREE.MeshDepthMaterial,
+  vertexShader: particlesVertexShader,
+  fragmentShader: particlesFragmentShader,
+  uniforms: uniforms,
+  patchMap: patchMap,
+
+  depthPacking: THREE.RGBADepthPacking,
+});
+
 
 export default function ModelWithGUI() {
   const [guiContainer, setGuiContainer] = useState(null);
@@ -12,8 +93,8 @@ export default function ModelWithGUI() {
   return (
     <div
       style={{
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
         background: "#1a1a2e",
         position: "relative",
       }}
@@ -70,8 +151,7 @@ function ModelScene({ guiContainer }) {
             borderRadius: "10px",
           }}
         >
-          Ошибка загрузки модели! Убедитесь что файл находится в
-          public/models/robot.gltf
+          Ошибка загрузки модели! 
         </div>
       </Html>
     );
@@ -97,11 +177,18 @@ function ModelScene({ guiContainer }) {
       transformFolder
         .add(params, "rotationSpeed", 0, 2, 0.1)
         .name("Rotation Speed");
-      transformFolder.add(params, "scale", 0.1, 3, 0.1).name("Scale");
-      transformFolder.add(params, "positionX", -3, 3, 0.1).name("Position X");
-      transformFolder.add(params, "positionY", -3, 3, 0.1).name("Position Y");
-      transformFolder.add(params, "positionZ", -3, 3, 0.1).name("Position Z");
-      transformFolder.open();
+      // transformFolder.add(params, "scale", 0.1, 3, 0.1).name("Scale");
+      // transformFolder.add(params, "positionX", -3, 3, 0.1).name("Position X");
+      // transformFolder.add(params, "positionY", -3, 3, 0.1).name("Position Y");
+      // transformFolder.add(params, "positionZ", -3, 3, 0.1).name("Position Z");
+      // transformFolder.open();
+
+      transformFolder
+        .add(uniforms.uSliceStart, "value", -Math.PI, Math.PI, 0.001)
+        .name("uSliceStart");
+      transformFolder
+        .add(uniforms.uSliceArc, "value", 0, Math.PI * 2, 0.001)
+        .name("uSliceArc");
 
       // Группа: Материал
       const materialFolder = guiInstance.addFolder("Material");
@@ -162,6 +249,7 @@ function ModelScene({ guiContainer }) {
           child.material.metalness = params.metalness;
           child.material.roughness = params.roughness;
           child.material.wireframe = params.wireframe;
+          child.material.needsUpdate = true;
         }
       });
     }
