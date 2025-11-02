@@ -40,11 +40,13 @@ useEffect(() => {
 
   return (
     <>
-      <CameraControls ref={controls} enabled={false} />
-      <mesh ref={meshFitCameraHome} position-z={1.5} visible={false}>
-        <boxGeometry args={[7.5, 2, 2]} />
-        <meshBasicMaterial color="orange" transparent opacity={0.5} />
-      </mesh>
+      <CameraControls
+        ref={controls}
+        enabled={false}
+        maxPolarAngle={Math.PI * 0.8}
+        fov={120} // Не даем смотреть снизу
+      />
+
       <Text
         font={"fonts/Geologica_Cursive-ExtraBold.ttf"}
         position-x={0}
@@ -70,19 +72,16 @@ useEffect(() => {
           <RenderTexture attach={"map"}>
             <color attach="background" args={["#fff"]} />
             <Float floatIntensity={2} rotationIntensity={3}>
-              
               <Camping
-                scale={2.5}
                 rotation-y={-degToRad(25)}
                 rotation-x={degToRad(40)}
-                position-y={-0.5}
+                position-y={-1}
               />
-              <OrbitControls />
             </Float>
           </RenderTexture>
         </meshBasicMaterial>
       </Text>
-      
+
       <mesh position-y={-1.5} rotation-x={-Math.PI / 2}>
         <ambientLight intensity={1} />
         <planeGeometry args={[100, 100]} />

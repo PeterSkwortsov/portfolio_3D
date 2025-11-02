@@ -14,7 +14,7 @@ import { useHelper } from "@react-three/drei";
 import * as THREE from "three";
 
 
-export function Camping({ html, ...props }) {
+export function Camping({ ...props }) {
  const { scene } = useGLTF('/gaz.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)  
@@ -22,7 +22,7 @@ export function Camping({ html, ...props }) {
   // useHelper(lightRef, THREE.DirectionalLightHelper, 1, "hotpink");
 
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} scale={[2, 3, 2]}>
       {/* <ambientLight intensity={4} /> */}
       <primitive object={nodes.GLTF_created_0_rootJoint} />
       <directionalLight
