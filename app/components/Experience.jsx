@@ -61,7 +61,7 @@ useEffect(() => {
         rotation-y={degToRad(0)}
         anchorY={"bottom"}
       >
-        Смотреть{"\n"}портфолио
+        Cмотреть{"\n"}портфолио
         <meshBasicMaterial
           color={bloomColor}
           toneMapped={false}
@@ -70,25 +70,21 @@ useEffect(() => {
           <RenderTexture attach={"map"}>
             <color attach="background" args={["#fff"]} />
             <Float floatIntensity={2} rotationIntensity={3}>
+              
               <Camping
-                scale={5}
+                scale={2.5}
                 rotation-y={-degToRad(25)}
                 rotation-x={degToRad(40)}
                 position-y={-0.5}
               />
+              <OrbitControls />
             </Float>
           </RenderTexture>
         </meshBasicMaterial>
       </Text>
-      {/* <group rotation-y={degToRad(-25)} position-x={7}>
-        <Camping scale={0.6} html />
-        <mesh ref={meshFitCameraStore} visible={true}>
-          <boxGeometry args={[2, 1, 2]} />
-          <meshBasicMaterial color="red" transparent opacity={0.5} />
-        </mesh>
-      </group>  */}
+      
       <mesh position-y={-1.5} rotation-x={-Math.PI / 2}>
-      <ambientLight intensity={1} />
+        <ambientLight intensity={1} />
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
           blur={[50, 50]}
