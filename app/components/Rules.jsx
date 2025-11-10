@@ -1,21 +1,53 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { Html } from "@react-three/drei";
+import { Html, OrbitControls } from "@react-three/drei";
 import { useRef, useState } from "react";
 import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import Kitchen2 from "./Kitchen2";
+import { Center } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
+function ComplexLightMovement() {
+  const groupRef = useRef();
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      // Вращение всей группы
+      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.5;
+
+      // Пульсация света
+      const intensity = 0.8 + Math.sin(state.clock.getElapsedTime() * 2) * 0.2;
+      groupRef.current.children[0].intensity = intensity;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <directionalLight
+        position={[0, 0, 5]} // Относительно группы
+        intensity={4}
+        castShadow
+        color={"red"}
+      />
+    </group>
+  );
+}
 export default function Rules() {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Canvas
         camera={{
-          position: [0, 0, 10],
-          fov: 50,
+          position: [0, 0, 5],
+          fov: 120,
         }}
       >
         <CameraButtons />
-        <SceneObjects />
+        <ComplexLightMovement />
+        <Center>
+          <Kitchen2 />
+        </Center>
+
       </Canvas>
     </div>
   );
@@ -90,7 +122,7 @@ function CameraButtons() {
     },
     top: () => {
       setActiveView("top");
-      moveCamera([0, 8, 0]);
+      moveCamera([10, 8, -6]);
     },
     bottom: () => {
       setActiveView("bottom");
@@ -106,88 +138,87 @@ function CameraButtons() {
     },
     far: () => {
       setActiveView("far");
-      moveCamera([0, 0, 15]);
+      moveCamera([55, 5, 65]);
     },
   };
 
   return (
     <Html fullscreen>
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <h3 style={{ color: "white", margin: "0 0 10px 0" }}>
-          Управление камерой
-        </h3>
-
-        <button
-          onClick={cameraPresets.front}
-          style={getButtonStyle(activeView === "front")}
+      <div style={{ height: "50vh", overflow: "auto" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: "80px",
+            left: "20px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}
         >
-          🎥 Спереди
-        </button>
+          {/* Основной контент */}
+          <button
+            onClick={cameraPresets.front}
+            style={getButtonStyle(activeView === "front")}
+          >
+            🎥 Спереди
+          </button>
 
-        <button
-          onClick={cameraPresets.back}
-          style={getButtonStyle(activeView === "back")}
-        >
-          📹 Сзади
-        </button>
+          <button
+            onClick={cameraPresets.back}
+            style={getButtonStyle(activeView === "back")}
+          >
+            📹 Сзади
+          </button>
 
-        <button
-          onClick={cameraPresets.left}
-          style={getButtonStyle(activeView === "left")}
-        >
-          ◀️ Слева
-        </button>
+          <button
+            onClick={cameraPresets.left}
+            style={getButtonStyle(activeView === "left")}
+          >
+            ◀️ Слева
+          </button>
 
-        <button
-          onClick={cameraPresets.right}
-          style={getButtonStyle(activeView === "right")}
-        >
-          ▶️ Справа
-        </button>
+          <button
+            onClick={cameraPresets.right}
+            style={getButtonStyle(activeView === "right")}
+          >
+            ▶️ Справа
+          </button>
 
-        <button
-          onClick={cameraPresets.top}
-          style={getButtonStyle(activeView === "top")}
-        >
-          🔽 Сверху
-        </button>
+          <button
+            onClick={cameraPresets.top}
+            style={getButtonStyle(activeView === "top")}
+          >
+            🔽 Сверху
+          </button>
 
-        <button
-          onClick={cameraPresets.bottom}
-          style={getButtonStyle(activeView === "bottom")}
-        >
-          🔼 Снизу
-        </button>
+          <button
+            onClick={cameraPresets.bottom}
+            style={getButtonStyle(activeView === "bottom")}
+          >
+            🔼 Снизу
+          </button>
 
-        <button
-          onClick={cameraPresets.diagonal}
-          style={getButtonStyle(activeView === "diagonal")}
-        >
-          🔀 Диагональ
-        </button>
+          <button
+            onClick={cameraPresets.diagonal}
+            style={getButtonStyle(activeView === "diagonal")}
+          >
+            🔀 Диагональ
+          </button>
 
-        <button
-          onClick={cameraPresets.close}
-          style={getButtonStyle(activeView === "close")}
-        >
-          🔍 Близко
-        </button>
+          <button
+            onClick={cameraPresets.close}
+            style={getButtonStyle(activeView === "close")}
+          >
+            🔍 Близко
+          </button>
 
-        <button
-          onClick={cameraPresets.far}
-          style={getButtonStyle(activeView === "far")}
-        >
-          👁️ Далеко
-        </button>
+          <button
+            onClick={cameraPresets.far}
+            style={getButtonStyle(activeView === "far")}
+          >
+            👁️ Далеко
+          </button>
+        </div>
       </div>
     </Html>
   );
@@ -208,35 +239,3 @@ function getButtonStyle(isActive) {
   };
 }
 
-function SceneObjects() {
-  return (
-    <group>
-      {/* Центральный куб */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[2, 2, 2]} />
-        <meshStandardMaterial color="#4ecdc4" />
-      </mesh>
-
-      {/* Вспомогательные объекты для ориентации */}
-      <mesh position={[4, 0, 0]}>
-        <sphereGeometry args={[0.5, 16, 16]} />
-        <meshStandardMaterial color="#ff6b6b" />
-      </mesh>
-
-      <mesh position={[-4, 0, 0]}>
-        <cylinderGeometry args={[0.3, 0.3, 2, 16]} />
-        <meshStandardMaterial color="#ffd700" />
-      </mesh>
-
-      <mesh position={[0, 4, 0]}>
-        <coneGeometry args={[0.5, 1, 16]} />
-        <meshStandardMaterial color="#48dbfb" />
-      </mesh>
-
-      {/* Освещение */}
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={3} />
-      <pointLight position={[-10, -10, -10]} intensity={1.5} />
-    </group>
-  );
-}
