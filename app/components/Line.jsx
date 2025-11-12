@@ -52,7 +52,7 @@ export default function TimelineComponent() {
                     <div
                       className={` rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 ${
                         activeDate === index
-                          ? "ring-2 ring-blue-500 transform scale-90"
+                          ? "ring-2 ring-purple-500 transform scale-90"
                           : ""
                       }`}
                       onMouseEnter={() => setActiveDate(index)}

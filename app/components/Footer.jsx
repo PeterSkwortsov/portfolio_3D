@@ -68,7 +68,7 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="flex gap-2 justify-center mt-2">
           <div className="avatar">
-            <div className="w-10 rounded-full">
+            <div className="w-10">
               <a href="https://vk.com/vika.borsch">
                 <Image
                   src="/vk.svg"
@@ -81,7 +81,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="avatar avatar-online">
-            <div className="w-10 rounded-full">
+            <div className="w-10">
               <a href="https://t.me/vika_borsch99">
                 <Image
                   src="/tg2.svg"

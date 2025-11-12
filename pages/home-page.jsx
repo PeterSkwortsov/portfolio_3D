@@ -20,7 +20,7 @@ import AboutMe from "@/app/components/AboutMe";
 import Grid from "@/app/components/Grid";
 import Phone from "@/app/components/Phone";
 import { AnimatePresence, motion } from "framer-motion";
-
+import WhyChooseMe from "@/app/components/elementBlock/Superpower";
 import { useRouter } from "next/navigation";
 
 
@@ -111,6 +111,7 @@ export default function Family() {
           <Grid />
           <Line />
           <Phone />
+          <WhyChooseMe />
           <Works />
           <ImageModal />
           <Footer />
