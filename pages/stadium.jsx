@@ -20,7 +20,9 @@ export default function Ships() {
     imageUrl: "/stadium.png",
     githubUrl: "https://github.com/PeterSkwortsov/my-stadium",
     overview:
-      "Мне было интересно узнать как создается интерактивная карта выбора мест билетов в кино, тетаре или на стадионе. За основу я взял нижегородский футбольный стадион, перерисовал ряды в figma. С помощью Inkscape я обрисовал контуры нескольких рядов, полученные данные разместил в data-атрибутах. Добавил CSS при наведении. Добавил библиотеку leader-line, чтобы сделать линии и подсказки. Вставил цены для всплывающих подсказок и создал линии, соединяющие здания с информацией на странице",
+      "Мне было интересно узнать как создается интерактивная карта выбора мест билетов в кино, тетаре или на стадионе.",
+    description2:
+      "За основу я взял нижегородский футбольный стадион, перерисовал ряды в Figma. С помощью Inkscape я обрисовал контуры нескольких рядов, полученные данные разместил в data-атрибутах. Добавил CSS при наведении. Добавил библиотеку leader-line, чтобы сделать линии и подсказки. Вставил цены для всплывающих подсказок и создал линии, соединяющие здания с информацией на странице.",
 
     technologies: ["SVG", "Inkscape", "JavaScript", "leader - line"],
     results: [
@@ -40,7 +42,7 @@ export default function Ships() {
     imageUrl,
     githubUrl,
     overview,
-    goals,
+    description2,
     technologies,
     results,
     liveDemoUrl,
@@ -163,8 +165,11 @@ export default function Ships() {
                         Обзор проекта
                       </h2>
                     </div>
-                    <p className="text-gray-700 leading-relaxed text-lg">
+                    <p className="text-gray-900 leading-relaxed text-lg">
                       {overview}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed text-md mt-2">
+                      {description2}
                     </p>
                   </section>
                 </div>
@@ -190,36 +195,16 @@ export default function Ships() {
                       ))}
                     </div>
                   </section>
+                  <p className="text-gray-700 leading-relaxed text-md mt-2 max-w-90">Это был MVP проект, я не продолжил его развивать, мне важно было понять принцип.<br/>
+                  Активны блоки с C006 по C009
+                  </p>
                 </div>
               </div>
 
-              {/* Дополнительная информация */}
-              {/* <div className="mt-12 pt-8 border-t border-gray-200/60">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                  <div className="bg-blue-50/50 rounded-2xl p-6">
-                    <div className="text-2xl font-bold text-blue-600 mb-2">
-                      95+
-                    </div>
-                    <div className="text-gray-600">PageSpeed Score</div>
-                  </div>
-                  <div className="bg-green-50/50 rounded-2xl p-6">
-                    <div className="text-2xl font-bold text-green-600 mb-2">
-                      35%
-                    </div>
-                    <div className="text-gray-600">Рост конверсии</div>
-                  </div>
-                  <div className="bg-purple-50/50 rounded-2xl p-6">
-                    <div className="text-2xl font-bold text-purple-600 mb-2">
-                      10K+
-                    </div>
-                    <div className="text-gray-600">Пользователей</div>
-                  </div>
-                </div>
-              </div> */}
+             
             </div>
           </div>
 
-          {/* Футер */}
         </div>
       </div>
     </>

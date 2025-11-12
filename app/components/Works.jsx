@@ -44,7 +44,7 @@ const Left = styled.div`
   width: 100%;
 
   @media only screen and (max-width: 768px) {
-    padding: 20px;
+    padding: 5px;
     justify-content: center;
     margin-right: 0rem;
   }
@@ -54,7 +54,7 @@ const List = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2px;
 `;
 
 const ListItem = styled.li`
@@ -65,33 +65,14 @@ const ListItem = styled.li`
   position: relative;
 
   @media only screen and (max-width: 768px) {
-    font-size: 24px;
+    font-size: 20px;
     color: white;
     -webkit-text-stroke: 0px;
   }
 
-  ::after {
-    content: "${(props) => props.text}";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0px;
-    overflow: hidden;
-    white-space: nowrap;
-    color: pink;
-  }
 
-  ::hover {
-    ::after {
-      animation: moveText 0.5s linear both;
-      color: pink;
-      @keyframes moveText {
-        to {
-          width: 100%;
-        }
-      }
-    }
-  }
+
+
 `;
 
 const Right = styled.div`
@@ -100,6 +81,7 @@ const Right = styled.div`
   justify-content: center;
   align-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 const items = [
@@ -128,8 +110,8 @@ const Works = () => {
                 text={item}
                 onClick={() => setActiveItem(item)}
                 style={{
-                  padding: "12px 16px",
-                  margin: "8px 0",
+                  padding: "10px 16px",
+                  margin: "3px 0",
                   fontize: "1.5rem",
                   backgroundColor: activeItem === item ? "#6f42c1" : "#f8f9fa",
                   color: activeItem === item ? "white" : "#333",

@@ -38,9 +38,9 @@ export function InteractiveModel() {
 
 
 const Desc = styled.div`
-  width: 200px;
-  height: 70px;
-  padding: 20px;
+  width: 170px;
+  height: 50px;
+  padding: 10px;
   background-color: white;
   border-radius: 10px;
   position: absolute;
@@ -48,7 +48,7 @@ const Desc = styled.div`
   right: 150px;
 
   @media only screen and (max-width: 768px) {
-    top: 0;
+    top: 36rem;
     bottom: 0;
     left: 0;
     right: 0;
@@ -66,7 +66,7 @@ const Development = () => {
         </Suspense>
       </Canvas>
       <Desc>
-        Это модель атома.
+        Это модель атома созданая шейдерами
       </Desc>
     </>
   );

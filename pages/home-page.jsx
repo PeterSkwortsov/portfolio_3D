@@ -110,7 +110,7 @@ export default function Family() {
           <AboutMe />
           <Grid />
           <Line />
-          <Phone />
+          {/* <Phone /> */}
           <WhyChooseMe />
           <Works />
           <ImageModal />
