@@ -7,6 +7,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useState, useEffect } from "react";
 import { useThree } from "@react-three/fiber";
 import { CameraControls } from "@react-three/drei";
+import Gears from "./Gears";
 
 function CameraController() {
   const { camera } = useThree();
@@ -52,6 +53,7 @@ function App() {
         </EffectComposer>
       </Canvas>
       <UI />
+      <Gears />
     </div>
   );
 }
