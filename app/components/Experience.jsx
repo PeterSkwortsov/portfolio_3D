@@ -69,7 +69,7 @@ useEffect(() => {
           toneMapped={false}
           ref={textMaterial}
         >
-          <RenderTexture attach={"map"}>
+          {/* <RenderTexture attach={"map"}>
             <color attach="background" args={["#fff"]} />
             <Float floatIntensity={2} rotationIntensity={3}>
               <Camping
@@ -78,11 +78,11 @@ useEffect(() => {
                 position-y={-1}
               />
             </Float>
-          </RenderTexture>
+          </RenderTexture> */}
         </meshBasicMaterial>
       </Text>
 
-      <mesh position-y={-1.5} rotation-x={-Math.PI / 2}>
+      <mesh position-y={-1.7} rotation-x={-Math.PI / 2}>
         <ambientLight intensity={1} />
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial

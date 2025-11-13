@@ -26,10 +26,11 @@ function ComplexLightMovement() {
     <group ref={groupRef}>
       <directionalLight
         position={[0, 0, 5]} // Относительно группы
-        intensity={4}
+        intensity={8}
         castShadow
-        color={"red"}
+        color={"white"}
       />
+      <ambientLight intensity={1} />
     </group>
   );
 }
@@ -140,84 +141,50 @@ function CameraButtons() {
       setActiveView("far");
       moveCamera([55, 5, 65]);
     },
+
+    
   };
+const buttons = [
+  {
+    id: 1,
+    label: "Кнопка 1",
+    onClick: () => cameraPresets.front(),
+    active: activeView === "front",
+  },
+  {
+    id: 2,
+    label: "Кнопка 2",
+    onClick: () => cameraPresets.back(),
+    active: activeView === "back",
+  },
+  { id: 3, label: "Кнопка 3", onClick: () => console.log("Кнопка 3") },
+  { id: 4, label: "Кнопка 4", onClick: () => console.log("Кнопка 4") },
+  { id: 5, label: "Кнопка 5", onClick: () => console.log("Кнопка 5") },
+  { id: 6, label: "Кнопка 6", onClick: () => console.log("Кнопка 6") },
+  { id: 7, label: "Кнопка 7", onClick: () => console.log("Кнопка 7") },
+  { id: 8, label: "Кнопка 8", onClick: () => console.log("Кнопка 8") },
+  { id: 9, label: "Кнопка 9", onClick: () => console.log("Кнопка 9") },
+  { id: 10, label: "Кнопка 10", onClick: () => console.log("Кнопка 10") },
+];
 
   return (
     <Html fullscreen>
-      <div style={{ height: "50vh", overflow: "auto" }}>
-        <div
-          style={{
-            position: "absolute",
-            top: "80px",
-            left: "20px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-          }}
-        >
-          {/* Основной контент */}
-          <button
-            onClick={cameraPresets.front}
-            style={getButtonStyle(activeView === "front")}
-          >
-            🎥 Спереди
-          </button>
-
-          <button
-            onClick={cameraPresets.back}
-            style={getButtonStyle(activeView === "back")}
-          >
-            📹 Сзади
-          </button>
-
-          <button
-            onClick={cameraPresets.left}
-            style={getButtonStyle(activeView === "left")}
-          >
-            ◀️ Слева
-          </button>
-
-          <button
-            onClick={cameraPresets.right}
-            style={getButtonStyle(activeView === "right")}
-          >
-            ▶️ Справа
-          </button>
-
-          <button
-            onClick={cameraPresets.top}
-            style={getButtonStyle(activeView === "top")}
-          >
-            🔽 Сверху
-          </button>
-
-          <button
-            onClick={cameraPresets.bottom}
-            style={getButtonStyle(activeView === "bottom")}
-          >
-            🔼 Снизу
-          </button>
-
-          <button
-            onClick={cameraPresets.diagonal}
-            style={getButtonStyle(activeView === "diagonal")}
-          >
-            🔀 Диагональ
-          </button>
-
-          <button
-            onClick={cameraPresets.close}
-            style={getButtonStyle(activeView === "close")}
-          >
-            🔍 Близко
-          </button>
-
-          <button
-            onClick={cameraPresets.far}
-            style={getButtonStyle(activeView === "far")}
-          >
-            👁️ Далеко
-          </button>
+      <div className="w-28 h-96 rounded-lg overflow-hidden">
+        <div className="h-full overflow-y-auto p-2 flex flex-col gap-2">
+          {buttons.map((button) => (
+            <button
+              key={button.id}
+              className="w-full px-4 py-3  border border-gray-200 rounded-md 
+                       hover:bg-blue-50 hover:border-blue-300 hover:shadow-sm 
+                       active:bg-blue-100 active:scale-95 
+                       transition-all duration-200 ease-in-out
+                       text-gray-700 font-medium text-left
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              onClick={button.onClick}
+            >
+              {button.label}
+            </button>
+          ))}
         </div>
       </div>
     </Html>
