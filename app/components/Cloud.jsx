@@ -6,8 +6,13 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import CustomSheaderMaterial from "three-custom-shader-material/vanilla";
+import '../styles/lil-gui-overrides.css';
 
 
+const uniforms = {
+  uSliceStart: new THREE.Uniform(1.75),
+  uSliceArc: new THREE.Uniform(1.25),
+};
 const particlesVertexShader = `
   varying vec3 vPosition;
 
@@ -39,10 +44,7 @@ void main()
 }
 `;
 
-const uniforms = {
-  uSliceStart: new THREE.Uniform(1.75),
-  uSliceArc: new THREE.Uniform(1.25),
-};
+
 
 const patchMap = {
   csm_Slice: {
@@ -55,12 +57,51 @@ const patchMap = {
   },
 };
 
-const material = new THREE.MeshStandardMaterial({
-  metalness: 0.5,
-  roughness: 0.25,
-  envMapIntensity: 0.5,
-  color: "#858080",
+const material = new CustomSheaderMaterial({
+  // CSM, для пользовательского шейдера
+  baseMaterial: THREE.MeshPhysicalMaterial,
+  vertexShader: `varying vec3 vPosition;
+
+void main() {
+vPosition = csm_Position.xyz;
+
+}
+
+
+`,
+  fragmentShader: `
+varying vec3 vPosition;
+
+uniform float uSliceArc;
+uniform float uSliceStart;
+
+void main()
+{
+    
+
+    float angale = atan(vPosition.y, vPosition.x);
+    angale -= uSliceStart;
+    angale = mod(angale, PI2);
+
+    if(angale > 0.0 && angale < uSliceArc)
+    discard;
+
+    float csm_Slice;
+ 
+}`,
+  uniforms: uniforms,
+
+  //свойства материала
+  metalness: 0,
+  roughness: 0.5,
+  color: "#ffffff",
+  transmission: 0,
+  ior: 1.5,
+  thickness: 1.5,
+  transparent: true,
+  wireframe: true,
 });
+
 
 const slicedMaterial = new CustomSheaderMaterial({
   baseMaterial: THREE.MeshStandardMaterial,
@@ -87,6 +128,7 @@ const slicedDephMaterial = new CustomSheaderMaterial({
 });
 
 
+
 export default function ModelWithGUI() {
   const [guiContainer, setGuiContainer] = useState(null);
 
@@ -96,23 +138,22 @@ export default function ModelWithGUI() {
         width: "100%",
         height: "100%",
         background: "#1a1a2e",
-        position: "relative",
+        
       }}
     >
       {/* Контейнер для GUI */}
       <div
         ref={setGuiContainer}
         style={{
-          position: "absolute",
-          top: "20px",
-          right: "20px",
+          
           zIndex: 1000,
         }}
       />
 
-      <Canvas camera={{ position: [3, 2, 5], fov: 50 }}>
-        <directionalLight position={[0, 0, 5]} intensity={2} />
+      <Canvas camera={{ position: [3, 2, 5], fov: 70 }}>
+        {/* <directionalLight position={[0, 0, 5]} intensity={2} /> */}
         <ModelScene guiContainer={guiContainer} />
+        
         <OrbitControls />
       </Canvas>
     </div>
@@ -122,7 +163,7 @@ export default function ModelWithGUI() {
 function ModelScene({ guiContainer }) {
   const modelRef = useRef();
   const [params, setParams] = useState({
-    rotationSpeed: 0.5,
+    rotationSpeed: 0.1,
     scale: 1,
     positionX: 0,
     positionY: 0,
@@ -131,7 +172,7 @@ function ModelScene({ guiContainer }) {
     metalness: 0.5,
     roughness: 0.5,
     wireframe: false,
-    bounce: true,
+    bounce: false,
     bounceHeight: 0.5,
     bounceSpeed: 1,
   });
@@ -165,23 +206,22 @@ function ModelScene({ guiContainer }) {
 
     import("lil-gui").then(({ GUI }) => {
       guiInstance = new GUI({
-        width: 300,
-        title: "Robot Controls",
+        width: 200,
+        title: "Настройка модели",
+            position: "absolute"
       });
 
       // Добавляем GUI в переданный контейнер
       guiContainer.appendChild(guiInstance.domElement);
 
+
+
       // Группа: Трансформации
-      const transformFolder = guiInstance.addFolder("Transform");
+      const transformFolder = guiInstance.addFolder("Трансформация");
       transformFolder
         .add(params, "rotationSpeed", 0, 2, 0.1)
         .name("Rotation Speed");
-      // transformFolder.add(params, "scale", 0.1, 3, 0.1).name("Scale");
-      // transformFolder.add(params, "positionX", -3, 3, 0.1).name("Position X");
-      // transformFolder.add(params, "positionY", -3, 3, 0.1).name("Position Y");
-      // transformFolder.add(params, "positionZ", -3, 3, 0.1).name("Position Z");
-      // transformFolder.open();
+      transformFolder.open();
 
       transformFolder
         .add(uniforms.uSliceStart, "value", -Math.PI, Math.PI, 0.001)
@@ -197,7 +237,16 @@ function ModelScene({ guiContainer }) {
       materialFolder.add(params, "roughness", 0, 1, 0.1).name("Roughness");
       materialFolder.add(params, "wireframe").name("Wireframe");
       materialFolder.open();
+const patchMap = {
+  csm_Slice: {
+    "#include <colorspace_fragment>": `
+    #include <colorspace_fragment>
 
+    if(!gl_FrontFacing)
+    gl_FragColor = vec4(0.75, 0.5, 0.3, 1.0);
+    `,
+  },
+};
       // Группа: Анимация
       const animationFolder = guiInstance.addFolder("Animation");
       animationFolder.add(params, "bounce").name("Bounce");
@@ -227,9 +276,7 @@ function ModelScene({ guiContainer }) {
       const time = state.clock.elapsedTime;
 
       modelRef.current.rotation.y = time * params.rotationSpeed;
-      modelRef.current.position.x = params.positionX;
-      modelRef.current.position.z = params.positionZ;
-      modelRef.current.scale.setScalar(params.scale);
+   
 
       if (params.bounce) {
         modelRef.current.position.y =
@@ -245,23 +292,36 @@ function ModelScene({ guiContainer }) {
     if (modelRef.current) {
       modelRef.current.traverse((child) => {
         if (child.isMesh) {
+          child.material = slicedMaterial;
+          child.customDepthMaterial = slicedDephMaterial;
+
           child.material.color = new THREE.Color(params.color);
           child.material.metalness = params.metalness;
           child.material.roughness = params.roughness;
           child.material.wireframe = params.wireframe;
           child.material.needsUpdate = true;
-        }
+        } else {
+        child.material = material
+      }
+
+    
+    
       });
     }
-  }, [params.color, params.metalness, params.roughness, params.wireframe]);
+  }, [params.color, params.metalness, params.roughness, params.wireframe, slicedMaterial, slicedDephMaterial]);
 
   return (
     <>
-      <ambientLight intensity={0.6} />
-      <pointLight position={[5, 5, 5]} intensity={1} />
-      <pointLight position={[-5, 3, -5]} intensity={0.5} color="#4fc3f7" />
+      {/* <ambientLight intensity={0.6} /> */}
+      <directionalLight
+        position={[6.25, 3, 4]}
+        castShadow={true}
+        color={"ffffff"}
+        intensity={4}
+      />
+      {/* <pointLight position={[-5, 3, -5]} intensity={0.5} color="#4fc3f7" /> */}
 
-      <primitive ref={modelRef} object={scene} scale={0.8} />
+      <primitive ref={modelRef} object={scene} scale={1} />
     </>
   );
 }

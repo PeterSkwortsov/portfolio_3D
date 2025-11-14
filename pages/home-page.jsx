@@ -2,24 +2,15 @@
 
 import React, { Suspense } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
+
 import global from "../app/globals.css";
-import { useEffect, useState } from "react";
-import DownloadWordFile from "@/app/components/DownloadWordFile";
-import TechnologiesList from "@/app/components/TechnologiesList";
-import Cross from "@/app/components/Cross";
-import { Canvas } from "@react-three/fiber";
+
+
+
 import { Loader } from "@react-three/drei";
 import Works from "@/app/components/Works";
-import ImageModal from "@/app/components/ImageModal";
 import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
-import Line from "@/app/components/Line";
-import AboutMe from "@/app/components/AboutMe";
-import Grid from "@/app/components/Grid";
-import Phone from "@/app/components/Phone";
-import { AnimatePresence, motion } from "framer-motion";
+
 import WhyChooseMe from "@/app/components/elementBlock/Superpower";
 import { useRouter } from "next/navigation";
 
@@ -106,14 +97,14 @@ export default function Family() {
           dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
         />
         <Suspense>
-          <Header />
+          {/* <Header />
           <AboutMe />
           <Grid />
           <Line />
-          {/* <Phone /> */}
+      <Phone /> */}
           <WhyChooseMe />
           <Works />
-          <ImageModal />
+          {/* <ImageModal /> */}
           <Footer />
         </Suspense>
       </>
