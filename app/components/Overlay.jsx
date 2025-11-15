@@ -23,8 +23,9 @@ export const Overlay = () => {
   }, [slide]);
   return (
     <>
+      {/* top-0 left-0 bottom-0 */}
       <div
-        className={`fixed z-10 top-0 left-0 bottom-0 right-0 flex flex-col justify-between pointer-events-none text-black ${
+        className={`absolute w-full z-10  bottom-0  right-0 flex flex-col justify-between pointer-events-none text-black ${
           visible ? "" : "opacity-0"
         } transition-opacity duration-1000`}
       >
@@ -75,7 +76,7 @@ export const Overlay = () => {
             />
           </svg>
         </div>
-        <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 p-4 flex items-center flex-col text-center">
+        <div className="bg-gradient-to-t from-white/100 pt-20 pb-10 p-4 flex items-center flex-col text-center">
           <h1 className="text-5xl font-extrabold">
             {scenes[displaySlide].name}
           </h1>

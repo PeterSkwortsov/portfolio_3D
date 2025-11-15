@@ -8,10 +8,16 @@ import global from "../app/globals.css";
 import { Loader } from "@react-three/drei";
 import Works from "@/app/components/Works";
 import Footer from "@/app/components/Footer";
-
+import Header from "@/app/components/Header";
 import WhyChooseMe from "@/app/components/elementBlock/Superpower";
 import { useRouter } from "next/navigation";
 import PrevCar from "@/app/components/PrevCar";
+import AboutMe from "@/app/components/AboutMe";
+import ImageModal from "@/app/components/ImageModal";
+import Phone from "@/app/components/Phone";
+import Line from "@/app/components/Line";
+import Grid from "@/app/components/Grid";
+
 
 export default function Family() {
   {
@@ -88,16 +94,16 @@ export default function Family() {
           dataInterpolation={(p) => `Загружаем сайт  ${p.toFixed(0)}%`}
         />
         <Suspense>
-          {/* <Header />
+          <Header />
           <AboutMe />
+      
           <Grid />
           <Line />
       <Phone /> 
-          {/* <WhyChooseMe />
+         <WhyChooseMe />
           <Works />
-          {/* <ImageModal /> */}
-          <PrevCar />
-          {/* <Footer /> */}
+         <ImageModal /> 
+          <Footer />
         </Suspense>
       </>
     );

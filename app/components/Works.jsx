@@ -8,6 +8,7 @@ import WebDesign from "./WebDesign";
 import ChairPage from "./ChairPage";
 import Cloud from "./Cloud";
 import Rules from "./Rules";
+import PrevCar from "./PrevCar";
 
 
 
@@ -90,6 +91,7 @@ const items = [
   "Демонстрация",
   "Облака",
   "Управление камерой",
+  "Карточки товаров"
 ];
 
 
@@ -140,6 +142,8 @@ const Works = () => {
             <Cloud />
           ) : activeItem === "Управление камерой" ? (
             <Rules />
+          ) : activeItem === "Карточки товаров" ? (
+            <PrevCar />
           ) : null}
         </Right>
       </Container>

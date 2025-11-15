@@ -35,6 +35,7 @@ export const Scene = ({ mainColor, path, ...props }) => {
           minDistance={6}
           maxDistance={10}
           autoRotateSpeed={0.5}
+          enableZoom={false}
         />
         <primitive object={scene} scale={ratioScale} />
         <ambientLight intensity={0.5} color="pink" />
@@ -64,14 +65,14 @@ export const Scene = ({ mainColor, path, ...props }) => {
           />
         </AccumulativeShadows>
         
-          <Lightformer
+          {/* <Lightformer
             position={[5, 0, -5]}
             form="rect" // circle | ring | rect (optional, default = rect)
             intensity={1} // power level (optional = 1)
             color="red" // (optional = white)
             scale={[3, 5]} // Scale it any way you prefer (optional = [1, 1])
             target={[0, 0, 0]}
-          />
+          /> */}
 
           <Lightformer
             position={[-5, 0, 1]}

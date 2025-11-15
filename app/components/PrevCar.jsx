@@ -12,13 +12,15 @@ import { Overlay } from "./Overlay";
 
 const PrevCar = () => {
   return (
-    <div className="w-screen h-screen">
-      <Leva hidden />
-      <Overlay />
-      <Canvas shadows camera={{ position: [0, 0, 5], fov: 30 }}>
-        <color attach="background" args={["#ececec"]} />
-        <Experiences />
-      </Canvas>
+    <div style={{ width: "100%", height: "100%" }}>
+      <Suspense fallback={null}>
+        <Leva hidden />
+        <Canvas shadows camera={{ position: [0, 0, 5], fov: 30 }}>
+          <color attach="background" args={["#ececec"]} />
+          <Experiences />
+        </Canvas>
+        <Overlay />
+      </Suspense>
     </div>
   );
 };
