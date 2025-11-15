@@ -1,11 +1,9 @@
-'use client'
+"use client";
 
 import React, { Suspense } from "react";
 import Head from "next/head";
 
 import global from "../app/globals.css";
-
-
 
 import { Loader } from "@react-three/drei";
 import Works from "@/app/components/Works";
@@ -13,14 +11,9 @@ import Footer from "@/app/components/Footer";
 
 import WhyChooseMe from "@/app/components/elementBlock/Superpower";
 import { useRouter } from "next/navigation";
-
-
-
-
-
+import PrevCar from "@/app/components/PrevCar";
 
 export default function Family() {
-   
   {
     // Данные проекта (в реальном приложении можно брать из API)
     const projectData = {
@@ -60,9 +53,7 @@ export default function Family() {
       duration,
     } = projectData;
 
-
-    const router = useRouter()
-
+    const router = useRouter();
 
     return (
       <>
@@ -101,11 +92,12 @@ export default function Family() {
           <AboutMe />
           <Grid />
           <Line />
-      <Phone /> */}
-          <WhyChooseMe />
+      <Phone /> 
+          {/* <WhyChooseMe />
           <Works />
           {/* <ImageModal /> */}
-          <Footer />
+          <PrevCar />
+          {/* <Footer /> */}
         </Suspense>
       </>
     );

@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import Atom from "./Atom";
 import styled from "styled-components";
 import { useRef, useState, useMemo } from "react";
-
+import Experiences from "./Experiences";
 
 export function InteractiveModel() {
   const groupRef = useRef()
