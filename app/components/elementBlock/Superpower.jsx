@@ -50,8 +50,7 @@ export default function SuperpowerInteractive() {
             </h1>
 
             <p className="text-xl md:text-1xl text-gray-300 mb-8 p-3 leading-relaxed">
-              Это то, что я делаю лучше всего. Проверено на федеральных и
-              региональных форумах, различных акциях при работе с большими
+              Проверено на федеральных и региональных форумах, различных акциях при работе с большими
               командами.
             </p>
 
@@ -69,13 +68,7 @@ export default function SuperpowerInteractive() {
               </div>
             </div>
 
-            <p className="text-lg flex justify-end text-gray-300 mb-6 content-around p-3">
-              Правда, тут я лучший, сам удивляюсь. <br />
-              <br />
-              Если в группе я стал лидером, тогда всем распределяю работу по их
-              способностям, мотивации и проконтролирую это. При этом на
-              руководство я не претендую, само происходит.
-            </p>
+        
           </div>
         )}
       </div>

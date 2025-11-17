@@ -19,26 +19,19 @@ export const scenes = [
     path: "models/cybertruck_scene.glb",
     mainColor: "#f9c0ff",
     name: "Cybertruck",
-    description:
-      "Better utility than a truck with more performance than a sports car",
-    price: 72000,
-    range: 660,
+   
   },
   {
     path: "models/model3_scene.glb",
     mainColor: "#c0ffe1",
     name: "Model 3",
-    description: "The car of the future",
-    price: 29740,
-    range: 576,
+
   },
   {
     path: "models/semi_scene.glb",
     mainColor: "#ffdec0",
     name: "Semi",
-    description: "The Future of Trucking",
-    price: 150000,
-    range: 800,
+  
   },
 ];
 
@@ -143,10 +136,10 @@ export default function Experiences() {
       {/* MAIN WORLD */}
     
 
-      {/* <Grid
+      <Grid
         position-y={-viewport.height / 2}
         sectionSize={1}
-        sectionColor={"red"}
+        sectionColor={"purple"}
         sectionThickness={1}
         cellSize={0.5}
         cellColor={"#6f6f6f"}
@@ -154,7 +147,7 @@ export default function Experiences() {
         infiniteGrid
         fadeDistance={50}
         fadeStrength={5}
-      /> */}
+      />
       {scenes.map((scene, index) => (
         <mesh
           key={index}

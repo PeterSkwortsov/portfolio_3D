@@ -19,7 +19,7 @@ const PrevCar = () => {
           <color attach="background" args={["#ececec"]} />
           <Experiences />
         </Canvas>
-        <Overlay />
+        <Overlay style={{ width: "100%", height: "100%" }} />
       </Suspense>
     </div>
   );

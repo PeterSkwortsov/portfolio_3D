@@ -49,12 +49,12 @@ export default function Experience() {
               position={[-0.1, 1.8, -1.4]}
               rotation-x={-0.256}
             >
-              {/* <iframe
+              <iframe
                 src="https://borsch-art.ru/"
                 style={{ width: "100%", height: "27vh" }}
-              ></iframe> */}
+              ></iframe>
             </Html>
-            {/* <Text
+            <Text
               font="./Forum.woff"
               fontWeight={100}
                 position={[2, 1.75, 0]}
@@ -64,7 +64,7 @@ export default function Experience() {
                 textAlign="center"
               >
                 Тут может быть ваш сайт
-              </Text> */}
+              </Text>
           </primitive>
         </Float>
       </PresentationControls>

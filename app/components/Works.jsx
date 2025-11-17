@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -9,9 +9,6 @@ import ChairPage from "./ChairPage";
 import Cloud from "./Cloud";
 import Rules from "./Rules";
 import PrevCar from "./PrevCar";
-
-
-
 
 const Section = styled.div`
   height: 100vh;
@@ -70,10 +67,6 @@ const ListItem = styled.li`
     color: white;
     -webkit-text-stroke: 0px;
   }
-
-
-
-
 `;
 
 const Right = styled.div`
@@ -89,11 +82,10 @@ const items = [
   "Wow-эффекты",
   "Новые технологии",
   "Демонстрация",
-  "Облака",
+  "Разрез детали",
   "Управление камерой",
-  "Карточки товаров"
+  "Карточки товаров",
 ];
-
 
 const Works = () => {
   const [activeItem, setActiveItem] = useState("Wow-эффекты");
@@ -134,11 +126,11 @@ const Works = () => {
         <Right>
           {activeItem === "Wow-эффекты" ? (
             <WebDesign />
-          ) : activeItem === "Новые технологии" ? (
+          ) : activeItem === "Шейдеры" ? (
             <Development />
           ) : activeItem === "Демонстрация" ? (
             <ChairPage />
-          ) : activeItem === "Облака" ? (
+          ) : activeItem === "Разрез детали" ? (
             <Cloud />
           ) : activeItem === "Управление камерой" ? (
             <Rules />
@@ -152,5 +144,3 @@ const Works = () => {
 };
 
 export default Works;
-
-
