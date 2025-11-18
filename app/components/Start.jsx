@@ -6,7 +6,9 @@ import { UI } from "./UI";
 import { OrbitControls } from "@react-three/drei";
 import { useState, useEffect } from "react";
 import { useThree } from "@react-three/fiber";
-import { CameraControls } from "@react-three/drei";
+import { CameraControls, ScrollControls } from "@react-three/drei";
+import ExperienceHeart from "./ExperienceHeart";
+import { useFrame } from "@react-three/fiber";
 
 function CameraController() {
   const { camera } = useThree();
@@ -39,7 +41,7 @@ function App() {
         height: "100vh",
       }}
     >
-      <Canvas camera={{ position: [0, 0, 8]}}>
+      <Canvas camera={{ position: [0, 0, 8] }}>
         <CameraController />
 
         <color attach="background" args={["#171720"]} />
@@ -50,6 +52,9 @@ function App() {
         <EffectComposer>
           <Bloom mipmapBlur intensity={0.7} />
         </EffectComposer>
+        <ScrollControls pages={4}>
+          <ExperienceHeart />
+        </ScrollControls>
       </Canvas>
       <UI />
     </div>

@@ -80,7 +80,7 @@ const Right = styled.div`
 
 const items = [
   "Wow-эффекты",
-  "Новые технологии",
+  "Шейдеры",
   "Демонстрация",
   "Разрез детали",
   "Управление камерой",
@@ -90,9 +90,18 @@ const items = [
 const Works = () => {
   const [activeItem, setActiveItem] = useState("Wow-эффекты");
 
-  const handleItemClick = (index) => {
-    setActiveItem(index);
-  };
+ 
+
+   const handleDivClick = (e, item) => {
+     // ✅ Добавляем параметр event
+     e.preventDefault();
+     e.stopPropagation();
+     // твоя логика с item
+     console.log("Клик по:", item);
+   };
+
+// setActiveItem(item);
+
   return (
     <Section>
       <Container>
@@ -102,7 +111,9 @@ const Works = () => {
               <ListItem
                 key={item}
                 text={item}
-                onClick={() => setActiveItem(item)}
+                onClick={(e) => {handleDivClick(e, item)
+                  setActiveItem(item)}
+                }
                 style={{
                   padding: "10px 16px",
                   margin: "3px 0",

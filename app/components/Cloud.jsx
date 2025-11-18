@@ -138,14 +138,13 @@ export default function ModelWithGUI() {
         width: "100%",
         height: "100%",
         background: "#1a1a2e",
-        
+        position: "relative",
       }}
     >
       {/* Контейнер для GUI */}
       <div
         ref={setGuiContainer}
         style={{
-          
           zIndex: 1000,
         }}
       />
@@ -153,7 +152,7 @@ export default function ModelWithGUI() {
       <Canvas camera={{ position: [3, 2, 5], fov: 70 }}>
         {/* <directionalLight position={[0, 0, 5]} intensity={2} /> */}
         <ModelScene guiContainer={guiContainer} />
-        
+
         <OrbitControls />
       </Canvas>
     </div>

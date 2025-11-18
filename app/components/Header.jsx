@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { ScrollControls } from "@react-three/drei";
+import ExperienceHeart from "./ExperienceHeart";
 
 export default function Header() {
   const [isVisible, setIsVisible] = useState(false);
@@ -67,6 +70,10 @@ export default function Header() {
       </div>
 
       {/* Декоративные элементы */}
+         
+
+
+
       <div
         className={`absolute bottom-25 left-1/2 transform -translate-x-1/2 animate-bounce  transition-all duration-1800 delay-1000 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"

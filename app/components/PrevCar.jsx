@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { OrbitControls } from "@react-three/drei";
+import { Loader, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Atom from "./Atom";
 import styled from "styled-components";
@@ -18,6 +18,7 @@ const PrevCar = () => {
         <Canvas shadows camera={{ position: [0, 0, 5], fov: 30 }}>
           <color attach="background" args={["#ececec"]} />
           <Experiences />
+          <Loader />
         </Canvas>
         <Overlay style={{ width: "100%", height: "100%" }} />
       </Suspense>

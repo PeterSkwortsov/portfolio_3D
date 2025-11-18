@@ -1,9 +1,8 @@
 /* Переопределение цветовой схемы */
 .lil-gui.lil-auto-place,
 .lil-gui.autoPlace {
-    max-height: 100%;
+    /* max-height: 100%; */
     position: absolute;
-    top: 0;
     z-index: 1001;
     background-color: #cb1f1f;
 }

@@ -7,6 +7,23 @@
     background-color: #000000;
 }
 
+.containerDetail {
+    position: relative;
+}
+
+.relative-element {
+    position: relative;
+    
+}
+
+.absolute-element {
+    position: absolute;
+    left: 100%;
+    /* Позиционируем справа от relative элемента */
+    top: 0;
+    
+}
+
 .background-image {
     background-image: url(../public/prev.jpg);
     background-size: cover;
