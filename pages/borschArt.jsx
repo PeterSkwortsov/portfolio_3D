@@ -20,21 +20,22 @@ export default function Ships() {
     imageUrl: "/studia.png",
     githubUrl: "https://github.com/username/ecommerce-platform",
     overview:
-      "Мой первый сайт, который я создал сам через три месяца после того, как стал заниматься веб-разработкой. Полностью адаптирован под мобильные устройства.",
+      "Лендинг для новой творческой студии. Нужно было передать характер места, заложить структуру для SEO-продвижения, предусмотреть ответы на все возможные вопросы. Создать единую цветовую палитру. Оптимизировать все изображения для быстрой загрузки.",
     goals: [
-      "C полного нуля, без дизайна, без контента, без концепции. Мне сказали: сделай мне простой лендинг, чтобы было понятно, что он про детей.",
+      "Главной целью было сделать веб-приложение с быстрой загрузкой основного контента, поэтому выбор пал на Next.js",
     ],
 
-    technologies: ["Bootstrap", "AOS", "FancyBox", "jQuery"],
+    technologies: ["Next.js", "DaisyUI", "Tailwind", "Swiper"],
     results: [
-      "Соответствие страницы основным рекомендациям поисковой оптимизации - 90/100 баллов",
-      "Total Blocking Time - 0 мс",
-      "Cumulative Layout Shift - 0,067",
-      "First Contentful Paint - 1.3 мс",
+      "First Contentful Paint - 0,4 сек.",
+      "Largest Contentful Paint - 1,1 сек.",
+      "Total Blocking Time - 20 мс",
+      "Cumulative Layout Shift - 0 мс",
+      "Speed Index - 0,7 сек.",
     ],
     liveDemoUrl: "http://legozann.ru/",
     status: "Завершен",
-    duration: "2 месяца",
+    duration: "2.5 месяца",
   };
 
   const {

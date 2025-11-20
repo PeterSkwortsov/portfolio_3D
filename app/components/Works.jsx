@@ -103,55 +103,64 @@ const Works = () => {
 // setActiveItem(item);
 
   return (
-    <Section>
-      <Container>
-        <Left>
-          <List>
-            {items.map((item, index) => (
-              <ListItem
-                key={item}
-                text={item}
-                onClick={(e) => {handleDivClick(e, item)
-                  setActiveItem(item)}
-                }
-                style={{
-                  padding: "10px 16px",
-                  margin: "3px 0",
-                  fontize: "1.5rem",
-                  backgroundColor: activeItem === item ? "#6f42c1" : "#f8f9fa",
-                  color: activeItem === item ? "white" : "#333",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  border:
-                    activeItem === item
-                      ? "2px solid #5a3791"
-                      : "2px solid transparent",
-                }}
-              >
-                {item}
-              </ListItem>
-            ))}
-          </List>
-        </Left>
-        <Right>
-          {activeItem === "Wow-эффекты" ? (
-            <WebDesign />
-          ) : activeItem === "Шейдеры" ? (
-            <Development />
-          ) : activeItem === "Демонстрация" ? (
-            <ChairPage />
-          ) : activeItem === "Разрез детали" ? (
-            <Cloud />
-          ) : activeItem === "Управление камерой" ? (
-            <Rules />
-          ) : activeItem === "Карточки товаров" ? (
-            <PrevCar />
-          ) : null}
-        </Right>
-      </Container>
-    </Section>
+    <>
+      <div className="text-center mb-12">
+        <h3 className="text-3xl md:text-3xl font-bold text-white mb-4">
+          Различные технологии и техники Drei
+        </h3>
+      </div>
+      <Section>
+        <Container>
+          <Left>
+            <List>
+              {items.map((item, index) => (
+                <ListItem
+                  key={item}
+                  text={item}
+                  onClick={(e) => {
+                    handleDivClick(e, item);
+                    setActiveItem(item);
+                  }}
+                  style={{
+                    padding: "10px 16px",
+                    margin: "3px 0",
+                    fontize: "1.5rem",
+                    backgroundColor: "white",
+                    color: "black",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    border:
+                      activeItem === item
+                        ? "6px solid blue"
+                        : "6px solid transparent",
+                  }}
+                >
+                  {item}
+                </ListItem>
+              ))}
+            </List>
+          </Left>
+          <Right>
+            {activeItem === "Wow-эффекты" ? (
+              <WebDesign />
+            ) : activeItem === "Шейдеры" ? (
+              <Development />
+            ) : activeItem === "Демонстрация" ? (
+              <ChairPage />
+            ) : activeItem === "Разрез детали" ? (
+              <Cloud />
+            ) : activeItem === "Управление камерой" ? (
+              <Rules />
+            ) : activeItem === "Карточки товаров" ? (
+              <PrevCar />
+            ) : null}
+          </Right>
+        </Container>
+      </Section>
+    </>
   );
+  
 };
 
 export default Works;

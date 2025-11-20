@@ -9,7 +9,7 @@ import { useThree } from "@react-three/fiber";
 import { CameraControls, ScrollControls } from "@react-three/drei";
 import ExperienceHeart from "./ExperienceHeart";
 import { useFrame } from "@react-three/fiber";
-
+import Grid from "./Grid";
 function CameraController() {
   const { camera } = useThree();
   const [isMobile, setIsMobile] = useState(false);
@@ -57,6 +57,7 @@ function App() {
         </ScrollControls>
       </Canvas>
       <UI />
+      <Grid/>
     </div>
   );
 }

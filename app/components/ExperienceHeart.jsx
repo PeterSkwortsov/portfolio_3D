@@ -20,7 +20,8 @@ export default function Experience () {
     <>
       <OrbitControls enableZoom={false} />
       <Float floatIntensity={2} speed={3}>
-        <Heart scale={0.25} visible={item === "heart"} />
+        <ambientLight intensity={4} />
+        <Heart scale={0.5} visible={item === "heart"} />
 
        
       </Float>

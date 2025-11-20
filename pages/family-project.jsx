@@ -15,7 +15,7 @@ export default function Family() {
 {
   // Данные проекта (в реальном приложении можно брать из API)
   const projectData = {
-    title: "Проект «История семьи»",
+    title: "Сайт для проекта «История семьи»",
     description:
       "Сохранение памяти о своих родителях, бабушек и дедушек через интервью. Полноценный фильм о своей семье.",
     imageUrl: "/history.png",
@@ -32,7 +32,8 @@ export default function Family() {
     results: [
       "First Contentful Paint - 0,5 сек",
       "Cumulative Layout Shift - 0,006",
-      "Speed Index - 0,9 сек"    ],
+      "Speed Index - 0,9 сек",
+    ],
     liveDemoUrl: "https://peterskwortsov.github.io/family/",
   };
 
@@ -85,12 +86,14 @@ export default function Family() {
           </Link>
           <header className="text-center mb-12">
             <h1
-              className={`mt-6 mb-4 transition-all duration-1000 delay-500 ${
-                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+              className={`mt-6 mb-4 transition-all duration-1000 delay-500 mx-auto ${
+                isVisible
+                  ? "opacity-100 scale-100 flex justify-center items-center"
+                  : "opacity-0 scale-90"
               }`}
             >
-              <span className="text-5xl md:text-5xl lg:text-7xl font-black">
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient bg-300%">
+              <span className="text-5xl md:text-5xl lg:text-7xl font-black text-balance">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient bg-300% ">
                   {title}
                 </span>
               </span>

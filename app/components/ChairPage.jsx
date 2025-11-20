@@ -12,7 +12,7 @@ const ChairPage = () => {
     <>
       <Canvas camera={{ position: [0, 0, 5] }}>
         <Suspense fallback={null}>
-          <Mac />
+          {/* <Mac /> */}
           {/* <OrbitControls enableZoom={false}  /> */}
         </Suspense>
       </Canvas>
