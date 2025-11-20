@@ -10,6 +10,8 @@ import { CameraControls, ScrollControls } from "@react-three/drei";
 import ExperienceHeart from "./ExperienceHeart";
 import { useFrame } from "@react-three/fiber";
 import Grid from "./Grid";
+import { Scroll } from "@react-three/drei";
+
 function CameraController() {
   const { camera } = useThree();
   const [isMobile, setIsMobile] = useState(false);
@@ -42,6 +44,7 @@ function App() {
       }}
     >
       <Canvas camera={{ position: [0, 0, 8] }}>
+   
         <CameraController />
 
         <color attach="background" args={["#171720"]} />
@@ -52,17 +55,15 @@ function App() {
         <EffectComposer>
           <Bloom mipmapBlur intensity={0.7} />
         </EffectComposer>
-        <ScrollControls pages={4}>
-          <ExperienceHeart />
-        </ScrollControls>
+      
         <OrbitControls
           enablePan={false} // Запретить перемещение
           enableRotate={false} // Запретить вращение
           enableZoom={false}
         />
+     
       </Canvas>
       <UI />
-      <Grid />
     </div>
   );
 }

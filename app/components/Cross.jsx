@@ -258,7 +258,8 @@ const [isOpen, setIsOpen] = useState(false);
               <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
                 <div className="p-6">
                   <p className="text-black mb-6">
-                    Это пример того, как можно использовать технологии THREE.js в продажах своих продуктов.  
+                    Это пример того, как технологии THREE.js могут помочь в
+                    продаже продуктов.
                   </p>
                   <div className="flex justify-end space-x-3">
                     <button
@@ -267,7 +268,6 @@ const [isOpen, setIsOpen] = useState(false);
                     >
                       Закрыть
                     </button>
-                   
                   </div>
                 </div>
               </div>

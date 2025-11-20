@@ -127,13 +127,13 @@ const Works = () => {
                     fontize: "1.5rem",
                     backgroundColor: "white",
                     color: "black",
-                    borderRadius: "6px",
+                    borderRadius: "10px",
                     cursor: "pointer",
                     transition: "all 0.3s ease",
                     border:
                       activeItem === item
-                        ? "6px solid blue"
-                        : "6px solid transparent",
+                        ? "5px solid blue"
+                        : "5px solid transparent",
                   }}
                 >
                   {item}

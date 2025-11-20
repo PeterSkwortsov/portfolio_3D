@@ -17,7 +17,7 @@ import ImageModal from "@/app/components/ImageModal";
 import Phone from "@/app/components/Phone";
 import Line from "@/app/components/Line";
 import Grid from "@/app/components/Grid";
-
+import Like from "@/app/components/like/CreativeApproachAnimated"
 
 export default function Family() {
   {
@@ -96,13 +96,13 @@ export default function Family() {
         <Suspense>
           <Header />
           <AboutMe />
-      
           <Grid />
           <Line />
-      {/* <Phone />  */}
-         <WhyChooseMe />
+          <Phone />
+          <Like />
+          <WhyChooseMe />
           <Works />
-         <ImageModal /> 
+          <ImageModal />
           <Footer />
         </Suspense>
       </>
