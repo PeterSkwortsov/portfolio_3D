@@ -1,42 +1,38 @@
-import { useGLTF, useScroll } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
 import { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
+
 export function Heart(props) {
   const { nodes, materials } = useGLTF("/models/heart.glb");
   const group = useRef();
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const scrollData = useScroll();
-  const scrollProgress = useRef(0);
-  const rafId = useRef();
 
-  // Определение типа устройства и поддержка touch
+  // Определение устройства и настройка скролла
   useEffect(() => {
-    const checkDevice = () => {
-      const userAgent = navigator.userAgent;
-      setIsMobile(
-        /iPhone|iPad|iPod|Android/i.test(userAgent) || window.innerWidth <= 768
-      );
-    };
+    const mobileCheck = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    setIsMobile(mobileCheck);
 
-    checkDevice();
-    window.addEventListener("resize", checkDevice);
+    if (mobileCheck) {
+      // Кастомный обработчик скролла для мобильных
+      const handleScroll = () => {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const maxScroll = documentHeight - windowHeight;
 
-    // Touch events для более точного отслеживания на мобильных
-    const handleTouch = (e) => {
-      if (isMobile) {
-        // Дополнительная логика для touch-событий если нужно
-      }
-    };
+        const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+        setScrollProgress(progress);
+      };
 
-    document.addEventListener("touchmove", handleTouch, { passive: true });
+      // Троттлинг для производительности
+      const throttledScroll = throttle(handleScroll, 16);
+      window.addEventListener("scroll", throttledScroll, { passive: true });
 
-    return () => {
-      window.removeEventListener("resize", checkDevice);
-      document.removeEventListener("touchmove", handleTouch);
-      cancelAnimationFrame(rafId.current);
-    };
-  }, [isMobile]);
+      return () => window.removeEventListener("scroll", throttledScroll);
+    }
+  }, []);
 
   // Инициализация позиций
   useEffect(() => {
@@ -54,57 +50,33 @@ export function Heart(props) {
         .clone()
         .sub(groupWorldPosition)
         .normalize();
-
-      // Разный множитель для мобильных для лучшего визуального эффекта
-      const multiplier = isMobile ? 4 : 5;
       mesh.targetPosition = mesh.originalPosition
         .clone()
-        .add(mesh.directionVector.clone().multiplyScalar(multiplier));
+        .add(mesh.directionVector.clone().multiplyScalar(5));
     });
-  }, [isMobile]);
+  }, []);
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (!group.current) return;
 
-    // Адаптивное сглаживание для разных устройств
-    const smoothingFactor = isMobile ? 0.1 : 0.2;
-    let currentScroll;
-
-    if (isMobile) {
-      // Более агрессивное сглаживание для мобильных
-      currentScroll =
-        scrollProgress.current +
-        (scrollData.offset - scrollProgress.current) * smoothingFactor;
-
-      // Ограничение для стабильности
-      currentScroll = Math.max(0, Math.min(1, currentScroll));
-      scrollProgress.current = currentScroll;
-    } else {
-      currentScroll = scrollData.offset;
-    }
-
-    // Анимация с учетом дельты времени для равномерной скорости
     group.current.children.forEach((mesh) => {
-      // Плавное переключение видимости с порогом
-      const visibilityThreshold = 0.01;
+      // Используем кастомный scrollProgress для мобильных
+      const progress = isMobile
+        ? scrollProgress
+        : window.scrollY /
+          (document.documentElement.scrollHeight - window.innerHeight);
 
-      if (currentScroll < visibilityThreshold) {
+      if (progress < 0.0001) {
         mesh.visible = mesh.name === "origin";
       } else {
         mesh.visible = mesh.name !== "origin";
       }
 
-      // Используем lerpVectors для оптимальной производительности
       mesh.position.lerpVectors(
         mesh.originalPosition,
         mesh.targetPosition,
-        currentScroll
+        progress
       );
-
-      // Добавляем небольшую анимацию вращения для визуального интереса
-      if (currentScroll > 0.1 && currentScroll < 0.9) {
-        mesh.rotation.y += delta * 0.5 * currentScroll;
-      }
     });
   });
 
@@ -473,6 +445,18 @@ export function Heart(props) {
       />
     </group>
   );
+  function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  }
 }
 
 useGLTF.preload("/models/heart.glb");

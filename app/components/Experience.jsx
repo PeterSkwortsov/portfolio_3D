@@ -12,7 +12,6 @@ import { useEffect, useRef } from "react";
 import { Color } from "three";
 import { degToRad, lerp } from "three/src/math/MathUtils";
 import { Camping } from "./Camping";
-import { OrbitControls } from "@react-three/drei";
 const bloomColor = new Color("#fff");
 bloomColor.multiplyScalar(2);
 

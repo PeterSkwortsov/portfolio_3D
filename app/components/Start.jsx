@@ -55,9 +55,14 @@ function App() {
         <ScrollControls pages={4}>
           <ExperienceHeart />
         </ScrollControls>
+        <OrbitControls
+          enablePan={false} // Запретить перемещение
+          enableRotate={false} // Запретить вращение
+          enableZoom={false}
+        />
       </Canvas>
       <UI />
-      <Grid/>
+      <Grid />
     </div>
   );
 }
