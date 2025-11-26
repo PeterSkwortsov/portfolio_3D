@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { Suspense } from "react";
 import { Loader, OrbitControls } from "@react-three/drei";

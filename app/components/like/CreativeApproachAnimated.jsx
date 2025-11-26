@@ -1,109 +1,178 @@
-import { useState } from "react";
-import { Center, OrbitControls, Scroll, ScrollControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import Pirates from "../pitat/Pirate";
+import * as THREE from "three";
+import { Suspense, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  Clouds,
+  Cloud,
+  CameraControls,
+  Sky as SkyImpl,
+  OrbitControls,
+  Loader,
+} from "@react-three/drei";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
+import { degToRad } from "three/src/math/MathUtils";
+import { useState } from "react"; 
 
-export default function CreativeApproachAnimated() {
-  const [isHovered, setIsHovered] = useState(false);
+
+export default function App() {
+const [isHovered, setIsHovered] = useState(false);
+
 
   return (
-    <section className="w-full flex items-center justify-center p-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Заголовок */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-6">
-            Творческий подход
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-blue-400 mx-auto rounded-full"></div>
-        </div>
 
-        {/* Основной контент */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Текстовая часть */}
-          <div className=" p-3">
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl">🎨</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  Создание с нуля
-                </h3>
-                <p className="text-gray-200 leading-relaxed">
-                  Получаю настоящее удовольствие, когда создаю что-то с чистого
-                  листа. Каждый проект - это возможность воплотить уникальные
-                  идеи и создать нечто особенное.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  Полный контроль
-                </h3>
-                <p className="text-gray-200 leading-relaxed">
-                  Возможность влиять на каждый аспект проекта - от концепции до
-                  реализации. Это даёт свободу для творчества и инновационных
-                  решений.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl">🌟</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  Уникальный результат
-                </h3>
-                <p className="text-gray-200 leading-relaxed">
-                  Каждый созданный проект становится отражением моего подхода -
-                  внимательного, вдумчивого и ориентированного на качество.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Визуальная часть */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+    <div className="relative w-full h-screen overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <Suspense fallback={null}>
+        <Canvas camera={{ position: [0, -10, 10], fov: 75 }}>
+          <Sky />
+          <ambientLight intensity={Math.PI / 1.5} />
+          <spotLight
+            position={[0, 40, 0]}
+            decay={0}
+            distance={45}
+            penumbra={1}
+            intensity={100}
+          />
+          <spotLight
+            position={[-20, 0, 10]}
+            color="red"
+            angle={0.15}
+            decay={0}
+            penumbra={-1}
+            intensity={30}
+          />
+          <spotLight
+            position={[20, -10, 10]}
+            color="red"
+            angle={0.2}
+            decay={0}
+            penumbra={-1}
+            intensity={20}
+          />
+        </Canvas>
+        <Loader />
+        </Suspense>
+      </div>
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div
+          className="
+        bg-black/20 
+        backdrop-blur-md
+        border border-white/20
+        p-6 
+        md:p-8 
+        lg:p-12 
+        rounded-2xl
+        text-center 
+        max-w-md
+        md:max-w-2xl
+        lg:max-w-4xl
+        mx-auto
+        shadow-2xl
+      "
+        >
+          <h5
+            className="
+          text-3xl 
+          md:text-4xl 
+          lg:text-5xl 
+          font-bold 
+         bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent
+          mb-4 
+          md:mb-6
+        "
           >
-            <div
-              className={`
-              relative bg-white rounded-2xl p-8  transform transition-all duration-700
-              ${isHovered ? "rotate-5   " : "rotate-0 "}
-            `}
-            >
-              {/* Декоративные элементы */}
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-yellow-400 rounded-full opacity-70"></div>
-              <div className="absolute -bottom-4 -right-1 w-12 h-12 bg-pink-400 rounded-full opacity-60"></div>
-              <div className="absolute top-1/2 -right-2 w-6 h-6 bg-green-400 rounded-full opacity-80 transform -translate-y-1/2"></div>
-
-              <div className="relative z-10 h-80">
-                <Canvas shadows camera={{ fov: 30 }}>
-                  <color attach="background" args={["#61b6ff"]} />
-                  <directionalLight position={[1, 2, 3]} intensity={4} />
-                  <ambientLight intensity={0.5} />
-                  <Center>
-                    <Pirates />
-                    <OrbitControls autoRotate autoRotateSpeed={3} enableZoom={false} enablePan={false} enableRotate={false} />
-                  </Center>
-                </Canvas>
-              </div>
-            </div>
-
-            {/* Фоновая текстура */}
-            <div className="absolute p-3 inset-0 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-2xl -z-10 transform rotate-6 scale-105"></div>
-          </div>
+            Творческий подход
+          </h5>
+          <p
+            className="
+          text-base 
+          md:text-lg 
+          lg:text-xl 
+          text-white/80 
+          
+          mb-5
+        "
+          >
+            Получаю настоящее удовольствие, когда создаю что-то с чистого листа.<br></br>
+            Каждый проект - это возможность воплотить уникальные идеи и создать
+            нечто особенное.
+          </p>
+          <p
+            className="
+          text-base 
+          md:text-lg 
+          lg:text-xl 
+          text-white/80 
+         
+        "
+          >
+            Возможность влиять на каждый аспект проекта - от концепции до
+            реализации. Это даёт свободу для творчества и инновационных решений.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  );
+  
+}
+
+function Sky() {
+  const ref = useRef();
+  const cloud0 = useRef();
+
+  useFrame((state, delta) => {
+    ref.current.rotation.y = Math.cos(state.clock.elapsedTime / 2) / 2;
+    ref.current.rotation.x = Math.sin(state.clock.elapsedTime / 2) / 2;
+    // cloud0.current.rotation.y -= delta;
+  });
+  return (
+    <>
+      <SkyImpl />
+      <group ref={ref}>
+        <Clouds material={THREE.MeshLambertMaterial} limit={400}>
+          {/* <Cloud ref={cloud0} bounds={[2, 7, 9]} color={"red"} /> */}
+          <Cloud
+            bounds={[1, 3, 4]}
+            color="#eed0d0"
+            seed={2}
+            position={[15, 0, 0]}
+          />
+          <Cloud
+            bounds={[3, 5, 14]}
+            color="#d0e0d0"
+            seed={3}
+            position={[-15, 0, 0]}
+          />
+          <Cloud
+            bounds={[5, 12, 3]}
+            color="#a0b0d0"
+            seed={4}
+            position={[0, 0, -12]}
+          />
+          <Cloud
+            bounds={[2, 10, 17]}
+            color="#c0c0dd"
+            seed={5}
+            position={[0, 0, 12]}
+          />
+          <Cloud
+            concentrate="outside"
+            growth={100}
+            color="#ffccdd"
+            opacity={1.25}
+            seed={0.3}
+            bounds={200}
+            volume={200}
+          />
+        </Clouds>
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          enableRotate={false}
+        />
+      </group>
+    </>
   );
 }

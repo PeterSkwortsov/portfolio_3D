@@ -18,7 +18,7 @@ export default function Cook(props) {
     actions["Walk"].play();
   });
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} scale={1.9}> 
       <group name="Scene">
         <group name="CharacterArmature">
           <primitive object={nodes.Root} />

@@ -1,3 +1,5 @@
+'use client';
+
 import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { scenes } from "./Experiences";
