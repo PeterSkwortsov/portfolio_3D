@@ -20,7 +20,7 @@ export default function CloudSceneWithLoader() {
 
   function CubeWall() {
     const wallWidth = 10;
-    const wallHeight = 10;
+    const wallHeight = 12;
     const cubes = [];
 
     // Создаем сетку кубов для стены
@@ -69,7 +69,7 @@ export default function CloudSceneWithLoader() {
       impulseDirection.z = Math.abs(impulseDirection.z); // Убеждаемся, что толчок вперед
 
       // Нормализуем и умножаем на силу
-      impulseDirection.normalize().multiplyScalar(15);
+      impulseDirection.normalize().multiplyScalar(20);
 
       // Применяем импульс к кубу
       if (rigidBodyRef.current) {
@@ -184,10 +184,11 @@ export default function CloudSceneWithLoader() {
         </group>
 
         <Center position={[-0.4, 1.8, 8]} rotation={[0, Math.PI, 0]}>
-            
+            <Float>
+
           <Text3D
             font="../nunito_extraLight_regular.json"
-            size={1.2}
+            size={1.1}
             height={0.3}
             curveSegments={7}
             bevelEnabled={true}
@@ -204,7 +205,7 @@ export default function CloudSceneWithLoader() {
               document.body.style.cursor = "default";
             }}
           >
-            Переход
+            СТАРТ
             <MeshReflectorMaterial
               blur={[0, 0]}
               position={[-5, 0, 0]}
@@ -219,6 +220,7 @@ export default function CloudSceneWithLoader() {
               color={"blue"}
             />
           </Text3D>
+          </Float>
         </Center>
 
     
@@ -247,6 +249,7 @@ function Lighting() {
   );
 }
 
+
   return (
     <>
       <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -269,7 +272,7 @@ function Lighting() {
         <Canvas
           onCreated={() => setLoading(false)}
           shadows
-          camera={{ position: [0, 1.5, -7], fov: 35 }}
+          camera={{ position: [0, 1.5, -7], fov: 40 }}
         >
           <Suspense fallback={null}>
             <Lighting />
@@ -279,7 +282,7 @@ function Lighting() {
               <Walls />
             </Physics>
             <OrbitControls
-              target={[0, 4.5, 12]} // Камера смотрит в центр (0,0,0)
+              target={[0, 4.2, 12]} // Камера смотрит в центр (0,0,0)
               enablePan={false}
               enableZoom={false}
               enableRotate={false}

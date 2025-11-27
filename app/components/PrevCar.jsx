@@ -39,7 +39,7 @@ const PrevCar = () => {
         <Loader />
       </Canvas> */}
 
-      <Overlay />
+      {/* <Overlay /> */}
     </Suspense>
   );
 };

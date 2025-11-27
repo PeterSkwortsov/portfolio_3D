@@ -62,7 +62,7 @@ const Development = () => {
       <Canvas camera={{ position: [0, 0, 10] }}>
         <Suspense fallback={null}>
           <Atom />
-          <OrbitControls enableZoom={false} autoRotate />
+          <OrbitControls enableZoom={false} />
         </Suspense>
       </Canvas>
       <Desc>

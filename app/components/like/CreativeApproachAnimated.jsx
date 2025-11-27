@@ -72,6 +72,7 @@ const [isHovered, setIsHovered] = useState(false);
         lg:max-w-4xl
         mx-auto
         shadow-2xl
+        h-full
       "
         >
           <h5
@@ -168,12 +169,13 @@ function Sky() {
             volume={200}
           />
         </Clouds>
-        <OrbitControls
+       
+      </group>
+       <OrbitControls
           enableZoom={false}
           enablePan={false}
           enableRotate={false}
         />
-      </group>
     </>
   );
 }

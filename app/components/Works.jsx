@@ -153,7 +153,7 @@ const Works = () => {
             ) : activeItem === "Управление камерой" ? (
               <Rules />
             ) : activeItem === "Карточки товаров" ? (
-              <PrevCar />
+              <Rules />
             ) : null}
           </Right>
         </Container>
