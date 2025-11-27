@@ -209,6 +209,32 @@ const Grid = () => {
             </div>
           </div>
         </div>
+        <div className="card bg-base-200 image-full w-auto shadow-sm">
+          <figure>
+            <Image
+              src="/cubes.jpg"
+              width={200}
+              height={200}
+              alt="Picture of the author"
+              style={{ width: "200%" }}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title" id="7">
+              Интерактивный переход между страницами
+            </h2>
+            <p>GSAP</p>
+            <div className="card-actions justify-between items-start z-20 ">
+              <div className="card-actions justify-end items-center z-20">
+                <Link href={"./discovery"}>
+                  <button className="btn btn-neutral bg-white text-black rounded-xl">
+                    Подробнее
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
