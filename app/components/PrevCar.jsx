@@ -33,14 +33,13 @@ const Right = styled.div`
 const PrevCar = () => {
   return (
     <Suspense fallback={null}>
-      <Leva hidden />
-      <Canvas shadows camera={{ position: [0, 0, 5], fov: 30 }}>
+      {/* <Canvas camera={{ position: [0, 0, 5], fov: 30 }}>
         <color attach="background" args={["#ececec"]} />
         <Experiences />
         <Loader />
-      </Canvas>
-     
-          <Overlay  />
+      </Canvas> */}
+
+      <Overlay />
     </Suspense>
   );
 };

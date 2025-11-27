@@ -19,19 +19,16 @@ export const scenes = [
     path: "models/cybertruck_scene.glb",
     mainColor: "#f9c0ff",
     name: "Cybertruck",
-   
   },
   {
     path: "models/model3_scene.glb",
     mainColor: "#c0ffe1",
     name: "Model 3",
-
   },
   {
     path: "models/semi_scene.glb",
     mainColor: "#ffdec0",
     name: "Semi",
-  
   },
 ];
 

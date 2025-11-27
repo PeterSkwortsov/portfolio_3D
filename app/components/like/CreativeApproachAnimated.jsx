@@ -80,7 +80,7 @@ const [isHovered, setIsHovered] = useState(false);
           md:text-4xl 
           lg:text-5xl 
           font-bold 
-         bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent
+         text-white
           mb-4 
           md:mb-6
         "
@@ -98,8 +98,7 @@ const [isHovered, setIsHovered] = useState(false);
         "
           >
             Получаю настоящее удовольствие, когда создаю что-то с чистого листа.<br></br>
-            Каждый проект - это возможность воплотить уникальные идеи и создать
-            нечто особенное.
+            Каждый проект - это попытка создать что-то особенное.
           </p>
           <p
             className="
@@ -110,8 +109,8 @@ const [isHovered, setIsHovered] = useState(false);
          
         "
           >
-            Возможность влиять на каждый аспект проекта - от концепции до
-            реализации. Это даёт свободу для творчества и инновационных решений.
+            Мне нравится влиять на каждый аспект сайта - от концепции до
+            реализации. Это даёт свободу для творчества и новых решений.
           </p>
         </div>
       </div>
@@ -138,32 +137,32 @@ function Sky() {
           <Cloud
             bounds={[1, 3, 4]}
             color="#eed0d0"
-            seed={2}
+            seed={1}
             position={[15, 0, 0]}
           />
-          <Cloud
+          {/* <Cloud
             bounds={[3, 5, 14]}
-            color="#d0e0d0"
-            seed={3}
+            color="purple"
+            seed={1}
             position={[-15, 0, 0]}
-          />
+          />*/}
           <Cloud
             bounds={[5, 12, 3]}
             color="#a0b0d0"
-            seed={4}
+            seed={1}
             position={[0, 0, -12]}
           />
-          <Cloud
+          {/* <Cloud
             bounds={[2, 10, 17]}
-            color="#c0c0dd"
-            seed={5}
+            color="purple"
+            seed={1}
             position={[0, 0, 12]}
-          />
+          /> */}
           <Cloud
             concentrate="outside"
             growth={100}
-            color="#ffccdd"
-            opacity={1.25}
+            color="blue"
+            opacity={0.25}
             seed={0.3}
             bounds={200}
             volume={200}
