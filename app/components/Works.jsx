@@ -109,7 +109,7 @@ const Works = () => {
           Различные технологии и техники Drei
         </h3>
       </div>
-      {/* <Section>
+      <Section>
         <Container>
           <Left>
             <List>
@@ -157,7 +157,7 @@ const Works = () => {
             ) : null}
           </Right>
         </Container>
-      </Section> */}
+      </Section>
     </>
   );
   

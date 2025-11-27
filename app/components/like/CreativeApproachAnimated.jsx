@@ -15,6 +15,7 @@ import { useAtom } from "jotai";
 import { useEffect } from "react";
 import { degToRad } from "three/src/math/MathUtils";
 import { useState } from "react"; 
+import Image from "next/image";
 
 
 export default function App() {
@@ -22,45 +23,49 @@ const [isHovered, setIsHovered] = useState(false);
 
 
   return (
-
     <div className="relative w-full h-screen overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Suspense fallback={null}>
-        <Canvas camera={{ position: [0, -10, 10], fov: 75 }}>
-          <Sky />
-          <ambientLight intensity={Math.PI / 1.5} />
-          <spotLight
-            position={[0, 40, 0]}
-            decay={0}
-            distance={45}
-            penumbra={1}
-            intensity={100}
-          />
-          <spotLight
-            position={[-20, 0, 10]}
-            color="red"
-            angle={0.15}
-            decay={0}
-            penumbra={-1}
-            intensity={30}
-          />
-          <spotLight
-            position={[20, -10, 10]}
-            color="red"
-            angle={0.2}
-            decay={0}
-            penumbra={-1}
-            intensity={20}
-          />
-        </Canvas>
-        <Loader />
+          <Canvas camera={{ position: [0, -10, 10], fov: 75 }}>
+            <Sky />
+            <ambientLight intensity={Math.PI / 1.5} />
+            <spotLight
+              position={[0, 40, 0]}
+              decay={0}
+              distance={45}
+              penumbra={1}
+              intensity={100}
+            />
+            <spotLight
+              position={[-20, 0, 10]}
+              color="red"
+              angle={0.15}
+              decay={0}
+              penumbra={-1}
+              intensity={30}
+            />
+            <spotLight
+              position={[20, -10, 10]}
+              color="red"
+              angle={0.2}
+              decay={0}
+              penumbra={-1}
+              intensity={20}
+            />
+            <OrbitControls
+              enableDamping={false}
+              enablePan={false}
+              enableZoom={false}
+            />
+          </Canvas>
+          <Loader />
         </Suspense>
       </div>
       <div className="min-h-screen flex items-center justify-center p-4">
         <div
           className="
         bg-black/20 
-        backdrop-blur-md
+        backdrop-blur-xl
         border border-white/20
         p-6 
         md:p-8 
@@ -68,11 +73,10 @@ const [isHovered, setIsHovered] = useState(false);
         rounded-2xl
         text-center 
         max-w-md
-        md:max-w-2xl
-        lg:max-w-4xl
+        md:max-w-8xl
+        lg:max-w-8xl
         mx-auto
-        shadow-2xl
-        h-full
+
       "
         >
           <h5
@@ -82,8 +86,8 @@ const [isHovered, setIsHovered] = useState(false);
           lg:text-5xl 
           font-bold 
          text-white
-          mb-4 
-          md:mb-6
+          mb-2
+          md:mb-2
         "
           >
             Творческий подход
@@ -98,7 +102,8 @@ const [isHovered, setIsHovered] = useState(false);
           mb-5
         "
           >
-            Получаю настоящее удовольствие, когда создаю что-то с чистого листа.<br></br>
+            Получаю настоящее удовольствие, когда создаю что-то с чистого листа.
+            <br></br>
             Каждый проект - это попытка создать что-то особенное.
           </p>
           <p
@@ -113,6 +118,17 @@ const [isHovered, setIsHovered] = useState(false);
             Мне нравится влиять на каждый аспект сайта - от концепции до
             реализации. Это даёт свободу для творчества и новых решений.
           </p>
+          <Image
+            src="/down.png"
+            alt="Описание изображения"
+            width={50}
+            height={50}
+            priority // Для выше-the-fold изображений
+            style={{
+              margin: "0 auto",
+              marginTop: "20px",
+            }}
+          />
         </div>
       </div>
     </div>
@@ -171,11 +187,7 @@ function Sky() {
         </Clouds>
        
       </group>
-       <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          enableRotate={false}
-        />
+      
     </>
   );
 }
