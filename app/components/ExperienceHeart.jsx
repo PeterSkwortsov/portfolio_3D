@@ -1,14 +1,11 @@
-import {
-  Billboard,
-  Float,
-  OrbitControls,
-  useTexture,
-} from "@react-three/drei";
+"use client";
+
+import { Billboard, Float, OrbitControls, useTexture } from "@react-three/drei";
 import { useControls } from "leva";
 import { Heart } from "./Heart";
 import { Canvas } from "@react-three/fiber";
 
-export default function Experience () {
+export default function Experience() {
   const { item } = useControls({
     item: {
       value: "heart",
@@ -22,9 +19,7 @@ export default function Experience () {
       <Float floatIntensity={2} speed={3}>
         <ambientLight intensity={4} />
         <Heart scale={0.5} visible={item === "heart"} />
-
-       
       </Float>
     </>
   );
-};
+}

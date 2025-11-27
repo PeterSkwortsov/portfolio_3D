@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Loader } from "@react-three/drei";
 

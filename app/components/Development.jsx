@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Suspense } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -7,35 +9,46 @@ import { useRef, useState, useMemo } from "react";
 import Experiences from "./Experiences";
 
 export function InteractiveModel() {
-  const groupRef = useRef()
-  const pointRef = useRef()
-  const [activePoint, setActivePoint] = useState(null)
-  const [showText, setShowText] = useState(false)
+  const groupRef = useRef();
+  const pointRef = useRef();
+  const [activePoint, setActivePoint] = useState(null);
+  const [showText, setShowText] = useState(false);
 
   // Позиции точек на модели
-  const hotSpots = useMemo(() => [
-    { position: [1.2, 0.5, 0], title: "Двигатель", description: "Мощность: 250 л.с." },
-    { position: [-1.2, 0.8, 0], title: "Кабина", description: "Вместимость: 5 человек" },
-    { position: [0, 1.5, 0.5], title: "Крыша", description: "Солнечная панель" }
-  ], [])
+  const hotSpots = useMemo(
+    () => [
+      {
+        position: [1.2, 0.5, 0],
+        title: "Двигатель",
+        description: "Мощность: 250 л.с.",
+      },
+      {
+        position: [-1.2, 0.8, 0],
+        title: "Кабина",
+        description: "Вместимость: 5 человек",
+      },
+      {
+        position: [0, 1.5, 0.5],
+        title: "Крыша",
+        description: "Солнечная панель",
+      },
+    ],
+    []
+  );
 
   // Анимация пульсации
   useFrame((state, delta) => {
     if (pointRef.current) {
       // Пульсация размера
-      const scale = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.2
-      pointRef.current.scale.set(scale, scale, scale)
-      
+      const scale = 1 + Math.sin(state.clock.elapsedTime * 3) * 0.2;
+      pointRef.current.scale.set(scale, scale, scale);
+
       // Пульсация цвета
-      const intensity = 0.5 + Math.sin(state.clock.elapsedTime * 4) * 0.3
-      pointRef.current.material.emissiveIntensity = intensity
+      const intensity = 0.5 + Math.sin(state.clock.elapsedTime * 4) * 0.3;
+      pointRef.current.material.emissiveIntensity = intensity;
     }
-  })
+  });
 }
-
-
-
-
 
 const Desc = styled.div`
   width: 170px;
@@ -65,9 +78,7 @@ const Development = () => {
           <OrbitControls enableZoom={false} />
         </Suspense>
       </Canvas>
-      <Desc>
-        Это модель атома созданая шейдерами
-      </Desc>
+      <Desc>Это модель атома созданая шейдерами</Desc>
     </>
   );
 };

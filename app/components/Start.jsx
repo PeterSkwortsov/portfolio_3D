@@ -1,3 +1,5 @@
+'use client'
+
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { Suspense, useRef } from "react";
@@ -34,8 +36,6 @@ function CameraController() {
 }
 
 function App() {
-  
-
   return (
     <div
       style={{
@@ -44,7 +44,6 @@ function App() {
       }}
     >
       <Canvas camera={{ position: [0, 0, 8] }}>
-   
         <CameraController />
 
         <color attach="background" args={["#171720"]} />
@@ -55,13 +54,12 @@ function App() {
         <EffectComposer>
           <Bloom mipmapBlur intensity={0.7} />
         </EffectComposer>
-      
+
         <OrbitControls
           enablePan={false} // Запретить перемещение
           enableRotate={false} // Запретить вращение
           enableZoom={false}
         />
-     
       </Canvas>
       <UI />
     </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AccumulativeShadows,
   Lightformer,
@@ -40,7 +42,7 @@ export const Scene = ({ mainColor, path, ...props }) => {
         <primitive object={scene} scale={ratioScale} />
         <ambientLight intensity={0.5} color="pink" />
         <directionalLight position={[0, 0, 4]} intensity={3} />
-      {/* Тени */}
+        {/* Тени */}
         <AccumulativeShadows
           frames={100}
           alphaTest={0.9}
@@ -64,8 +66,8 @@ export const Scene = ({ mainColor, path, ...props }) => {
             bias={0.001}
           />
         </AccumulativeShadows>
-        
-          {/* <Lightformer
+
+        {/* <Lightformer
             position={[5, 0, -5]}
             form="rect" // circle | ring | rect (optional, default = rect)
             intensity={1} // power level (optional = 1)
@@ -74,16 +76,16 @@ export const Scene = ({ mainColor, path, ...props }) => {
             target={[0, 0, 0]}
           /> */}
 
-          <Lightformer
-            position={[-5, 0, 1]}
-            form="circle" // circle | ring | rect (optional, default = rect)
-            intensity={1} // power level (optional = 1)
-            color="green" // (optional = white)
-            scale={[2, 5]} // Scale it any way you prefer (optional = [1, 1])
-            target={[0, 0, 0]}
-          />
+        <Lightformer
+          position={[-5, 0, 1]}
+          form="circle" // circle | ring | rect (optional, default = rect)
+          intensity={1} // power level (optional = 1)
+          color="green" // (optional = white)
+          scale={[2, 5]} // Scale it any way you prefer (optional = [1, 1])
+          target={[0, 0, 0]}
+        />
 
-          {/* <Lightformer
+        {/* <Lightformer
             position={[0, 5, -2]}
             form="ring" // circle | ring | rect (optional, default = rect)
             intensity={0.5} // power level (optional = 1)
@@ -91,7 +93,7 @@ export const Scene = ({ mainColor, path, ...props }) => {
             scale={[10, 5]} // Scale it any way you prefer (optional = [1, 1])
             target={[0, 0, 0]}
           /> */}
-          {/* <Lightformer
+        {/* <Lightformer
             position={[0, 0, 5]}
             form="rect" // circle | ring | rect (optional, default = rect)
             intensity={1} // power level (optional = 1)

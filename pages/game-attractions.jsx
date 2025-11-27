@@ -1,17 +1,17 @@
+"use client";
+
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import global from '../app/globals.css'
+import global from "../app/globals.css";
 import { useEffect, useState } from "react";
 
 export default function Ships() {
-
- const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
 
   // Данные проекта (в реальном приложении можно брать из API)
   const projectData = {

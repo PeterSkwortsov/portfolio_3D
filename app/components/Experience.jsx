@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CameraControls,
   Float,
@@ -21,21 +23,15 @@ export const Experience = () => {
   const meshFitCameraStore = useRef();
   const textMaterial = useRef();
 
+  const intro = async () => {
+    controls.current.dolly(-9);
+    controls.current.smoothTime = 1.8;
+    controls.current.dolly(9, true);
+  };
 
-const intro = async () => {
-  controls.current.dolly(-9);
-  controls.current.smoothTime = 1.8;
-  controls.current.dolly(9, true);
-};
-
-useEffect(() => {
-  intro();
-}, []);
-
-
-
-
-
+  useEffect(() => {
+    intro();
+  }, []);
 
   return (
     <>
@@ -102,4 +98,3 @@ useEffect(() => {
     </>
   );
 };
-

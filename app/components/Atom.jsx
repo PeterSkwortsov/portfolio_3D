@@ -1,4 +1,3 @@
-// components/AdvancedAtomShader.js (исправленная версия)
 "use client";
 
 import { useRef, useMemo } from "react";
